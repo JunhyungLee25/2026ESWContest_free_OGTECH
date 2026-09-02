@@ -353,12 +353,6 @@ OGTECH은 **묻기 전에 먼저 말해 주는** 배낭 장착형 오프라인 �
 | [`OGTECH-llm`](OGTECH-llm/) | STT, 의도 분류, TTS | [`Co-LLM/README.md`](OGTECH-llm/Co-LLM/README.md) · [`results/`](OGTECH-llm/results/) |
 | [`assets`](assets/) | 화면과 시스템 이미지 | [`01_basecamp_start.png`](assets/01_basecamp_start.png) |
 
-## Video
-
-[하드웨어 실물 사진]
-
-[시연 영상 썸네일 그림]
-
 <br>
 
 
