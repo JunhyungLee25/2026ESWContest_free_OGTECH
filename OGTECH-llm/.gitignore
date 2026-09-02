@@ -1,0 +1,21 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+.env.*
+!.env.example
+!.env.sample
+.venv/
+venv/
+.vscode/settings.json
+.idea/
+Thumbs.db
+desktop.ini
+*.swp
+results/*.csv
+results/*.log
+results/*.jsonl
+
+# 내부 검토 문서 — 공개 저장소에 올리지 않음
+docs2/08_적대적_검토.md
+docs2/09_심사위원_예상질문.md

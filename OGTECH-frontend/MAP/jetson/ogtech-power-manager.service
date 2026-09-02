@@ -1,0 +1,17 @@
+[Unit]
+Description=OGTECH 물리 전원 버튼 STM32 gate ACK 및 정상 종료
+After=local-fs.target ogtech-map.service
+Before=shutdown.target
+Wants=ogtech-map.service
+
+[Service]
+Type=simple
+User=root
+Environment=PYTHONUNBUFFERED=1
+WorkingDirectory=/home/kit/ogtech/OGTECH-frontend/MAP
+ExecStart=/usr/bin/systemd-inhibit --what=shutdown --who=OGTECH --why="STM32 gate ACK 전송" --mode=delay /usr/bin/python3 /home/kit/ogtech/OGTECH-frontend/MAP/jetson/power_control.py
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

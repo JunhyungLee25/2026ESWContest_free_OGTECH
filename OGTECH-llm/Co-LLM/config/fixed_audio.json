@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "clips": {
+    "네, 목적지로 설정되었습니다.": "../assets/audio/destination_confirmed.wav",
+    "목적지에 도착하였습니다.": "../assets/audio/destination_arrived.wav",
+    "베이스캠프에 도착하였습니다.": "../assets/audio/return_to_base.wav"
+  },
+  "fallback": {
+    "path": "../assets/audio/tts_unavailable.wav",
+    "spoken_text": "음성 합성에 실패했습니다. 화면의 검수된 안내를 확인하세요."
+  }
+}

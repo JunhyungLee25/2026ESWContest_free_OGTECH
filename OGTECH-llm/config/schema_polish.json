@@ -1,0 +1,17 @@
+{
+  "name": "ogtech_polish",
+  "strict": true,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "lines": {
+        "type": "array",
+        "minItems": 2,
+        "maxItems": 4,
+        "items": {"type": "string", "minLength": 2, "maxLength": 40}
+      }
+    },
+    "required": ["lines"],
+    "additionalProperties": false
+  }
+}

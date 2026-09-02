@@ -1,0 +1,16 @@
+[Unit]
+Description=OGTECH STM32 센서 및 오프라인 항법 서버
+After=local-fs.target
+
+[Service]
+Type=simple
+User=kit
+SupplementaryGroups=dialout
+WorkingDirectory=/home/kit/ogtech/OGTECH-frontend/MAP
+EnvironmentFile=-/etc/ogtech/map.env
+ExecStart=/home/kit/ogtech/OGTECH-frontend/MAP/jetson/start-map.sh
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

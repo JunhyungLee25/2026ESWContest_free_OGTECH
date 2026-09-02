@@ -1,0 +1,16 @@
+[Unit]
+Description=OGTECH 7인치 Firefox/Chromium 키오스크
+After=graphical.target ogtech-map.service
+Requires=ogtech-map.service
+
+[Service]
+Type=simple
+User=kit
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/kit/.Xauthority
+ExecStart=/home/kit/ogtech/OGTECH-frontend/MAP/jetson/start-kiosk.sh
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=graphical.target

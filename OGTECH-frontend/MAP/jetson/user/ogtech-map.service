@@ -1,0 +1,14 @@
+[Unit]
+Description=OGTECH STM32 센서 및 오프라인 항법 서버 (사용자 서비스)
+# After=default.target을 쓰면 WantedBy=default.target과 순서 순환이 생겨 부팅 시 잡이 삭제된다(2026-08-30 실기 확인).
+After=basic.target
+
+[Service]
+Type=simple
+EnvironmentFile=-%h/.config/ogtech/map.env
+ExecStart=%h/ogtech/OGTECH-frontend/MAP/jetson/start-map.sh
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=default.target

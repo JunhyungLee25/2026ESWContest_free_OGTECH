@@ -1,0 +1,15 @@
+[Unit]
+Description=OGTECH 7인치 Firefox/Chromium 키오스크 (사용자 서비스)
+# GNOME 자동 로그인 세션이 graphical-session.target을 올린 뒤(DISPLAY/XAUTHORITY 반입 후) 시작한다.
+After=graphical-session.target ogtech-map.service
+Requires=ogtech-map.service
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/ogtech/OGTECH-frontend/MAP/jetson/start-kiosk.sh
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=graphical-session.target

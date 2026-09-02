@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "map_sources": [
+    "konkuk_walk.graphml",
+    "gwangjin_walk.graphml"
+  ],
+  "demo": true,
+  "pois": [
+    {
+      "id": "demo-water-ilgam",
+      "kind": "water_source",
+      "name": "일감호 주변 수원 표식",
+      "lat": 37.5405289551,
+      "lon": 127.0794396497,
+      "potable": "unknown",
+      "source": "시연용 오프라인 지도 표식"
+    }
+  ]
+}

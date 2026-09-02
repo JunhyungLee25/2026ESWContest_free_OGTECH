@@ -1,0 +1,18 @@
+[Unit]
+Description=OGTECH '오지야' 호출어 상시 청취 (사용자 서비스)
+After=ogtech-map.service
+Requires=ogtech-map.service
+
+[Service]
+Type=simple
+WorkingDirectory=%h/ogtech/OGTECH-llm/Co-LLM
+Environment=PYTHONUNBUFFERED=1
+EnvironmentFile=-%h/.config/ogtech/audio.env
+# OGTECH_WAKE_NO_PLAY=1 이면 응답 WAV 만 만들고 스피커로 내지 않는다 (조용한 검증용)
+EnvironmentFile=-%h/.config/ogtech/wake.env
+ExecStart=/usr/bin/python3 %h/ogtech/OGTECH-llm/Co-LLM/scripts/wake_voice.py
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target

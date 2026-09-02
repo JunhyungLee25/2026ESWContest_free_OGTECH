@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>OGTECH · 오프라인 지도</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="video_styles.css">
+  <script src="video_map.js" defer></script>
+  <script src="video_app.js" defer></script>
+</head>
+<body>
+  <div class="stage">
+    <main class="screen video-screen" aria-label="OGTECH 오프라인 지도 화면">
+      <header class="strip" aria-label="핵심 상태">
+        <section class="glance glance-location" id="glanceLocation" data-state="normal">
+          <p class="stencil">LOCATION · TIME</p>
+          <strong>서울 광진구</strong>
+          <span class="sub location-meta">
+            <span>대한민국</span>
+            <span id="locationClock">----.--.-- --:-- KST</span>
+          </span>
+        </section>
+        <section class="glance glance-sun" id="glanceSun" data-state="normal">
+          <p class="stencil">DAYLIGHT</p>
+          <strong id="daylightValue">계산 중</strong>
+          <span class="sub" id="daylightSub">금일 일몰 --:--</span>
+        </section>
+        <section class="glance glance-coordinate" id="glanceCoordinate" data-state="caution">
+          <p class="stencil">CURRENT COORD</p>
+          <strong id="currentLatitude">37.541794 N</strong>
+          <span class="sub" id="currentLongitude">127.079517 E</span>
+        </section>
+        <section class="glance glance-env" id="glanceEnv" data-state="caution">
+          <p class="stencil">ENVIRONMENT</p>
+          <strong id="envTemperature" class="env-temperature" data-level="warm">30.0°C (86.0°F)</strong>
+          <span id="envHumidity" class="sub env-humidity">55% RH</span>
+        </section>
+        <section class="glance glance-co" id="glanceCo" data-state="caution">
+          <p class="stencil">CO 농도</p>
+          <strong id="coValue">0 ppm</strong>
+        </section>
+      </header>
+
+      <section class="map" id="mapPanel" aria-label="공학관과 일감호 오프라인 지도">
+        <canvas id="mapCanvas"></canvas>
+
+        <div class="alert" id="alert" role="alert" hidden>
+          <span class="alert-dot" aria-hidden="true"></span>
+          <strong id="alertText">일조 잔여 시간을 계산하고 있습니다.</strong>
+        </div>
+
+        <div class="alert alert-route" id="routeAlert" role="alert" hidden>
+          <span class="alert-dot" aria-hidden="true"></span>
+          <strong id="routeAlertText">경로 이탈 · 현재 위치와 경로를 확인하세요</strong>
+        </div>
+
+        <section class="arrival-card" id="arrivalCard" role="status" aria-live="polite" hidden>
+          <strong id="arrivalText">목적지에 도착하였습니다.</strong>
+        </section>
+
+        <section class="readout-card" id="readout" aria-label="코드가 계산한 경로 정보" hidden>
+          <div class="readout-head">
+            <p class="stencil" id="readoutLabel">목적지</p>
+            <span class="verified map-engine-verified">MAP ENGINE</span>
+          </div>
+          <div class="readout-body">
+            <span class="bearing" id="readoutBearing">—</span>
+            <span class="distance" id="readoutDistance">—</span>
+          </div>
+          <div class="readout-timing" id="readoutTiming">
+            <span id="readoutEta">예상 도착 --:-- KST</span>
+            <span id="readoutRemainingTime">약 --분 남음</span>
+          </div>
+        </section>
+
+        <div class="map-meta">
+          <div class="scalebar">
+            <span id="scaleLabel">100 m</span>
+            <i id="scaleBar"></i>
+          </div>
+          <div class="legend" aria-label="지도 범례">
+            <span><i class="dot-current"></i>현재</span>
+            <span><i class="dot-goal"></i>일감호</span>
+            <span><i class="dot-camp"></i>BASE CAMP</span>
+          </div>
+        </div>
+
+        <p class="map-attribution" id="mapAttribution">© OpenStreetMap contributors · ODbL 1.0</p>
+        <div class="status-toast" id="statusToast" role="status" hidden></div>
+      </section>
+
+      <nav class="actions" aria-label="화면 조작">
+        <button class="action" id="btnDestination" type="button" aria-pressed="false">
+          <span class="glyph" aria-hidden="true">◇</span>
+          <span class="label">목적지</span>
+        </button>
+        <button class="action" id="btnCheckpoint" type="button">
+          <span class="glyph" aria-hidden="true">＋</span>
+          <span class="label">체크포인트</span>
+        </button>
+        <button class="action" id="btnBasecamp" type="button">
+          <span class="glyph" aria-hidden="true">▲</span>
+          <span class="label">베이스캠프</span>
+        </button>
+        <button class="action" id="btnNight" type="button" aria-pressed="false">
+          <span class="glyph" aria-hidden="true">◐</span>
+          <span class="label">야간 모드</span>
+        </button>
+      </nav>
+
+    </main>
+
+    <aside class="director" id="director" aria-label="촬영 보조 패널">
+      <p class="stencil">DIRECTOR · 화면 밖</p>
+      <p class="director-current"><b id="directorKey">1</b> <em id="directorScene">BASE CAMP 시작</em></p>
+      <ol>
+        <li><b>1</b> 공학관 뒤 BASE CAMP</li>
+        <li><b>2</b> 음성 요청 → 일감호 설정</li>
+        <li><b>3</b> 일감호로 이동 재생</li>
+        <li><b>4</b> 일감호 도착</li>
+        <li><b>5</b> 일조 잔여 경고 + 음성</li>
+        <li><b>6</b> BASE CAMP 복귀 재생</li>
+        <li><b>7</b> BASE CAMP 도착</li>
+      </ol>
+      <p><b>A</b> 전체 자동 시연 · <b>Space</b> 다음 · <b>B</b> 음성 재생 · <b>T</b> 일조 경고 · <b>R</b> 처음 · <b>N</b> 야간 · <b>D</b> 경로 이탈</p>
+      <p class="director-answers">음성 문답 — <b>W</b> 온도·습도 · <b>O</b> 일산화탄소 · <b>S</b> 일몰까지 남은 시간 · <b>C</b> 체크포인트 저장</p>
+      <p>답변은 계기판에 떠 있는 값을 그대로 읽습니다(<code>?live=1</code> 이면 실측). 값이 없으면 없다고 답합니다.</p>
+      <p class="director-voice" id="directorVoice">합성 음성 상태 확인 중</p>
+      <p>좌표·경로는 촬영용 시나리오 값입니다. 화면 아래 버튼은 제품 조작 흐름과 동일합니다.</p>
+    </aside>
+  </div>
+</body>
+</html>

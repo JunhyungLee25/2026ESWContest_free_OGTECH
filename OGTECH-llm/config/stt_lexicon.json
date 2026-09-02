@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "note": "whisper base 한국어 오인식 보정. 라우팅 전에만 적용하고 스피커 문장에는 쓰지 않는다. 근거가 없는 항목은 넣지 않는다.",
+  "rules": [
+    {"pattern": "목격체|목적치|목적찌|목쩍지", "replace": "목적지", "source": "Co-LLM/scripts/stt_prompt.txt [실측] 목적지→목격체"},
+    {"pattern": "헨트|헤드피언|텐드", "replace": "텐트", "source": "stt_prompt.txt [실측] 텐트→헨트/헤드피언"},
+    {"pattern": "번호(?=\\s*(불|켜|켤|피|가스))", "replace": "버너", "source": "stt_prompt.txt [실측] 버너→번호 (연소 문맥에서만)"},
+    {"pattern": "베이스\\s+캠프", "replace": "베이스캠프", "source": "표기 정규화"},
+    {"pattern": "체크\\s+포인트", "replace": "체크포인트", "source": "표기 정규화"},
+    {"pattern": "야간모드", "replace": "야간 모드", "source": "표기 정규화"},
+    {"pattern": "쥐피에스|지피에쓰", "replace": "GPS", "source": "표기 정규화"}
+  ]
+}

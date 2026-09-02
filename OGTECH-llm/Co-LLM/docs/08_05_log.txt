@@ -1,0 +1,1023 @@
+card 2: APE [NVIDIA Jetson Xavier NX APE], device 9: tegra-dlink-9 XBAR-ADMAIF10-9 []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 2: APE [NVIDIA Jetson Xavier NX APE], device 10: tegra-dlink-10 XBAR-ADMAIF11-10 []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 2: APE [NVIDIA Jetson Xavier NX APE], device 11: tegra-dlink-11 XBAR-ADMAIF12-11 []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 2: APE [NVIDIA Jetson Xavier NX APE], device 12: tegra-dlink-12 XBAR-ADMAIF13-12 []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 2: APE [NVIDIA Jetson Xavier NX APE], device 13: tegra-dlink-13 XBAR-ADMAIF14-13 []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 2: APE [NVIDIA Jetson Xavier NX APE], device 14: tegra-dlink-14 XBAR-ADMAIF15-14 []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 2: APE [NVIDIA Jetson Xavier NX APE], device 15: tegra-dlink-15 XBAR-ADMAIF16-15 []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 2: APE [NVIDIA Jetson Xavier NX APE], device 16: tegra-dlink-16 XBAR-ADMAIF17-16 []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 2: APE [NVIDIA Jetson Xavier NX APE], device 17: tegra-dlink-17 XBAR-ADMAIF18-17 []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 2: APE [NVIDIA Jetson Xavier NX APE], device 18: tegra-dlink-18 XBAR-ADMAIF19-18 []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 2: APE [NVIDIA Jetson Xavier NX APE], device 19: tegra-dlink-19 XBAR-ADMAIF20-19 []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 2: APE [NVIDIA Jetson Xavier NX APE], device 20: tegra-dlink-20 ADSP-FE1-20 []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 2: APE [NVIDIA Jetson Xavier NX APE], device 21: tegra-dlink-21 ADSP-FE2-21 []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 3: UACDemoV10 [UACDemoV1.0], device 0: USB Audio [USB Audio]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+kit@kit-desktop:~/scripts$ bash 02_play.sh --tts plughw:CARD=UACDemoV10,DEV=0
+(robotic voice is EXPECTED -- espeak-ng is the baseline, not the final engine)
+device : plughw:CARD=HDA,DEV=3
+file   : /home/kit/scripts/test_rec/tts.wav
+played : plughw:CARD=HDA,DEV=3
+done. heard nothing?
+  alsamixer -> F6 pick the USB card -> M to unmute -> raise Master/PCM
+  SPK_DEVICE = "plughw:CARD=HDA,DEV=3"   <- put this in config.py
+kit@kit-desktop:~/scripts$ bash 02_play.sh plughw:CARD=UACDemoV10,DEV=0
+FAIL: no such file: plughw:CARD=UACDemoV10,DEV=0
+  run 'bash scripts/01_record.sh' first
+kit@kit-desktop:~/scripts$ aplay -D plughw:CARD=UACDemoV10,DEV=0 test_rec/tts.wav
+Playing WAVE 'test_rec/tts.wav' : Signed 16 bit Little Endian, Rate 22050 Hz, Mono
+^CAborted by signal Interrupt...
+aplay: pcm_write:2086: write error: Interrupted system call
+kit@kit-desktop:~/scripts$ aplay -D plughw:CARD=UACDemoV10,DEV=0 test_rec/tts.wav
+Playing WAVE 'test_rec/tts.wav' : Signed 16 bit Little Endian, Rate 22050 Hz, Mono
+^CAborted by signal Interrupt...
+aplay: pcm_write:2086: write error: Interrupted system call
+kit@kit-desktop:~/scripts$ bash 02_play.sh --tts
+(robotic voice is EXPECTED -- espeak-ng is the baseline, not the final engine)
+device : plughw:CARD=UACDemoV10,DEV=0
+file   : /home/kit/scripts/test_rec/tts.wav
+^C^CFAIL: every device was rejected. aplay said:
+  --- try plughw:CARD=UACDemoV10,DEV=0
+  aplay: main:852: audio open error: Device or resource busy
+  --- try default
+  aplay: pcm_write:2086: write error: Interrupted system call
+  --- try pulse
+  aplay: pcm_write:2086: write error: Interrupted system call
+  --- try sysdefault
+  ALSA lib pcm_dmix.c:1089:(snd_pcm_dmix_open) unable to open slave
+  aplay: main:852: audio open error: No such file or directory
+
+  who holds the card?   fuser -v /dev/snd/*
+  kill the holder:      pulseaudio -k   (or: pkill aplay)
+  'Invalid argument' -> use plughw: not hw:
+kit@kit-desktop:~/scripts$ ^C
+kit@kit-desktop:~/scripts$ bash 03_echo.sh
+in     : /home/kit/scripts/test_rec/rec.wav
+model  : ggml-small.bin
+binary : whisper-cli
+STT    : 14892 ms
+FAIL: empty transcription.
+  1) listen to the recording yourself:  bash 02_play.sh /home/kit/scripts/test_rec/rec.wav
+  2) if you cannot understand it either, it is a MIC problem, not STT
+     -> alsamixer, capture gain, speak within 20 cm
+  3) whisper stderr: /home/kit/scripts/test_rec/_whisper_err.log
+kit@kit-desktop:~/scripts$ bash 02_play.sh test_rec/echo.wav plughw:CARD=UACDemoV10,DEV=0
+FAIL: no such file: test_rec/echo.wav
+  run 'bash scripts/01_record.sh' first
+kit@kit-desktop:~/scripts$ cat test_rec/_whisper_err.log
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 6832 MiB):
+  Device 0: Xavier, compute capability 7.2, VMM: yes, VRAM: 6832 MiB
+NvMapMemAllocInternalTagged: 1074810371 error 12
+NvMapMemHandleAlloc: error 0
+NvMapMemAllocInternalTagged: 1074810371 error 12
+NvMapMemHandleAlloc: error 0
+kit@kit-desktop:~/scripts$ ~/safeaid_ai/stt/whisper.cpp/build/bin/whisper-cli -m ~/safeaid_ai/stt/whisper.cpp/models/ggml-small.bin -f test_rec/rec.wav -l ko -t 4
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 6832 MiB):
+  Device 0: Xavier, compute capability 7.2, VMM: yes, VRAM: 6832 MiB
+whisper_init_from_file_with_params_no_state: loading model from '/home/kit/safeaid_ai/stt/whisper.cpp/models/ggml-small.bin'
+whisper_init_with_params_no_state: use gpu    = 1
+whisper_init_with_params_no_state: flash attn = 1
+whisper_init_with_params_no_state: gpu_device = 0
+whisper_init_with_params_no_state: dtw        = 0
+whisper_init_with_params_no_state: devices    = 2
+whisper_init_with_params_no_state: backends   = 2
+whisper_model_load: loading model
+whisper_model_load: n_vocab       = 51865
+whisper_model_load: n_audio_ctx   = 1500
+whisper_model_load: n_audio_state = 768
+whisper_model_load: n_audio_head  = 12
+whisper_model_load: n_audio_layer = 12
+whisper_model_load: n_text_ctx    = 448
+whisper_model_load: n_text_state  = 768
+whisper_model_load: n_text_head   = 12
+whisper_model_load: n_text_layer  = 12
+whisper_model_load: n_mels        = 80
+whisper_model_load: ftype         = 1
+whisper_model_load: qntvr         = 0
+whisper_model_load: type          = 3 (small)
+whisper_model_load: adding 1608 extra tokens
+whisper_model_load: n_langs       = 99
+whisper_model_load:        CUDA0 total size =   487.01 MB
+whisper_model_load: model size    =  487.01 MB
+whisper_backend_init_gpu: device 0: CUDA0 (type: 2)
+whisper_backend_init_gpu: found GPU device 0: CUDA0 (type: 2, cnt: 0)
+whisper_backend_init_gpu: using CUDA0 backend
+whisper_init_state: kv self size  =   18.87 MB
+whisper_init_state: kv cross size =   56.62 MB
+whisper_init_state: kv pad  size  =    4.72 MB
+whisper_init_state: compute buffer (conv)   =   23.38 MB
+whisper_init_state: compute buffer (encode) =   33.85 MB
+whisper_init_state: compute buffer (cross)  =    6.20 MB
+NvMapMemAllocInternalTagged: 1074810371 error 12
+NvMapMemHandleAlloc: error 0
+NvMapMemAllocInternalTagged: 1074810371 error 12
+NvMapMemHandleAlloc: error 0
+ggml_backend_cuda_buffer_type_alloc_buffer: allocating 91.26 MiB on device 0: cudaMalloc failed: out of memory
+ggml_gallocr_reserve_n_impl: failed to allocate CUDA0 buffer of size 95694592
+Segmentation fault (core dumped)
+kit@kit-desktop:~/scripts$ bash 02_play.sh test_rec/rec.wav plughw:CARD=UACDemoV10,DEV=0
+device : plughw:CARD=UACDemoV10,DEV=0
+file   : test_rec/rec.wav
+played : plughw:CARD=UACDemoV10,DEV=0
+done. heard nothing?
+  alsamixer -> F6 pick the USB card -> M to unmute -> raise Master/PCM
+  SPK_DEVICE = "plughw:CARD=UACDemoV10,DEV=0"   <- put this in config.py
+kit@kit-desktop:~/scripts$ bash 02_play.sh test_rec/rec.wav plughw:CARD=UACDemoV10,DEV=0
+device : plughw:CARD=UACDemoV10,DEV=0
+file   : test_rec/rec.wav
+played : plughw:CARD=UACDemoV10,DEV=0
+done. heard nothing?
+  alsamixer -> F6 pick the USB card -> M to unmute -> raise Master/PCM
+  SPK_DEVICE = "plughw:CARD=UACDemoV10,DEV=0"   <- put this in config.py
+kit@kit-desktop:~/scripts$ ~/safeaid_ai/stt/whisper.cpp/build/bin/whisper-cli -m ~/safeaid_ai/stt/whisper.cpp/models/ggml-base.bin -f test_rec/rec.wav -l ko -t 4 -ng -nt
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 6832 MiB):
+  Device 0: Xavier, compute capability 7.2, VMM: yes, VRAM: 6832 MiB
+whisper_init_from_file_with_params_no_state: loading model from '/home/kit/safeaid_ai/stt/whisper.cpp/models/ggml-base.bin'
+whisper_init_with_params_no_state: use gpu    = 0
+whisper_init_with_params_no_state: flash attn = 1
+whisper_init_with_params_no_state: gpu_device = 0
+whisper_init_with_params_no_state: dtw        = 0
+whisper_init_with_params_no_state: devices    = 2
+whisper_init_with_params_no_state: backends   = 2
+whisper_model_load: loading model
+whisper_model_load: n_vocab       = 51865
+whisper_model_load: n_audio_ctx   = 1500
+whisper_model_load: n_audio_state = 512
+whisper_model_load: n_audio_head  = 8
+whisper_model_load: n_audio_layer = 6
+whisper_model_load: n_text_ctx    = 448
+whisper_model_load: n_text_state  = 512
+whisper_model_load: n_text_head   = 8
+whisper_model_load: n_text_layer  = 6
+whisper_model_load: n_mels        = 80
+whisper_model_load: ftype         = 1
+whisper_model_load: qntvr         = 0
+whisper_model_load: type          = 2 (base)
+whisper_model_load: adding 1608 extra tokens
+whisper_model_load: n_langs       = 99
+whisper_model_load:          CPU total size =   147.37 MB
+whisper_model_load: model size    =  147.37 MB
+whisper_backend_init_gpu: no GPU found
+whisper_init_state: kv self size  =    6.29 MB
+whisper_init_state: kv cross size =   18.87 MB
+whisper_init_state: kv pad  size  =    3.15 MB
+whisper_init_state: compute buffer (conv)   =   16.28 MB
+whisper_init_state: compute buffer (encode) =   23.09 MB
+whisper_init_state: compute buffer (cross)  =    4.66 MB
+whisper_init_state: compute buffer (decode) =   96.37 MB
+read_audio_data: reading audio data from 'test_rec/rec.wav' ...
+read_audio_data: trying to decode with miniaudio
+
+system_info: n_threads = 4 / 6 | WHISPER : COREML = 0 | OPENVINO = 0 | CUDA : CPU : NEON = 1 | ARM_FMA = 1 | FP16_VA = 1 | DOTPROD = 1 | OPENMP = 1 | REPACK = 1 |
+
+main: processing 'test_rec/rec.wav' (80000 samples, 5.0 sec), 4 threads, 1 processors, 5 beams + best of 5, lang = ko, task = transcribe, timestamps = 0 ...
+
+
+ - 본수이나 본수는? - 네.
+whisper_print_timings:     load time =  2125.94 ms
+whisper_print_timings:     fallbacks =   1 p /   0 h
+whisper_print_timings:      mel time =    59.33 ms
+whisper_print_timings:   sample time =   234.22 ms /   158 runs (     1.48 ms per run)
+whisper_print_timings:   encode time =  3189.06 ms /     1 runs (  3189.06 ms per run)
+whisper_print_timings:   decode time =    83.40 ms /     8 runs (    10.43 ms per run)
+whisper_print_timings:   batchd time =   998.84 ms /   148 runs (     6.75 ms per run)
+whisper_print_timings:   prompt time =     0.00 ms /     1 runs (     0.00 ms per run)
+whisper_print_timings:    total time =  6970.12 ms
+kit@kit-desktop:~/scripts$ bash 03_echo.sh
+in     : /home/kit/scripts/test_rec/rec.wav
+model  : ggml-small.bin
+binary : whisper-cli
+flags  : -ng
+STT    : 15766 ms
+heard  : - 곤수, 이나무, 에보, 랩, 레이지만 한 번 볼게요.
+TTS    : 236 ms
+total  : 16142 ms   (STT + TTS, playback excluded)
+out    : /home/kit/scripts/test_rec/echo.wav
+
+NEXT: plug the speaker, then
+  bash 02_play.sh /home/kit/scripts/test_rec/echo.wav        # what the machine understood
+  bash 02_play.sh /home/kit/scripts/test_rec/rec.wav         # your original voice, for comparison
+kit@kit-desktop:~/scripts$ free -h; ps -eo pmem,rss,comm --sort=-rss | head -8
+              total        used        free      shared  buff/cache   available
+Mem:          6.7Gi       3.2Gi       908Mi       134Mi       2.5Gi       3.1Gi
+Swap:         7.3Gi       0.0Ki       7.3Gi
+%MEM   RSS COMMAND
+ 8.8 618800 gnome-shell
+ 7.1 501616 MainThread
+ 6.1 430676 firefox
+ 5.0 353272 Xorg
+ 4.2 295688 MainThread
+ 2.4 170996 MainThread
+ 1.9 137816 MainThread
+kit@kit-desktop:~/scripts$ bash 02_play.sh test_rec/echo.wav plughw:CARD=UACDemoV10,DEV=0
+device : plughw:CARD=UACDemoV10,DEV=0
+file   : test_rec/echo.wav
+^C^C^CFAIL: every device was rejected. aplay said:
+  --- try plughw:CARD=UACDemoV10,DEV=0
+  aplay: pcm_write:2086: write error: Interrupted system call
+  --- try default
+  aplay: pcm_write:2086: write error: Interrupted system call
+  --- try pulse
+  aplay: pcm_write:2086: write error: Interrupted system call
+  --- try sysdefault
+  ALSA lib pcm_dmix.c:1089:(snd_pcm_dmix_open) unable to open slave
+  aplay: main:852: audio open error: No such file or directory
+
+  who holds the card?   fuser -v /dev/snd/*
+  kill the holder:      pulseaudio -k   (or: pkill aplay)
+  'Invalid argument' -> use plughw: not hw:
+kit@kit-desktop:~/scripts$ bash 02_play.sh test_rec/echo.wav plughw:CARD=UACDemoV10,DEV=0
+device : plughw:CARD=UACDemoV10,DEV=0
+file   : test_rec/echo.wav
+played : default
+
+  NOTE: 'plughw:CARD=UACDemoV10,DEV=0' was busy -- something else owns the card (usually PulseAudio).
+        It played through 'default' instead, so the speaker itself is FINE.
+        To get exclusive plughw: access back, release it from PulseAudio:
+          pactl list short sinks
+          pactl suspend-sink <sink-name> 1
+        Permanent:  echo 'autospawn = no' >> ~/.config/pulse/client.conf && pulseaudio -k
+done. heard nothing?
+  alsamixer -> F6 pick the USB card -> M to unmute -> raise Master/PCM
+  SPK_DEVICE = "plughw:CARD=UACDemoV10,DEV=0"   <- put this in config.py
+kit@kit-desktop:~/scripts$ bash 02_play.sh test_rec/echo.wav plughw:CARD=UACDemoV10,DEV=0
+device : plughw:CARD=UACDemoV10,DEV=0
+file   : test_rec/echo.wav
+played : default
+
+  NOTE: 'plughw:CARD=UACDemoV10,DEV=0' was busy -- something else owns the card (usually PulseAudio).
+        It played through 'default' instead, so the speaker itself is FINE.
+        To get exclusive plughw: access back, release it from PulseAudio:
+          pactl list short sinks
+          pactl suspend-sink <sink-name> 1
+        Permanent:  echo 'autospawn = no' >> ~/.config/pulse/client.conf && pulseaudio -k
+done. heard nothing?
+  alsamixer -> F6 pick the USB card -> M to unmute -> raise Master/PCM
+  SPK_DEVICE = "plughw:CARD=UACDemoV10,DEV=0"   <- put this in config.py
+kit@kit-desktop:~/scripts$ amixer -c 0 cset numid=3 14
+numid=3,iface=MIXER,name='Mic Capture Volume'
+  ; type=INTEGER,access=rw---R--,values=1,min=0,max=16,step=0
+  : values=14
+  | dBminmax-min=0.00dB,max=23.81dB
+kit@kit-desktop:~/scripts$ WHISPER_MODEL=~/safeaid_ai/stt/whisper.cpp/models/ggml-base.bin bash 03_echo.sh
+in     : /home/kit/scripts/test_rec/rec.wav
+model  : ggml-base.bin
+binary : whisper-cli
+flags  : -ng
+STT    : 4988 ms
+heard  : - 본수이나 본수는? - 네.
+TTS    : 67 ms
+total  : 5082 ms   (STT + TTS, playback excluded)
+out    : /home/kit/scripts/test_rec/echo.wav
+
+NEXT: plug the speaker, then
+  bash 02_play.sh /home/kit/scripts/test_rec/echo.wav        # what the machine understood
+  bash 02_play.sh /home/kit/scripts/test_rec/rec.wav         # your original voice, for comparison
+kit@kit-desktop:~/scripts$ nproc; sudo nvpmodel -q
+6
+[sudo] password for kit:
+Sorry, try again.
+[sudo] password for kit:
+NV Power Mode: MODE_15W_6CORE
+2
+kit@kit-desktop:~/scripts$ nproc; sudo nvpmodel -q
+6
+NV Power Mode: MODE_15W_6CORE
+2
+kit@kit-desktop:~/scripts$ bash 01_record.sh 5
+device : plughw:CARD=Device,DEV=0
+file   : /home/kit/scripts/test_rec/rec.wav
+recording 5s -- SPEAK NOW
+recorded on: plughw:CARD=Device,DEV=0
+level  : peak 5290/32767  rms 1028
+  OK
+
+NEXT: unplug the mic, plug the speaker, then run
+  bash scripts/02_play.sh
+kit@kit-desktop:~/scripts$ bash 03_echo.sh
+in     : /home/kit/scripts/test_rec/rec.wav
+model  : ggml-small.bin
+binary : whisper-cli
+flags  : -ng
+STT    : 15110 ms
+heard  : 한숨 이나무 에어홀라가
+TTS    : 57 ms
+total  : 15191 ms   (STT + TTS, playback excluded)
+out    : /home/kit/scripts/test_rec/echo.wav
+
+NEXT: plug the speaker, then
+  bash 02_play.sh /home/kit/scripts/test_rec/echo.wav        # what the machine understood
+  bash 02_play.sh /home/kit/scripts/test_rec/rec.wav         # your original voice, for comparison
+kit@kit-desktop:~/scripts$ WHISPER_MODEL=~/safeaid_ai/stt/whisper.cpp/models/ggml-base.bin WHISPER_THREADS=6 bash 03_echo.sh
+in     : /home/kit/scripts/test_rec/rec.wav
+model  : ggml-base.bin
+binary : whisper-cli
+flags  : -ng
+STT    : 7720 ms
+heard  : 항상 이 나무에 올려가
+TTS    : 52 ms
+total  : 7795 ms   (STT + TTS, playback excluded)
+out    : /home/kit/scripts/test_rec/echo.wav
+
+NEXT: plug the speaker, then
+  bash 02_play.sh /home/kit/scripts/test_rec/echo.wav        # what the machine understood
+  bash 02_play.sh /home/kit/scripts/test_rec/rec.wav         # your original voice, for comparison
+kit@kit-desktop:~/scripts$ WHISPER_THREADS=6 bash 03_echo.sh
+in     : /home/kit/scripts/test_rec/rec.wav
+model  : ggml-small.bin
+binary : whisper-cli
+flags  : -ng
+STT    : 13744 ms
+heard  : 한숨 이나무 에어홀라가
+TTS    : 181 ms
+total  : 13949 ms   (STT + TTS, playback excluded)
+out    : /home/kit/scripts/test_rec/echo.wav
+
+NEXT: plug the speaker, then
+  bash 02_play.sh /home/kit/scripts/test_rec/echo.wav        # what the machine understood
+  bash 02_play.sh /home/kit/scripts/test_rec/rec.wav         # your original voice, for comparison
+kit@kit-desktop:~/scripts$ bash 01_record.sh 5
+device : plughw:CARD=Device,DEV=0
+file   : /home/kit/scripts/test_rec/rec.wav
+recording 5s -- SPEAK NOW
+recorded on: plughw:CARD=Device,DEV=0
+level  : peak 6515/32767  rms 952
+  OK
+
+NEXT: unplug the mic, plug the speaker, then run
+  bash scripts/02_play.sh
+kit@kit-desktop:~/scripts$ bash 03_echo.sh
+in     : /home/kit/scripts/test_rec/rec.wav
+model  : ggml-small.bin
+binary : whisper-cli
+flags  : -ng
+STT    : 16188 ms
+heard  : 원숭이 나무에 올라가
+TTS    : 59 ms
+total  : 16271 ms   (STT + TTS, playback excluded)
+out    : /home/kit/scripts/test_rec/echo.wav
+
+NEXT: plug the speaker, then
+  bash 02_play.sh /home/kit/scripts/test_rec/echo.wav        # what the machine understood
+  bash 02_play.sh /home/kit/scripts/test_rec/rec.wav         # your original voice, for comparison
+kit@kit-desktop:~/scripts$ bash 01_record.sh 5
+device : plughw:CARD=Device,DEV=0
+file   : /home/kit/scripts/test_rec/rec.wav
+recording 5s -- SPEAK NOW
+recorded on: plughw:CARD=Device,DEV=0
+level  : peak 6916/32767  rms 922
+  OK
+
+NEXT: unplug the mic, plug the speaker, then run
+  bash scripts/02_play.sh
+kit@kit-desktop:~/scripts$ bash 03_echo.sh
+in     : /home/kit/scripts/test_rec/rec.wav
+model  : ggml-small.bin
+binary : whisper-cli
+flags  : -ng
+STT    : 15174 ms
+heard  : 원숭이 나무에 올라가
+TTS    : 55 ms
+total  : 15252 ms   (STT + TTS, playback excluded)
+out    : /home/kit/scripts/test_rec/echo.wav
+
+NEXT: plug the speaker, then
+  bash 02_play.sh /home/kit/scripts/test_rec/echo.wav        # what the machine understood
+  bash 02_play.sh /home/kit/scripts/test_rec/rec.wav         # your original voice, for comparison
+kit@kit-desktop:~/scripts$ amixer -c 0 cget numid=3; amixer -c 0 cget numid=4
+numid=3,iface=MIXER,name='Mic Capture Volume'
+  ; type=INTEGER,access=rw---R--,values=1,min=0,max=16,step=0
+  : values=14
+  | dBminmax-min=0.00dB,max=23.81dB
+numid=4,iface=MIXER,name='Auto Gain Control'
+  ; type=BOOLEAN,access=rw------,values=1
+  : values=off
+kit@kit-desktop:~/scripts$ amixer -c 0 cset numid=3 16
+numid=3,iface=MIXER,name='Mic Capture Volume'
+  ; type=INTEGER,access=rw---R--,values=1,min=0,max=16,step=0
+  : values=16
+  | dBminmax-min=0.00dB,max=23.81dB
+kit@kit-desktop:~/scripts$ bash 01_record.sh 5
+device : plughw:CARD=Device,DEV=0
+file   : /home/kit/scripts/test_rec/rec.wav
+recording 5s -- SPEAK NOW
+recorded on: plughw:CARD=Device,DEV=0
+level  : peak 7397/32767  rms 1295
+  OK
+
+NEXT: unplug the mic, plug the speaker, then run
+  bash scripts/02_play.sh
+kit@kit-desktop:~/scripts$ bash 03_echo.sh
+in     : /home/kit/scripts/test_rec/rec.wav
+model  : ggml-small.bin
+binary : whisper-cli
+flags  : -ng
+STT    : 16933 ms
+heard  : 원숭이 나모에 올라가 몽키 매직 몽키 몽키 매직
+TTS    : 68 ms
+total  : 17027 ms   (STT + TTS, playback excluded)
+out    : /home/kit/scripts/test_rec/echo.wav
+
+NEXT: plug the speaker, then
+  bash 02_play.sh /home/kit/scripts/test_rec/echo.wav        # what the machine understood
+  bash 02_play.sh /home/kit/scripts/test_rec/rec.wav         # your original voice, for comparison
+kit@kit-desktop:~/scripts$ WHISPER_MODEL=~/safeaid_ai/stt/whisper.cpp/models/ggml-base.bin WHISPER_THREADS=6 WHISPER_FLAGS="-ng -ac 450 -bo 1 -bs 1 -nf" bash 03_echo.sh
+in     : /home/kit/scripts/test_rec/rec.wav
+model  : ggml-base.bin
+binary : whisper-cli
+flags  : -ng -ac 450 -bo 1 -bs 1 -nf
+STT    : 1494 ms
+heard  : 원중이 나무에 올라가. 몬키베지. 몬키베지.
+TTS    : 65 ms
+total  : 1582 ms   (STT + TTS, playback excluded)
+out    : /home/kit/scripts/test_rec/echo.wav
+
+NEXT: plug the speaker, then
+  bash 02_play.sh /home/kit/scripts/test_rec/echo.wav        # what the machine understood
+  bash 02_play.sh /home/kit/scripts/test_rec/rec.wav         # your original voice, for comparison
+kit@kit-desktop:~/scripts$ bash 01_record.sh 5
+device : plughw:CARD=Device,DEV=0
+file   : /home/kit/scripts/test_rec/rec.wav
+recording 5s -- SPEAK NOW
+recorded on: plughw:CARD=Device,DEV=0
+level  : peak 6803/32767  rms 1397
+  OK
+
+NEXT: unplug the mic, plug the speaker, then run
+  bash scripts/02_play.sh
+kit@kit-desktop:~/scripts$ WHISPER_MODEL=~/safeaid_ai/stt/whisper.cpp/models/ggml-base.bin WHISPER_THREADS=6 WHISPER_FLAGS="-ng -ac 450 -bo 1 -bs 1 -nf" bash 03_echo.sh
+in     : /home/kit/scripts/test_rec/rec.wav
+model  : ggml-base.bin
+binary : whisper-cli
+flags  : -ng -ac 450 -bo 1 -bs 1 -nf
+STT    : 1338 ms
+heard  : 이 목격체로 갈려면 얼마나 남았어
+TTS    : 64 ms
+total  : 1428 ms   (STT + TTS, playback excluded)
+out    : /home/kit/scripts/test_rec/echo.wav
+
+NEXT: plug the speaker, then
+  bash 02_play.sh /home/kit/scripts/test_rec/echo.wav        # what the machine understood
+  bash 02_play.sh /home/kit/scripts/test_rec/rec.wav         # your original voice, for comparison
+kit@kit-desktop:~/scripts$ WHISPER_MODEL=~/safeaid_ai/stt/whisper.cpp/models/ggml-base.bin WHISPER_THREADS=6 WHISPER_FLAGS="-ng -ac 450 -bo 1 -bs 1 -nf" WHISPER_PROMPT="오지 등산 상황입니다. 목적지, 트레일, 능선, 계곡, 일몰, 야영, 텐트, 식수, 버섯, 저체온, 방향, 거리" bash 03_echo.sh
+in     : /home/kit/scripts/test_rec/rec.wav
+model  : ggml-base.bin
+binary : whisper-cli
+flags  : -ng -ac 450 -bo 1 -bs 1 -nf
+STT    : 1342 ms
+heard  : 이 목격체로 갈려면 얼마나 남았어
+TTS    : 62 ms
+total  : 1426 ms   (STT + TTS, playback excluded)
+out    : /home/kit/scripts/test_rec/echo.wav
+
+NEXT: plug the speaker, then
+  bash 02_play.sh /home/kit/scripts/test_rec/echo.wav        # what the machine understood
+  bash 02_play.sh /home/kit/scripts/test_rec/rec.wav         # your original voice, for comparison
+kit@kit-desktop:~/scripts$ WHISPER_MODEL=~/safeaid_ai/stt/whisper.cpp/models/ggml-small.bin WHISPER_THREADS=6 WHISPER_FLAGS="-ng -ac 450 -bo 1 -bs 1 -nf" bash 03_echo.sh
+in     : /home/kit/scripts/test_rec/rec.wav
+model  : ggml-small.bin
+binary : whisper-cli
+flags  : -ng -ac 450 -bo 1 -bs 1 -nf
+STT    : 3468 ms
+heard  : 이 목적지로 갈리면 얼마나 남았어?
+TTS    : 60 ms
+total  : 3552 ms   (STT + TTS, playback excluded)
+out    : /home/kit/scripts/test_rec/echo.wav
+
+NEXT: plug the speaker, then
+  bash 02_play.sh /home/kit/scripts/test_rec/echo.wav        # what the machine understood
+  bash 02_play.sh /home/kit/scripts/test_rec/rec.wav         # your original voice, for comparison
+kit@kit-desktop:~/scripts$ WHISPER_MODEL=~/safeaid_ai/stt/whisper.cpp/models/ggml-small.bin WHISPER_THREADS=6 WHISPER_FLAGS="-ng -ac 450 -bo 1 -bs 1 -nf" WHISPER_PROMPT="오지 등산 상황입니다. 목적지, 트레일, 능선, 계곡, 일몰, 야영, 텐트, 식수, 버섯, 저체온, 방향, 거리" bash 03_echo.sh
+in     : /home/kit/scripts/test_rec/rec.wav
+model  : ggml-small.bin
+binary : whisper-cli
+flags  : -ng -ac 450 -bo 1 -bs 1 -nf
+STT    : 3498 ms
+heard  : 이 목적지로 갈리면 얼마나 남았어?
+TTS    : 64 ms
+total  : 3584 ms   (STT + TTS, playback excluded)
+out    : /home/kit/scripts/test_rec/echo.wav
+
+NEXT: plug the speaker, then
+  bash 02_play.sh /home/kit/scripts/test_rec/echo.wav        # what the machine understood
+  bash 02_play.sh /home/kit/scripts/test_rec/rec.wav         # your original voice, for comparison
+kit@kit-desktop:~/scripts$ WHISPER_MODEL=~/safeaid_ai/stt/whisper.cpp/models/ggml-base.bin WHISPER_THREADS=6 WHISPER_FLAGS="-ng -ac 450 -bo 5 -bs 5 -nf" bash 03_echo.sh
+in     : /home/kit/scripts/test_rec/rec.wav
+model  : ggml-base.bin
+binary : whisper-cli
+flags  : -ng -ac 450 -bo 5 -bs 5 -nf
+STT    : 1779 ms
+heard  : 이 목격체로 갈려면 얼마나 남았어.
+TTS    : 60 ms
+total  : 1863 ms   (STT + TTS, playback excluded)
+out    : /home/kit/scripts/test_rec/echo.wav
+
+NEXT: plug the speaker, then
+  bash 02_play.sh /home/kit/scripts/test_rec/echo.wav        # what the machine understood
+  bash 02_play.sh /home/kit/scripts/test_rec/rec.wav         # your original voice, for comparison
+kit@kit-desktop:~/scripts$ WHISPER_MODEL=~/safeaid_ai/stt/whisper.cpp/models/ggml-base.bin WHISPER_THREADS=6 WHISPER_FLAGS="-ng -ac 450 -bo 1 -bs 1 -nf" WHISPER_PROMPT="오지 등산 상황입니다. 목적지, 트레일, 능선, 계곡, 일몰, 야영, 텐트, 식수, 버섯, 저체온, 방향, 거리" bash 03_echo.sh
+in     : /home/kit/scripts/test_rec/rec.wav
+model  : ggml-base.bin
+binary : whisper-cli
+flags  : -ng -ac 450 -bo 1 -bs 1 -nf
+STT    : 1778 ms
+heard  : 이 목격체로 갈려면 얼마나 남았어
+TTS    : 67 ms
+total  : 1869 ms   (STT + TTS, playback excluded)
+out    : /home/kit/scripts/test_rec/echo.wav
+
+NEXT: plug the speaker, then
+  bash 02_play.sh /home/kit/scripts/test_rec/echo.wav        # what the machine understood
+  bash 02_play.sh /home/kit/scripts/test_rec/rec.wav         # your original voice, for comparison
+kit@kit-desktop:~/scripts$ grep -c WHISPER_PROMPT 03_echo.sh
+0
+kit@kit-desktop:~/scripts$ grep -c WHISPER_PROMPT ~/scripts/03_echo.sh
+4
+kit@kit-desktop:~/scripts$ ~/safeaid_ai/stt/whisper.cpp/build/bin/whisper-cli -h | grep -i prompt
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 6832 MiB):
+  Device 0: Xavier, compute capability 7.2, VMM: yes, VRAM: 6832 MiB
+
+usage: /home/kit/safeaid_ai/stt/whisper.cpp/build/bin/whisper-cli [options] file0 file1 ...
+supported audio formats: flac, mp3, ogg, wav
+
+options:
+  -h,        --help                 [default] show this help message and exit
+             --version              show version information and exit
+  -t N,      --threads N            [4      ] number of threads to use during computation
+  -p N,      --processors N         [1      ] number of processors to use during computation
+  -ot N,     --offset-t N           [0      ] time offset in milliseconds
+  -on N,     --offset-n N           [0      ] segment index offset
+  -d  N,     --duration N           [0      ] duration of audio to process in milliseconds
+  -mc N,     --max-context N        [-1     ] maximum number of text context tokens to store
+  -ml N,     --max-len N            [0      ] maximum segment length in characters
+  -sow,      --split-on-word        [false  ] split on word rather than on token
+  -bo N,     --best-of N            [5      ] number of best candidates to keep
+  -bs N,     --beam-size N          [5      ] beam size for beam search
+  -ac N,     --audio-ctx N          [0      ] audio context size (0 - all)
+  -wt N,     --word-thold N         [0.01   ] word timestamp probability threshold
+  -et N,     --entropy-thold N      [2.40   ] entropy threshold for decoder fail
+  -lpt N,    --logprob-thold N      [-1.00  ] log probability threshold for decoder fail
+  -nth N,    --no-speech-thold N    [0.60   ] no speech threshold
+  -tp,       --temperature N        [0.00   ] The sampling temperature, between 0 and 1
+  -tpi,      --temperature-inc N    [0.20   ] The increment of temperature, between 0 and 1
+  -debug,    --debug-mode           [false  ] enable debug mode (eg. dump log_mel)
+  -tr,       --translate            [false  ] translate from source language to english
+  -di,       --diarize              [false  ] stereo audio diarization
+  -tdrz,     --tinydiarize          [false  ] enable tinydiarize (requires a tdrz model)
+  -nf,       --no-fallback          [false  ] do not use temperature fallback while decoding
+  -otxt,     --output-txt           [false  ] output result in a text file
+  -ovtt,     --output-vtt           [false  ] output result in a vtt file
+  -osrt,     --output-srt           [false  ] output result in a srt file
+  -olrc,     --output-lrc           [false  ] output result in a lrc file
+  -owts,     --output-words         [false  ] output script for generating karaoke video
+  -fp,       --font-path            [/System/Library/Fonts/Supplemental/Courier New Bold.ttf] path to a monospace font for karaoke video
+  -ocsv,     --output-csv           [false  ] output result in a CSV file
+  -oj,       --output-json          [false  ] output result in a JSON file
+  -ojf,      --output-json-full     [false  ] include more information in the JSON file
+  -of FNAME, --output-file FNAME    [       ] output file path (without file extension)
+  -np,       --no-prints            [false  ] do not print anything other than the results
+  -ps,       --print-special        [false  ] print special tokens
+  -pc,       --print-colors         [false  ] print colors
+             --print-confidence     [false  ] print confidence
+  -pp,       --print-progress       [false  ] print progress
+  -nt,       --no-timestamps        [false  ] do not print timestamps
+  -l LANG,   --language LANG        [en     ] spoken language ('auto' for auto-detect)
+  -dl,       --detect-language      [false  ] exit after automatically detecting language
+             --prompt PROMPT        [       ] initial prompt (max n_text_ctx/2 tokens)
+             --carry-initial-prompt [false  ] always prepend initial prompt
+  -m FNAME,  --model FNAME          [models/ggml-base.en.bin] model path
+  -f FNAME,  --file FNAME           [       ] input audio file path
+  -oved D,   --ov-e-device DNAME    [CPU    ] the OpenVINO device used for encode inference
+  -dtw MODEL --dtw MODEL            [       ] compute token-level timestamps
+  -ls,       --log-score            [false  ] log best decoder scores of tokens
+  -ng,       --no-gpu               [false  ] disable GPU
+  -dev N,    --device N             [0      ] GPU device ID (default: 0)
+  -fa,       --flash-attn           [true   ] enable flash attention
+  -nfa,      --no-flash-attn        [false  ] disable flash attention
+  -sns,      --suppress-nst         [false  ] suppress non-speech tokens
+  --suppress-regex REGEX            [       ] regular expression matching tokens to suppress
+  --grammar GRAMMAR                 [       ] GBNF grammar to guide decoding
+  --grammar-rule RULE               [       ] top-level GBNF grammar rule name
+  --grammar-penalty N               [100.0  ] scales down logits of nongrammar tokens
+
+Voice Activity Detection (VAD) options:
+             --vad                           [false  ] enable Voice Activity Detection (VAD)
+  -vm FNAME, --vad-model FNAME               [       ] VAD model path
+  -vt N,     --vad-threshold N               [0.50   ] VAD threshold for speech recognition
+  -vspd N,   --vad-min-speech-duration-ms  N [250    ] VAD min speech duration (0.0-1.0)
+  -vsd N,    --vad-min-silence-duration-ms N [100    ] VAD min silence duration (to split segments)
+  -vmsd N,   --vad-max-speech-duration-s   N [FLT_MAX] VAD max speech duration (auto-split longer)
+  -vp N,     --vad-speech-pad-ms           N [30     ] VAD speech padding (extend segments)
+  -vo N,     --vad-samples-overlap         N [0.10   ] VAD samples overlap (seconds between segments)
+
+kit@kit-desktop:~/scripts$ time ~/safeaid_ai/stt/whisper.cpp/build/bin/whisper-cli -m ~/safeaid_ai/stt/whisper.cpp/models/ggml-base.bin -f test_rec/rec.wav -l ko -t 6 -ng -ac 450 -bo 1 -bs 1 -nf -nt -np --prompt "오지 등산 상황입니다. 목적지, 트레일, 능선, 계곡, 일몰, 야영, 텐트, 식수, 버섯, 저체온, 방향, 거리"
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 6832 MiB):
+  Device 0: Xavier, compute capability 7.2, VMM: yes, VRAM: 6832 MiB
+read_audio_data: reading audio data from 'test_rec/rec.wav' ...
+read_audio_data: trying to decode with miniaudio
+
+ 목적지로 갈려면 얼마나 남았어.
+real    0m1.520s
+user    0m5.618s
+sys     0m0.292s
+kit@kit-desktop:~/scripts$ time ~/safeaid_ai/stt/whisper.cpp/build/bin/whisper-cli -m ~/safeaid_ai/stt/whisper.cpp/models/ggml-base.bin -f test_rec/rec.wav -l ko -t 6 -ng -ac 450 -bo 1 -bs 1 -nf -nt -np
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 6832 MiB):
+  Device 0: Xavier, compute capability 7.2, VMM: yes, VRAM: 6832 MiB
+read_audio_data: reading audio data from 'test_rec/rec.wav' ...
+read_audio_data: trying to decode with miniaudio
+
+ 이 목격체로 갈려면 얼마나 남았어
+real    0m1.433s
+user    0m5.277s
+sys     0m0.292s
+kit@kit-desktop:~/scripts$ time ~/safeaid_ai/stt/whisper.cpp/build/bin/whisper-cli -m ~/safeaid_ai/stt/whisper.cpp/models/ggml-small.bin -f test_rec/rec.wav -l ko -t 6 -ng -ac 450 -bo 1 -bs 1 -nf -nt -np --prompt "오지 등산 상황입니다. 목적지, 트레일, 능선, 계곡, 일몰, 야영, 텐트, 식수, 버섯, 저체온, 방향, 거리"
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 6832 MiB):
+  Device 0: Xavier, compute capability 7.2, VMM: yes, VRAM: 6832 MiB
+read_audio_data: reading audio data from 'test_rec/rec.wav' ...
+read_audio_data: trying to decode with miniaudio
+
+ 목적지로 가려면 얼마나 남았어?
+real    0m3.886s
+user    0m18.233s
+sys     0m0.611s
+kit@kit-desktop:~/scripts$ WHISPER_PROMPT="오지 등산 상황입니다. 목적지, 트레일, 능선, 계곡, 일몰, 야영, 텐트, 식수, 버섯, 저체온, 방향, 거리" bash 05_bench.sh small_prompt ~/safeaid_ai/stt/whisper.cpp/models/ggml-small.bin -ng -ac 450 -bo 1 -bs 1 -nf
+label  : small_prompt
+model  : ggml-small.bin
+args   : -ng -ac 450 -bo 1 -bs 1 -nf
+clocks : as-is
+prompt : 오지 등산 상황입니다. 목적지, 트레일, 능선, 계곡, 일몰, 야영, 텐트, 식수, 버섯, 저체온, 방향, 거리
+
+sudo is needed for tegrastats. Caching credentials...
+[sudo] password for kit:
+[1/4] idle baseline 15s -- do not touch the machine
+[2/4] batch inference (6 utterances) with power logging
+  #1  X  total 4599.58 ms  (load 293.99 / encode 3366.27)
+      said : 여기가 어디야
+      heard: 여기가 어디야?
+  #2  X  total 4616.81 ms  (load 313.23 / encode 3291.72)
+      said : 해 지기 전에 돌아갈 수 있어
+      heard: 해 지기 전에 돌아갈 수 있어.
+  #3  X  total 4631.32 ms  (load 297.07 / encode 3394.93)
+      said : 오늘 밤 얼마나 추워져
+      heard: 오늘 밤 얼마나 추워져
+  #4  X  total 4558.57 ms  (load 299.05 / encode 3398.00)
+      said : 이 물 마셔도 돼
+      heard: 이불 마셔도 돼
+  #5  X  total 4832.94 ms  (load 296.33 / encode 3440.68)
+      said : 텐트 어디에 쳐야 돼
+      heard: 텐트, 오지에, 초야, 저
+  #6  X  total 4537.46 ms  (load 298.84 / encode 3415.70)
+      said : 이 버섯 먹어도 돼
+      heard: 이 버섯 먹어도 돼
+[3/4] thermal
+  CPU-therm:39.0C GPU-therm:38.0C AUX-therm:37.0C AO-therm:37.5C PMIC-Die:50.0C thermal_fan_est:37.9C
+[4/4] power
+  idle   3609 mW   active 6027 mW   peak 6543 mW
+  wall   29.9 s over 6 queries
+  energy 3.35 mWh / query   (active - idle)
+
+  RESULT  small_prompt recall 0/6   false-pos 0   median 4608 ms   MAX 4833 ms   3.35 mWh/q
+  -> /home/kit/scripts/test_rec/bench_power.csv
+
+runs  : /home/kit/scripts/test_rec/bench_runs.csv
+power : /home/kit/scripts/test_rec/bench_power.csv
+kit@kit-desktop:~/scripts$ time ~/safeaid_ai/stt/whisper.cpp/build/bin/whisper-cli -m ~/safeaid_ai/stt/whisper.cpp/models/ggml-small.bin -f test_rec/ko_7.wav -l ko -t 6 -ng -ac 450 -bo 1 -bs 1 -nf -nt -np --prompt "오지 등산 상황입니다. 목적지, 트레일, 능선, 계곡, 일몰, 야영, 텐트, 식수, 버섯, 저체온, 방향, 거리"
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 6832 MiB):
+  Device 0: Xavier, compute capability 7.2, VMM: yes, VRAM: 6832 MiB
+error: input file not found 'test_rec/ko_7.wav'
+error: no input files specified
+
+usage: /home/kit/safeaid_ai/stt/whisper.cpp/build/bin/whisper-cli [options] file0 file1 ...
+supported audio formats: flac, mp3, ogg, wav
+
+options:
+  -h,        --help                 [default] show this help message and exit
+             --version              show version information and exit
+  -t N,      --threads N            [6      ] number of threads to use during computation
+  -p N,      --processors N         [1      ] number of processors to use during computation
+  -ot N,     --offset-t N           [0      ] time offset in milliseconds
+  -on N,     --offset-n N           [0      ] segment index offset
+  -d  N,     --duration N           [0      ] duration of audio to process in milliseconds
+  -mc N,     --max-context N        [-1     ] maximum number of text context tokens to store
+  -ml N,     --max-len N            [0      ] maximum segment length in characters
+  -sow,      --split-on-word        [false  ] split on word rather than on token
+  -bo N,     --best-of N            [1      ] number of best candidates to keep
+  -bs N,     --beam-size N          [1      ] beam size for beam search
+  -ac N,     --audio-ctx N          [450    ] audio context size (0 - all)
+  -wt N,     --word-thold N         [0.01   ] word timestamp probability threshold
+  -et N,     --entropy-thold N      [2.40   ] entropy threshold for decoder fail
+  -lpt N,    --logprob-thold N      [-1.00  ] log probability threshold for decoder fail
+  -nth N,    --no-speech-thold N    [0.60   ] no speech threshold
+  -tp,       --temperature N        [0.00   ] The sampling temperature, between 0 and 1
+  -tpi,      --temperature-inc N    [0.20   ] The increment of temperature, between 0 and 1
+  -debug,    --debug-mode           [false  ] enable debug mode (eg. dump log_mel)
+  -tr,       --translate            [false  ] translate from source language to english
+  -di,       --diarize              [false  ] stereo audio diarization
+  -tdrz,     --tinydiarize          [false  ] enable tinydiarize (requires a tdrz model)
+  -nf,       --no-fallback          [true   ] do not use temperature fallback while decoding
+  -otxt,     --output-txt           [false  ] output result in a text file
+  -ovtt,     --output-vtt           [false  ] output result in a vtt file
+  -osrt,     --output-srt           [false  ] output result in a srt file
+  -olrc,     --output-lrc           [false  ] output result in a lrc file
+  -owts,     --output-words         [false  ] output script for generating karaoke video
+  -fp,       --font-path            [/System/Library/Fonts/Supplemental/Courier New Bold.ttf] path to a monospace font for karaoke video
+  -ocsv,     --output-csv           [false  ] output result in a CSV file
+  -oj,       --output-json          [false  ] output result in a JSON file
+  -ojf,      --output-json-full     [false  ] include more information in the JSON file
+  -of FNAME, --output-file FNAME    [       ] output file path (without file extension)
+  -np,       --no-prints            [true   ] do not print anything other than the results
+  -ps,       --print-special        [false  ] print special tokens
+  -pc,       --print-colors         [false  ] print colors
+             --print-confidence     [false  ] print confidence
+  -pp,       --print-progress       [false  ] print progress
+  -nt,       --no-timestamps        [true   ] do not print timestamps
+  -l LANG,   --language LANG        [ko     ] spoken language ('auto' for auto-detect)
+  -dl,       --detect-language      [false  ] exit after automatically detecting language
+             --prompt PROMPT        [오지 등산 상황입니다. 목적지, 트레일, 능선, 계곡, 일몰, 야영, 텐트, 식수, 버섯, 저체온, 방향, 거리] initial prompt (max n_text_ctx/2 tokens)
+             --carry-initial-prompt [false  ] always prepend initial prompt
+  -m FNAME,  --model FNAME          [/home/kit/safeaid_ai/stt/whisper.cpp/models/ggml-small.bin] model path
+  -f FNAME,  --file FNAME           [       ] input audio file path
+  -oved D,   --ov-e-device DNAME    [CPU    ] the OpenVINO device used for encode inference
+  -dtw MODEL --dtw MODEL            [       ] compute token-level timestamps
+  -ls,       --log-score            [false  ] log best decoder scores of tokens
+  -ng,       --no-gpu               [true   ] disable GPU
+  -dev N,    --device N             [0      ] GPU device ID (default: 0)
+  -fa,       --flash-attn           [true   ] enable flash attention
+  -nfa,      --no-flash-attn        [false  ] disable flash attention
+  -sns,      --suppress-nst         [false  ] suppress non-speech tokens
+  --suppress-regex REGEX            [       ] regular expression matching tokens to suppress
+  --grammar GRAMMAR                 [       ] GBNF grammar to guide decoding
+  --grammar-rule RULE               [       ] top-level GBNF grammar rule name
+  --grammar-penalty N               [100.0  ] scales down logits of nongrammar tokens
+
+Voice Activity Detection (VAD) options:
+             --vad                           [false  ] enable Voice Activity Detection (VAD)
+  -vm FNAME, --vad-model FNAME               [       ] VAD model path
+  -vt N,     --vad-threshold N               [0.50   ] VAD threshold for speech recognition
+  -vspd N,   --vad-min-speech-duration-ms  N [250    ] VAD min speech duration (0.0-1.0)
+  -vsd N,    --vad-min-silence-duration-ms N [100    ] VAD min silence duration (to split segments)
+  -vmsd N,   --vad-max-speech-duration-s   N [FLT_MAX] VAD max speech duration (auto-split longer)
+  -vp N,     --vad-speech-pad-ms           N [30     ] VAD speech padding (extend segments)
+  -vo N,     --vad-samples-overlap         N [0.10   ] VAD samples overlap (seconds between segments)
+
+
+real    0m0.166s
+user    0m0.106s
+sys     0m0.055s
+kit@kit-desktop:~/scripts$ bash 04_record_set.sh 4 1
+device : plughw:CARD=Device,DEV=0
+seconds: 4
+
+------------------------------------------------------------
+[1/21]  say:  여기가 어디야
+         mic 10-15 cm away, start speaking immediately.
+         press Enter to record 4s...^C
+kit@kit-desktop:~/scripts$ export WHISPER_MODEL=~/safeaid_ai/stt/whisper.cpp/models/ggml-small.bin WHISPER_THREADS=6 WHISPER_FLAGS="-ng -ac 450 -bo 1 -bs 1 -nf" WHISPER_PROMPT="오지 등산 상황입니다. 목적지, 트레일, 능선, 계곡, 일몰, 야영, 텐트, 식수, 버섯, 저체온, 방향, 거리"
+kit@kit-desktop:~/scripts$ bash 01_record.sh 4
+device : plughw:CARD=Device,DEV=0
+file   : /home/kit/scripts/test_rec/rec.wav
+recording 4s -- SPEAK NOW
+recorded on: plughw:CARD=Device,DEV=0
+level  : peak 8154/32767  rms 1681
+  OK
+
+NEXT: unplug the mic, plug the speaker, then run
+  bash scripts/02_play.sh
+kit@kit-desktop:~/scripts$ bash 03_echo.sh
+in     : /home/kit/scripts/test_rec/rec.wav
+model  : ggml-small.bin
+binary : whisper-cli
+flags  : -ng -ac 450 -bo 1 -bs 1 -nf
+prompt : 오지 등산 상황입니다. 목적지, 트레일, 능선, 계곡, 일몰, 야영, 텐트, 식수, 버섯, 저체온, 방향, 거리
+STT    : 3914 ms
+heard  : 텐트, 연애, 저건, 어투를 해
+TTS    : 65 ms
+total  : 4003 ms   (STT + TTS, playback excluded)
+out    : /home/kit/scripts/test_rec/echo.wav
+
+NEXT: plug the speaker, then
+  bash 02_play.sh /home/kit/scripts/test_rec/echo.wav        # what the machine understood
+  bash 02_play.sh /home/kit/scripts/test_rec/rec.wav         # your original voice, for comparison
+kit@kit-desktop:~/scripts$ grep -c WHISPER_PROMPT 03_echo.sh
+4
+kit@kit-desktop:~/scripts$ WHISPER_PROMPT= bash 03_echo.sh
+in     : /home/kit/scripts/test_rec/rec.wav
+model  : ggml-small.bin
+binary : whisper-cli
+flags  : -ng -ac 450 -bo 1 -bs 1 -nf
+STT    : 3329 ms
+heard  : 헨트연에서 번호 켜주세요
+TTS    : 61 ms
+total  : 3413 ms   (STT + TTS, playback excluded)
+out    : /home/kit/scripts/test_rec/echo.wav
+
+NEXT: plug the speaker, then
+  bash 02_play.sh /home/kit/scripts/test_rec/echo.wav        # what the machine understood
+  bash 02_play.sh /home/kit/scripts/test_rec/rec.wav         # your original voice, for comparison
+kit@kit-desktop:~/scripts$ sox test_rec/rec.wav test_rec/rec_n.wav gain -n -3
+bash: sox: command not found
+kit@kit-desktop:~/scripts$ sudo apt install -y sox
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  apt-clone archdetect-deb bogl-bterm busybox-static cryptsetup-bin dpkg-repack gir1.2-timezonemap-1.0 gir1.2-xkl-1.0 grub-common libdebian-installer4
+  libtimezonemap-data libtimezonemap1 os-prober python3-icu python3-pam rdate tasksel tasksel-data
+Use 'sudo apt autoremove' to remove them.
+The following additional packages will be installed:
+  libsox-fmt-alsa libsox-fmt-base libsox3
+Suggested packages:
+  libsox-fmt-all
+The following NEW packages will be installed:
+  libsox-fmt-alsa libsox-fmt-base libsox3 sox
+0 upgraded, 4 newly installed, 0 to remove and 0 not upgraded.
+Need to get 349 kB of archives.
+After this operation, 1,151 kB of additional disk space will be used.
+Get:1 http://ports.ubuntu.com/ubuntu-ports focal-updates/universe arm64 libsox3 arm64 14.4.2+git20190427-2+deb11u2ubuntu0.20.04.1 [209 kB]
+Get:2 http://ports.ubuntu.com/ubuntu-ports focal-updates/universe arm64 libsox-fmt-alsa arm64 14.4.2+git20190427-2+deb11u2ubuntu0.20.04.1 [10.4 kB]
+Get:3 http://ports.ubuntu.com/ubuntu-ports focal-updates/universe arm64 libsox-fmt-base arm64 14.4.2+git20190427-2+deb11u2ubuntu0.20.04.1 [31.0 kB]
+Get:4 http://ports.ubuntu.com/ubuntu-ports focal-updates/universe arm64 sox arm64 14.4.2+git20190427-2+deb11u2ubuntu0.20.04.1 [98.8 kB]
+Fetched 349 kB in 3s (126 kB/s)
+debconf: delaying package configuration, since apt-utils is not installed
+Selecting previously unselected package libsox3:arm64.
+(Reading database ... 190944 files and directories currently installed.)
+Preparing to unpack .../libsox3_14.4.2+git20190427-2+deb11u2ubuntu0.20.04.1_arm64.deb ...
+Unpacking libsox3:arm64 (14.4.2+git20190427-2+deb11u2ubuntu0.20.04.1) ...
+Selecting previously unselected package libsox-fmt-alsa:arm64.
+Preparing to unpack .../libsox-fmt-alsa_14.4.2+git20190427-2+deb11u2ubuntu0.20.04.1_arm64.deb ...
+Unpacking libsox-fmt-alsa:arm64 (14.4.2+git20190427-2+deb11u2ubuntu0.20.04.1) ...
+Selecting previously unselected package libsox-fmt-base:arm64.
+Preparing to unpack .../libsox-fmt-base_14.4.2+git20190427-2+deb11u2ubuntu0.20.04.1_arm64.deb ...
+Unpacking libsox-fmt-base:arm64 (14.4.2+git20190427-2+deb11u2ubuntu0.20.04.1) ...
+Selecting previously unselected package sox.
+Preparing to unpack .../sox_14.4.2+git20190427-2+deb11u2ubuntu0.20.04.1_arm64.deb ...
+Unpacking sox (14.4.2+git20190427-2+deb11u2ubuntu0.20.04.1) ...
+Setting up libsox3:arm64 (14.4.2+git20190427-2+deb11u2ubuntu0.20.04.1) ...
+Setting up libsox-fmt-alsa:arm64 (14.4.2+git20190427-2+deb11u2ubuntu0.20.04.1) ...
+Setting up libsox-fmt-base:arm64 (14.4.2+git20190427-2+deb11u2ubuntu0.20.04.1) ...
+Setting up sox (14.4.2+git20190427-2+deb11u2ubuntu0.20.04.1) ...
+Processing triggers for libc-bin (2.31-0ubuntu9.18) ...
+Processing triggers for man-db (2.9.1-1) ...
+Processing triggers for mime-support (3.64ubuntu1) ...
+kit@kit-desktop:~/scripts$ sox test_rec/rec.wav test_rec/rec_n.wav gain -n -3
+kit@kit-desktop:~/scripts$ WHISPER_PROMPT= bash 03_echo.sh test_rec/rec_n.wav
+in     : test_rec/rec_n.wav
+model  : ggml-small.bin
+binary : whisper-cli
+flags  : -ng -ac 450 -bo 1 -bs 1 -nf
+STT    : 5768 ms
+heard  : 헨트연에서 번호 켜주세요
+TTS    : 70 ms
+total  : 5862 ms   (STT + TTS, playback excluded)
+out    : /home/kit/scripts/test_rec/echo.wav
+
+NEXT: plug the speaker, then
+  bash 02_play.sh /home/kit/scripts/test_rec/echo.wav        # what the machine understood
+  bash 02_play.sh test_rec/rec_n.wav         # your original voice, for comparison
+kit@kit-desktop:~/scripts$ WHISPER_PROMPT="여기가 어디야. 해 지기 전에 돌아갈 수 있어. 텐트 안에서 버너 켜도 돼. 이 물 마셔도 돼. 이 버섯 먹어도 돼." bash 03_echo.sh test_rec/rec_n.wav
+in     : test_rec/rec_n.wav
+model  : ggml-small.bin
+binary : whisper-cli
+flags  : -ng -ac 450 -bo 1 -bs 1 -nf
+prompt : 여기가 어디야. 해 지기 전에 돌아갈 수 있어. 텐트 안에서 버너 켜도 돼. 이 물 마셔도 돼. 이 버섯 먹어도 돼.
+STT    : 3497 ms
+heard  : 텐트 안에서 버너 켜도 돼.
+TTS    : 61 ms
+total  : 3582 ms   (STT + TTS, playback excluded)
+out    : /home/kit/scripts/test_rec/echo.wav
+
+NEXT: plug the speaker, then
+  bash 02_play.sh /home/kit/scripts/test_rec/echo.wav        # what the machine understood
+  bash 02_play.sh test_rec/rec_n.wav         # your original voice, for comparison
+kit@kit-desktop:~/scripts$ WHISPER_PROMPT= bash 03_echo.sh test_rec/rec.wav
+in     : test_rec/rec.wav
+model  : ggml-small.bin
+binary : whisper-cli
+flags  : -ng -ac 450 -bo 1 -bs 1 -nf
+STT    : 3409 ms
+heard  : 헨트연에서 번호 켜주세요
+TTS    : 59 ms
+total  : 3492 ms   (STT + TTS, playback excluded)
+out    : /home/kit/scripts/test_rec/echo.wav
+
+NEXT: plug the speaker, then
+  bash 02_play.sh /home/kit/scripts/test_rec/echo.wav        # what the machine understood
+  bash 02_play.sh test_rec/rec.wav         # your original voice, for comparison
+kit@kit-desktop:~/scripts$ export WHISPER_PROMPT="불 피울 데 있어. 물통 어디 뒀지. 버너 가스 남았나. 능선 따라 가면 돼. 오늘 야영지 정했어."
+kit@kit-desktop:~/scripts$ bash 03_echo.sh test_rec/rec.wav
+in     : test_rec/rec.wav
+model  : ggml-small.bin
+binary : whisper-cli
+flags  : -ng -ac 450 -bo 1 -bs 1 -nf
+prompt : 불 피울 데 있어. 물통 어디 뒀지. 버너 가스 남았나. 능선 따라 가면 돼. 오늘 야영지 정했어.
+STT    : 3551 ms
+heard  : 헤드피언에서 버너 가스 남았네.
+TTS    : 65 ms
+total  : 3642 ms   (STT + TTS, playback excluded)
+out    : /home/kit/scripts/test_rec/echo.wav
+
+NEXT: plug the speaker, then
+  bash 02_play.sh /home/kit/scripts/test_rec/echo.wav        # what the machine understood
+  bash 02_play.sh test_rec/rec.wav         # your original voice, for comparison
+kit@kit-desktop:~/scripts$ bash 01_record.sh 4
+device : plughw:CARD=Device,DEV=0
+file   : /home/kit/scripts/test_rec/rec.wav
+recording 4s -- SPEAK NOW
+recorded on: plughw:CARD=Device,DEV=0
+level  : peak 8937/32767  rms 1214
+  OK
+
+NEXT: unplug the mic, plug the speaker, then run
+  bash scripts/02_play.sh
+kit@kit-desktop:~/scripts$ bash 03_echo.sh test_rec/rec.wav
+in     : test_rec/rec.wav
+model  : ggml-small.bin
+binary : whisper-cli
+flags  : -ng -ac 450 -bo 1 -bs 1 -nf
+prompt : 불 피울 데 있어. 물통 어디 뒀지. 버너 가스 남았나. 능선 따라 가면 돼. 오늘 야영지 정했어.
+STT    : 3721 ms
+heard  : 텐트 안에서 버너 가스 남았나.
+TTS    : 61 ms
+total  : 3804 ms   (STT + TTS, playback excluded)
+out    : /home/kit/scripts/test_rec/echo.wav
+
+NEXT: plug the speaker, then
+  bash 02_play.sh /home/kit/scripts/test_rec/echo.wav        # what the machine understood
+  bash 02_play.sh test_rec/rec.wav         # your original voice, for comparison
+kit@kit-desktop:~/scripts$ export WHISPER_PROMPT=
+kit@kit-desktop:~/scripts$ bash 03_echo.sh test_rec/rec.wav
+in     : test_rec/rec.wav
+model  : ggml-small.bin
+binary : whisper-cli
+flags  : -ng -ac 450 -bo 1 -bs 1 -nf
+STT    : 3236 ms
+heard  : 텐트 안에서 번호 켜도 돼
+TTS    : 57 ms
+total  : 3320 ms   (STT + TTS, playback excluded)
+out    : /home/kit/scripts/test_rec/echo.wav
+
+NEXT: plug the speaker, then
+  bash 02_play.sh /home/kit/scripts/test_rec/echo.wav        # what the machine understood
+  bash 02_play.sh test_rec/rec.wav         # your original voice, for comparison
+kit@kit-desktop:~/scripts$ bash 01_record.sh 4
+device : plughw:CARD=Device,DEV=0
+file   : /home/kit/scripts/test_rec/rec.wav
+recording 4s -- SPEAK NOW
+recorded on: plughw:CARD=Device,DEV=0
+level  : peak 12310/32767  rms 1368
+  OK
+
+NEXT: unplug the mic, plug the speaker, then run
+  bash scripts/02_play.sh
+kit@kit-desktop:~/scripts$ ^C
+kit@kit-desktop:~/scripts$ bash 01_record.sh 4
+device : plughw:CARD=Device,DEV=0
+file   : /home/kit/scripts/test_rec/rec.wav
+recording 4s -- SPEAK NOW
+recorded on: plughw:CARD=Device,DEV=0
+level  : peak 9331/32767  rms 1099
+  OK
+
+NEXT: unplug the mic, plug the speaker, then run
+  bash scripts/02_play.sh
+kit@kit-desktop:~/scripts$ bash 03_echo.sh test_rec/rec.wav
+in     : test_rec/rec.wav
+model  : ggml-small.bin
+binary : whisper-cli
+flags  : -ng -ac 450 -bo 1 -bs 1 -nf
+STT    : 3104 ms
+heard  : 펜트 안에서 번호 켜도 돼
+TTS    : 58 ms
+total  : 3184 ms   (STT + TTS, playback excluded)
+out    : /home/kit/scripts/test_rec/echo.wav
+
+NEXT: plug the speaker, then
+  bash 02_play.sh /home/kit/scripts/test_rec/echo.wav        # what the machine understood
+  bash 02_play.sh test_rec/rec.wav         # your original voice, for comparison

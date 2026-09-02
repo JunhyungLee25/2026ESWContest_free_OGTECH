@@ -1,0 +1,443 @@
+{
+  "version": 1,
+  "generated_at": "2026-08-30T03:32:18+00:00",
+  "llm": "mock",
+  "evidence": "mock — 수치 무의미",
+  "prefix_tokens": 1342,
+  "prefix_chars": 2806,
+  "cold_warmup_s": 0.001,
+  "cold_warmup_ok": true,
+  "cold_usage": {
+    "prompt_tokens": 1347,
+    "completion_tokens": 18,
+    "total_tokens": 1365
+  },
+  "runs": 20,
+  "warm_max_s": 0.001,
+  "warm_median_s": 0.001,
+  "budget_s": 2.0,
+  "within_budget": true,
+  "errors": 0,
+  "samples": [
+    {
+      "text": "야간 모드로 바꿔 줘",
+      "elapsed_s": 0.001,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"gear\",\"action\":\"night_on\"}",
+      "usage": {
+        "prompt_tokens": 1351,
+        "completion_tokens": 18,
+        "total_tokens": 1369
+      },
+      "timings": {
+        "prompt_n": 1351,
+        "predicted_n": 18,
+        "mock": true
+      },
+      "verdict": [
+        "gear",
+        "night_on",
+        "validated_llm_map_action"
+      ]
+    },
+    {
+      "text": "베이스캠프까지 얼마나 남았어",
+      "elapsed_s": 0.001,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"route\",\"action\":\"route_basecamp\"}",
+      "usage": {
+        "prompt_tokens": 1354,
+        "completion_tokens": 20,
+        "total_tokens": 1374
+      },
+      "timings": {
+        "prompt_n": 1354,
+        "predicted_n": 20,
+        "mock": true
+      },
+      "verdict": [
+        "route",
+        "route_basecamp",
+        "validated_llm_map_action"
+      ]
+    },
+    {
+      "text": "이 상황에서 무엇을 먼저 살펴보면 좋을까",
+      "elapsed_s": 0.001,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"unknown\",\"action\":\"none\"}",
+      "usage": {
+        "prompt_tokens": 1357,
+        "completion_tokens": 18,
+        "total_tokens": 1375
+      },
+      "timings": {
+        "prompt_n": 1357,
+        "predicted_n": 18,
+        "mock": true
+      },
+      "verdict": [
+        "unknown",
+        null,
+        "llm_unknown"
+      ]
+    },
+    {
+      "text": "텐트 안에서 버너 켜도 될까",
+      "elapsed_s": 0.001,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"sleep_safety\",\"action\":\"none\"}",
+      "usage": {
+        "prompt_tokens": 1353,
+        "completion_tokens": 19,
+        "total_tokens": 1372
+      },
+      "timings": {
+        "prompt_n": 1353,
+        "predicted_n": 19,
+        "mock": true
+      },
+      "verdict": [
+        "unknown",
+        null,
+        "llm_life_label_blocked"
+      ]
+    },
+    {
+      "text": "야간 모드로 바꿔 줘",
+      "elapsed_s": 0.001,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"gear\",\"action\":\"night_on\"}",
+      "usage": {
+        "prompt_tokens": 1351,
+        "completion_tokens": 18,
+        "total_tokens": 1369
+      },
+      "timings": {
+        "prompt_n": 1351,
+        "predicted_n": 18,
+        "mock": true
+      },
+      "verdict": [
+        "gear",
+        "night_on",
+        "validated_llm_map_action"
+      ]
+    },
+    {
+      "text": "베이스캠프까지 얼마나 남았어",
+      "elapsed_s": 0.001,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"route\",\"action\":\"route_basecamp\"}",
+      "usage": {
+        "prompt_tokens": 1354,
+        "completion_tokens": 20,
+        "total_tokens": 1374
+      },
+      "timings": {
+        "prompt_n": 1354,
+        "predicted_n": 20,
+        "mock": true
+      },
+      "verdict": [
+        "route",
+        "route_basecamp",
+        "validated_llm_map_action"
+      ]
+    },
+    {
+      "text": "이 상황에서 무엇을 먼저 살펴보면 좋을까",
+      "elapsed_s": 0.001,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"unknown\",\"action\":\"none\"}",
+      "usage": {
+        "prompt_tokens": 1357,
+        "completion_tokens": 18,
+        "total_tokens": 1375
+      },
+      "timings": {
+        "prompt_n": 1357,
+        "predicted_n": 18,
+        "mock": true
+      },
+      "verdict": [
+        "unknown",
+        null,
+        "llm_unknown"
+      ]
+    },
+    {
+      "text": "텐트 안에서 버너 켜도 될까",
+      "elapsed_s": 0.001,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"sleep_safety\",\"action\":\"none\"}",
+      "usage": {
+        "prompt_tokens": 1353,
+        "completion_tokens": 19,
+        "total_tokens": 1372
+      },
+      "timings": {
+        "prompt_n": 1353,
+        "predicted_n": 19,
+        "mock": true
+      },
+      "verdict": [
+        "unknown",
+        null,
+        "llm_life_label_blocked"
+      ]
+    },
+    {
+      "text": "야간 모드로 바꿔 줘",
+      "elapsed_s": 0.001,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"gear\",\"action\":\"night_on\"}",
+      "usage": {
+        "prompt_tokens": 1351,
+        "completion_tokens": 18,
+        "total_tokens": 1369
+      },
+      "timings": {
+        "prompt_n": 1351,
+        "predicted_n": 18,
+        "mock": true
+      },
+      "verdict": [
+        "gear",
+        "night_on",
+        "validated_llm_map_action"
+      ]
+    },
+    {
+      "text": "베이스캠프까지 얼마나 남았어",
+      "elapsed_s": 0.001,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"route\",\"action\":\"route_basecamp\"}",
+      "usage": {
+        "prompt_tokens": 1354,
+        "completion_tokens": 20,
+        "total_tokens": 1374
+      },
+      "timings": {
+        "prompt_n": 1354,
+        "predicted_n": 20,
+        "mock": true
+      },
+      "verdict": [
+        "route",
+        "route_basecamp",
+        "validated_llm_map_action"
+      ]
+    },
+    {
+      "text": "이 상황에서 무엇을 먼저 살펴보면 좋을까",
+      "elapsed_s": 0.001,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"unknown\",\"action\":\"none\"}",
+      "usage": {
+        "prompt_tokens": 1357,
+        "completion_tokens": 18,
+        "total_tokens": 1375
+      },
+      "timings": {
+        "prompt_n": 1357,
+        "predicted_n": 18,
+        "mock": true
+      },
+      "verdict": [
+        "unknown",
+        null,
+        "llm_unknown"
+      ]
+    },
+    {
+      "text": "텐트 안에서 버너 켜도 될까",
+      "elapsed_s": 0.001,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"sleep_safety\",\"action\":\"none\"}",
+      "usage": {
+        "prompt_tokens": 1353,
+        "completion_tokens": 19,
+        "total_tokens": 1372
+      },
+      "timings": {
+        "prompt_n": 1353,
+        "predicted_n": 19,
+        "mock": true
+      },
+      "verdict": [
+        "unknown",
+        null,
+        "llm_life_label_blocked"
+      ]
+    },
+    {
+      "text": "야간 모드로 바꿔 줘",
+      "elapsed_s": 0.001,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"gear\",\"action\":\"night_on\"}",
+      "usage": {
+        "prompt_tokens": 1351,
+        "completion_tokens": 18,
+        "total_tokens": 1369
+      },
+      "timings": {
+        "prompt_n": 1351,
+        "predicted_n": 18,
+        "mock": true
+      },
+      "verdict": [
+        "gear",
+        "night_on",
+        "validated_llm_map_action"
+      ]
+    },
+    {
+      "text": "베이스캠프까지 얼마나 남았어",
+      "elapsed_s": 0.001,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"route\",\"action\":\"route_basecamp\"}",
+      "usage": {
+        "prompt_tokens": 1354,
+        "completion_tokens": 20,
+        "total_tokens": 1374
+      },
+      "timings": {
+        "prompt_n": 1354,
+        "predicted_n": 20,
+        "mock": true
+      },
+      "verdict": [
+        "route",
+        "route_basecamp",
+        "validated_llm_map_action"
+      ]
+    },
+    {
+      "text": "이 상황에서 무엇을 먼저 살펴보면 좋을까",
+      "elapsed_s": 0.001,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"unknown\",\"action\":\"none\"}",
+      "usage": {
+        "prompt_tokens": 1357,
+        "completion_tokens": 18,
+        "total_tokens": 1375
+      },
+      "timings": {
+        "prompt_n": 1357,
+        "predicted_n": 18,
+        "mock": true
+      },
+      "verdict": [
+        "unknown",
+        null,
+        "llm_unknown"
+      ]
+    },
+    {
+      "text": "텐트 안에서 버너 켜도 될까",
+      "elapsed_s": 0.001,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"sleep_safety\",\"action\":\"none\"}",
+      "usage": {
+        "prompt_tokens": 1353,
+        "completion_tokens": 19,
+        "total_tokens": 1372
+      },
+      "timings": {
+        "prompt_n": 1353,
+        "predicted_n": 19,
+        "mock": true
+      },
+      "verdict": [
+        "unknown",
+        null,
+        "llm_life_label_blocked"
+      ]
+    },
+    {
+      "text": "야간 모드로 바꿔 줘",
+      "elapsed_s": 0.001,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"gear\",\"action\":\"night_on\"}",
+      "usage": {
+        "prompt_tokens": 1351,
+        "completion_tokens": 18,
+        "total_tokens": 1369
+      },
+      "timings": {
+        "prompt_n": 1351,
+        "predicted_n": 18,
+        "mock": true
+      },
+      "verdict": [
+        "gear",
+        "night_on",
+        "validated_llm_map_action"
+      ]
+    },
+    {
+      "text": "베이스캠프까지 얼마나 남았어",
+      "elapsed_s": 0.001,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"route\",\"action\":\"route_basecamp\"}",
+      "usage": {
+        "prompt_tokens": 1354,
+        "completion_tokens": 20,
+        "total_tokens": 1374
+      },
+      "timings": {
+        "prompt_n": 1354,
+        "predicted_n": 20,
+        "mock": true
+      },
+      "verdict": [
+        "route",
+        "route_basecamp",
+        "validated_llm_map_action"
+      ]
+    },
+    {
+      "text": "이 상황에서 무엇을 먼저 살펴보면 좋을까",
+      "elapsed_s": 0.001,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"unknown\",\"action\":\"none\"}",
+      "usage": {
+        "prompt_tokens": 1357,
+        "completion_tokens": 18,
+        "total_tokens": 1375
+      },
+      "timings": {
+        "prompt_n": 1357,
+        "predicted_n": 18,
+        "mock": true
+      },
+      "verdict": [
+        "unknown",
+        null,
+        "llm_unknown"
+      ]
+    },
+    {
+      "text": "텐트 안에서 버너 켜도 될까",
+      "elapsed_s": 0.001,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"sleep_safety\",\"action\":\"none\"}",
+      "usage": {
+        "prompt_tokens": 1353,
+        "completion_tokens": 19,
+        "total_tokens": 1372
+      },
+      "timings": {
+        "prompt_n": 1353,
+        "predicted_n": 19,
+        "mock": true
+      },
+      "verdict": [
+        "unknown",
+        null,
+        "llm_life_label_blocked"
+      ]
+    }
+  ]
+}

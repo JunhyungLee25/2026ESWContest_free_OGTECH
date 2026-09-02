@@ -1,0 +1,11 @@
+config,model,backend,args,gate_pass,gate_total,ms_median,ms_max,ms_max_plus_tts,G1_accuracy,G2_worst_latency,G3_memory,mWh_per_query,ops_complexity,verdict,note
+base_cpu_vad,base,CPU,"-ng -ac 450 -bo 1 -bs 1 -nf --vad -vm silero -vp 30",6,6,1385,1495,1555,PASS,PASS,PASS,1.22,낮음,**선정**,최댓값 기준으로 예산을 통과한 유일한 구성. 편차폭 205ms
+base_cpu_vad_pad,base,CPU,"위 + -vp 200",6,6,1340,3446,3506,PASS,FAIL,PASS,1.63,낮음,기각,#3에서 38회 반복. 패딩이 무음을 재도입
+base_cpu_ac450nf,base,CPU,"-ng -ac 450 -bo 1 -bs 1 -nf",6,6,1244,3363,3423,PASS,FAIL,PASS,1.48,낮음,기각,중앙값 최고이나 무음 반복으로 tail 3363ms
+base_cpu_nf,base,CPU,"-ng -ac 600 -bo 1 -bs 1 -nf",6,6,1568,3786,3846,PASS,FAIL,PASS,1.86,낮음,기각,동일 문제
+base_cpu_noclk,base,CPU,"-ng -ac 600 -bo 1 -bs 1",6,6,1582,6452,6512,PASS,FAIL,PASS,2.31,낮음,기각,temperature fallback까지 겹쳐 tail 6452ms
+base_cpu_burst,base,CPU,"위 + jetson_clocks",6,6,1577,6794,6854,PASS,FAIL,PASS,2.35,**높음**,기각,클럭 고정 효과 0.3%. 운영 부담만 증가
+base_cpu_ac300,base,CPU,"-ng -ac 300 -bo 1 -bs 1",6,6,983,12602,12662,PASS,FAIL,PASS,4.64,낮음,기각,중앙값 최소이나 환각 2건. 컨텍스트 과소
+base_gpu_burst,base,GPU,"-ac 600 -bo 1 -bs 1",6,6,3805,26049,26109,PASS,FAIL,PASS,2.94,높음,기각,CUDA ctx init 1590ms 고정비. 지연 2.4배 에너지 1.27배
+small_cpu,small,CPU,"-ng -ac 600 -bo 1 -bs 1",6,6,5857,6290,6350,PASS,FAIL,PASS,5.37,낮음,기각,base 대비 3.7배 느린데 게이트 동일
+small_gpu,small,GPU,"-ac 600 -bo 1 -bs 1",6,6,4223,4506,4566,PASS,FAIL,PASS,2.79,높음,기각,전력값 오염(P2). 지연만으로도 탈락

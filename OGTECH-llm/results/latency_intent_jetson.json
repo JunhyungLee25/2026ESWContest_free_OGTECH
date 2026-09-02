@@ -1,0 +1,626 @@
+{
+  "version": 1,
+  "generated_at": "2026-08-30T08:57:15+00:00",
+  "llm": "http://127.0.0.1:8080/v1/chat/completions",
+  "evidence": "실제 llama-server 실측",
+  "prefix_tokens": 1549,
+  "prefix_chars": 2811,
+  "cold_warmup_s": 0.748,
+  "cold_warmup_ok": true,
+  "cold_usage": {
+    "completion_tokens": 12,
+    "prompt_tokens": 1703,
+    "total_tokens": 1715,
+    "prompt_tokens_details": {
+      "cached_tokens": 1686
+    }
+  },
+  "runs": 20,
+  "warm_max_s": 0.751,
+  "warm_median_s": 0.631,
+  "budget_s": 2.0,
+  "within_budget": true,
+  "errors": 0,
+  "samples": [
+    {
+      "text": "야간 모드로 바꿔 줘",
+      "elapsed_s": 0.641,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"gear\",\"action\":\"night_on\"}",
+      "usage": {
+        "completion_tokens": 12,
+        "prompt_tokens": 1709,
+        "total_tokens": 1721,
+        "prompt_tokens_details": {
+          "cached_tokens": 1686
+        }
+      },
+      "timings": {
+        "cache_n": 1686,
+        "prompt_n": 23,
+        "prompt_ms": 102.823,
+        "prompt_per_token_ms": 4.470565217391304,
+        "prompt_per_second": 223.68536222440505,
+        "predicted_n": 12,
+        "predicted_ms": 472.231,
+        "predicted_per_token_ms": 39.352583333333335,
+        "predicted_per_second": 25.411292354800935
+      },
+      "verdict": [
+        "gear",
+        "night_on",
+        "validated_llm_map_action"
+      ]
+    },
+    {
+      "text": "베이스캠프까지 얼마나 남았어",
+      "elapsed_s": 0.606,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"route\",\"action\":\"status\"}",
+      "usage": {
+        "completion_tokens": 11,
+        "prompt_tokens": 1711,
+        "total_tokens": 1722,
+        "prompt_tokens_details": {
+          "cached_tokens": 1686
+        }
+      },
+      "timings": {
+        "cache_n": 1686,
+        "prompt_n": 25,
+        "prompt_ms": 121.973,
+        "prompt_per_token_ms": 4.87892,
+        "prompt_per_second": 204.96339353791413,
+        "predicted_n": 11,
+        "predicted_ms": 419.179,
+        "predicted_per_token_ms": 38.107181818181814,
+        "predicted_per_second": 26.241772607883508
+      },
+      "verdict": [
+        "route",
+        "status",
+        "validated_llm_map_action"
+      ]
+    },
+    {
+      "text": "이 상황에서 무엇을 먼저 살펴보면 좋을까",
+      "elapsed_s": 0.611,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"unknown\",\"action\":\"none\"}",
+      "usage": {
+        "completion_tokens": 11,
+        "prompt_tokens": 1713,
+        "total_tokens": 1724,
+        "prompt_tokens_details": {
+          "cached_tokens": 1686
+        }
+      },
+      "timings": {
+        "cache_n": 1686,
+        "prompt_n": 27,
+        "prompt_ms": 122.851,
+        "prompt_per_token_ms": 4.550037037037037,
+        "prompt_per_second": 219.77843078200422,
+        "predicted_n": 11,
+        "predicted_ms": 425.957,
+        "predicted_per_token_ms": 38.723363636363636,
+        "predicted_per_second": 25.824202912500557
+      },
+      "verdict": [
+        "unknown",
+        null,
+        "llm_unknown"
+      ]
+    },
+    {
+      "text": "텐트 안에서 버너 켜도 될까",
+      "elapsed_s": 0.698,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"sleep_safety\",\"action\":\"none\"}",
+      "usage": {
+        "completion_tokens": 13,
+        "prompt_tokens": 1713,
+        "total_tokens": 1726,
+        "prompt_tokens_details": {
+          "cached_tokens": 1686
+        }
+      },
+      "timings": {
+        "cache_n": 1686,
+        "prompt_n": 27,
+        "prompt_ms": 121.376,
+        "prompt_per_token_ms": 4.4954074074074075,
+        "prompt_per_second": 222.44924861587137,
+        "predicted_n": 13,
+        "predicted_ms": 511.519,
+        "predicted_per_token_ms": 39.34761538461539,
+        "predicted_per_second": 25.414500732133117
+      },
+      "verdict": [
+        "unknown",
+        null,
+        "llm_life_label_blocked"
+      ]
+    },
+    {
+      "text": "야간 모드로 바꿔 줘",
+      "elapsed_s": 0.632,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"gear\",\"action\":\"night_on\"}",
+      "usage": {
+        "completion_tokens": 12,
+        "prompt_tokens": 1709,
+        "total_tokens": 1721,
+        "prompt_tokens_details": {
+          "cached_tokens": 1686
+        }
+      },
+      "timings": {
+        "cache_n": 1686,
+        "prompt_n": 23,
+        "prompt_ms": 101.424,
+        "prompt_per_token_ms": 4.409739130434783,
+        "prompt_per_second": 226.7707840353368,
+        "predicted_n": 12,
+        "predicted_ms": 465.02,
+        "predicted_per_token_ms": 38.751666666666665,
+        "predicted_per_second": 25.805341705733092
+      },
+      "verdict": [
+        "gear",
+        "night_on",
+        "validated_llm_map_action"
+      ]
+    },
+    {
+      "text": "베이스캠프까지 얼마나 남았어",
+      "elapsed_s": 0.614,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"route\",\"action\":\"status\"}",
+      "usage": {
+        "completion_tokens": 11,
+        "prompt_tokens": 1711,
+        "total_tokens": 1722,
+        "prompt_tokens_details": {
+          "cached_tokens": 1686
+        }
+      },
+      "timings": {
+        "cache_n": 1686,
+        "prompt_n": 25,
+        "prompt_ms": 120.959,
+        "prompt_per_token_ms": 4.83836,
+        "prompt_per_second": 206.68160285716647,
+        "predicted_n": 11,
+        "predicted_ms": 428.661,
+        "predicted_per_token_ms": 38.969181818181816,
+        "predicted_per_second": 25.66130345424473
+      },
+      "verdict": [
+        "route",
+        "status",
+        "validated_llm_map_action"
+      ]
+    },
+    {
+      "text": "이 상황에서 무엇을 먼저 살펴보면 좋을까",
+      "elapsed_s": 0.609,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"unknown\",\"action\":\"none\"}",
+      "usage": {
+        "completion_tokens": 11,
+        "prompt_tokens": 1713,
+        "total_tokens": 1724,
+        "prompt_tokens_details": {
+          "cached_tokens": 1686
+        }
+      },
+      "timings": {
+        "cache_n": 1686,
+        "prompt_n": 27,
+        "prompt_ms": 118.263,
+        "prompt_per_token_ms": 4.380111111111112,
+        "prompt_per_second": 228.30471068719714,
+        "predicted_n": 11,
+        "predicted_ms": 429.1,
+        "predicted_per_token_ms": 39.00909090909091,
+        "predicted_per_second": 25.63505010487066
+      },
+      "verdict": [
+        "unknown",
+        null,
+        "llm_unknown"
+      ]
+    },
+    {
+      "text": "텐트 안에서 버너 켜도 될까",
+      "elapsed_s": 0.69,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"sleep_safety\",\"action\":\"none\"}",
+      "usage": {
+        "completion_tokens": 13,
+        "prompt_tokens": 1713,
+        "total_tokens": 1726,
+        "prompt_tokens_details": {
+          "cached_tokens": 1686
+        }
+      },
+      "timings": {
+        "cache_n": 1686,
+        "prompt_n": 27,
+        "prompt_ms": 122.215,
+        "prompt_per_token_ms": 4.526481481481482,
+        "prompt_per_second": 220.92214539950086,
+        "predicted_n": 13,
+        "predicted_ms": 506.637,
+        "predicted_per_token_ms": 38.972076923076926,
+        "predicted_per_second": 25.659397162070675
+      },
+      "verdict": [
+        "unknown",
+        null,
+        "llm_life_label_blocked"
+      ]
+    },
+    {
+      "text": "야간 모드로 바꿔 줘",
+      "elapsed_s": 0.635,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"gear\",\"action\":\"night_on\"}",
+      "usage": {
+        "completion_tokens": 12,
+        "prompt_tokens": 1709,
+        "total_tokens": 1721,
+        "prompt_tokens_details": {
+          "cached_tokens": 1686
+        }
+      },
+      "timings": {
+        "cache_n": 1686,
+        "prompt_n": 23,
+        "prompt_ms": 103.238,
+        "prompt_per_token_ms": 4.488608695652174,
+        "prompt_per_second": 222.786183382088,
+        "predicted_n": 12,
+        "predicted_ms": 466.233,
+        "predicted_per_token_ms": 38.85275,
+        "predicted_per_second": 25.738203859443672
+      },
+      "verdict": [
+        "gear",
+        "night_on",
+        "validated_llm_map_action"
+      ]
+    },
+    {
+      "text": "베이스캠프까지 얼마나 남았어",
+      "elapsed_s": 0.604,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"route\",\"action\":\"status\"}",
+      "usage": {
+        "completion_tokens": 11,
+        "prompt_tokens": 1711,
+        "total_tokens": 1722,
+        "prompt_tokens_details": {
+          "cached_tokens": 1686
+        }
+      },
+      "timings": {
+        "cache_n": 1686,
+        "prompt_n": 25,
+        "prompt_ms": 116.86,
+        "prompt_per_token_ms": 4.6744,
+        "prompt_per_second": 213.93119972616805,
+        "predicted_n": 11,
+        "predicted_ms": 424.575,
+        "predicted_per_token_ms": 38.59772727272727,
+        "predicted_per_second": 25.908261202378853
+      },
+      "verdict": [
+        "route",
+        "status",
+        "validated_llm_map_action"
+      ]
+    },
+    {
+      "text": "이 상황에서 무엇을 먼저 살펴보면 좋을까",
+      "elapsed_s": 0.612,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"unknown\",\"action\":\"none\"}",
+      "usage": {
+        "completion_tokens": 11,
+        "prompt_tokens": 1713,
+        "total_tokens": 1724,
+        "prompt_tokens_details": {
+          "cached_tokens": 1686
+        }
+      },
+      "timings": {
+        "cache_n": 1686,
+        "prompt_n": 27,
+        "prompt_ms": 130.799,
+        "prompt_per_token_ms": 4.844407407407408,
+        "prompt_per_second": 206.42359651067667,
+        "predicted_n": 11,
+        "predicted_ms": 419.503,
+        "predicted_per_token_ms": 38.13663636363636,
+        "predicted_per_second": 26.221504971358964
+      },
+      "verdict": [
+        "unknown",
+        null,
+        "llm_unknown"
+      ]
+    },
+    {
+      "text": "텐트 안에서 버너 켜도 될까",
+      "elapsed_s": 0.691,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"sleep_safety\",\"action\":\"none\"}",
+      "usage": {
+        "completion_tokens": 13,
+        "prompt_tokens": 1713,
+        "total_tokens": 1726,
+        "prompt_tokens_details": {
+          "cached_tokens": 1686
+        }
+      },
+      "timings": {
+        "cache_n": 1686,
+        "prompt_n": 27,
+        "prompt_ms": 118.804,
+        "prompt_per_token_ms": 4.400148148148149,
+        "prompt_per_second": 227.26507524999158,
+        "predicted_n": 13,
+        "predicted_ms": 510.238,
+        "predicted_per_token_ms": 39.24907692307692,
+        "predicted_per_second": 25.478306202203676
+      },
+      "verdict": [
+        "unknown",
+        null,
+        "llm_life_label_blocked"
+      ]
+    },
+    {
+      "text": "야간 모드로 바꿔 줘",
+      "elapsed_s": 0.631,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"gear\",\"action\":\"night_on\"}",
+      "usage": {
+        "completion_tokens": 12,
+        "prompt_tokens": 1709,
+        "total_tokens": 1721,
+        "prompt_tokens_details": {
+          "cached_tokens": 1686
+        }
+      },
+      "timings": {
+        "cache_n": 1686,
+        "prompt_n": 23,
+        "prompt_ms": 105.509,
+        "prompt_per_token_ms": 4.5873478260869565,
+        "prompt_per_second": 217.99088229440142,
+        "predicted_n": 12,
+        "predicted_ms": 464.491,
+        "predicted_per_token_ms": 38.70758333333333,
+        "predicted_per_second": 25.834730920512992
+      },
+      "verdict": [
+        "gear",
+        "night_on",
+        "validated_llm_map_action"
+      ]
+    },
+    {
+      "text": "베이스캠프까지 얼마나 남았어",
+      "elapsed_s": 0.618,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"route\",\"action\":\"status\"}",
+      "usage": {
+        "completion_tokens": 11,
+        "prompt_tokens": 1711,
+        "total_tokens": 1722,
+        "prompt_tokens_details": {
+          "cached_tokens": 1686
+        }
+      },
+      "timings": {
+        "cache_n": 1686,
+        "prompt_n": 25,
+        "prompt_ms": 121.903,
+        "prompt_per_token_ms": 4.87612,
+        "prompt_per_second": 205.08108906261535,
+        "predicted_n": 11,
+        "predicted_ms": 434.621,
+        "predicted_per_token_ms": 39.510999999999996,
+        "predicted_per_second": 25.309407506770267
+      },
+      "verdict": [
+        "route",
+        "status",
+        "validated_llm_map_action"
+      ]
+    },
+    {
+      "text": "이 상황에서 무엇을 먼저 살펴보면 좋을까",
+      "elapsed_s": 0.657,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"unknown\",\"action\":\"none\"}",
+      "usage": {
+        "completion_tokens": 11,
+        "prompt_tokens": 1713,
+        "total_tokens": 1724,
+        "prompt_tokens_details": {
+          "cached_tokens": 1686
+        }
+      },
+      "timings": {
+        "cache_n": 1686,
+        "prompt_n": 27,
+        "prompt_ms": 135.26,
+        "prompt_per_token_ms": 5.00962962962963,
+        "prompt_per_second": 199.6155552269703,
+        "predicted_n": 11,
+        "predicted_ms": 453.503,
+        "predicted_per_token_ms": 41.22754545454546,
+        "predicted_per_second": 24.255627856927077
+      },
+      "verdict": [
+        "unknown",
+        null,
+        "llm_unknown"
+      ]
+    },
+    {
+      "text": "텐트 안에서 버너 켜도 될까",
+      "elapsed_s": 0.69,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"sleep_safety\",\"action\":\"none\"}",
+      "usage": {
+        "completion_tokens": 13,
+        "prompt_tokens": 1713,
+        "total_tokens": 1726,
+        "prompt_tokens_details": {
+          "cached_tokens": 1686
+        }
+      },
+      "timings": {
+        "cache_n": 1686,
+        "prompt_n": 27,
+        "prompt_ms": 118.961,
+        "prompt_per_token_ms": 4.405962962962963,
+        "prompt_per_second": 226.9651398357445,
+        "predicted_n": 13,
+        "predicted_ms": 506.287,
+        "predicted_per_token_ms": 38.94515384615384,
+        "predicted_per_second": 25.677135695761496
+      },
+      "verdict": [
+        "unknown",
+        null,
+        "llm_life_label_blocked"
+      ]
+    },
+    {
+      "text": "야간 모드로 바꿔 줘",
+      "elapsed_s": 0.751,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"gear\",\"action\":\"night_on\"}",
+      "usage": {
+        "completion_tokens": 12,
+        "prompt_tokens": 1709,
+        "total_tokens": 1721,
+        "prompt_tokens_details": {
+          "cached_tokens": 1686
+        }
+      },
+      "timings": {
+        "cache_n": 1686,
+        "prompt_n": 23,
+        "prompt_ms": 102.213,
+        "prompt_per_token_ms": 4.444043478260869,
+        "prompt_per_second": 225.0203007445237,
+        "predicted_n": 12,
+        "predicted_ms": 587.735,
+        "predicted_per_token_ms": 48.977916666666665,
+        "predicted_per_second": 20.417364968906053
+      },
+      "verdict": [
+        "gear",
+        "night_on",
+        "validated_llm_map_action"
+      ]
+    },
+    {
+      "text": "베이스캠프까지 얼마나 남았어",
+      "elapsed_s": 0.605,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"route\",\"action\":\"status\"}",
+      "usage": {
+        "completion_tokens": 11,
+        "prompt_tokens": 1711,
+        "total_tokens": 1722,
+        "prompt_tokens_details": {
+          "cached_tokens": 1686
+        }
+      },
+      "timings": {
+        "cache_n": 1686,
+        "prompt_n": 25,
+        "prompt_ms": 119.092,
+        "prompt_per_token_ms": 4.76368,
+        "prompt_per_second": 209.92174117489003,
+        "predicted_n": 11,
+        "predicted_ms": 424.117,
+        "predicted_per_token_ms": 38.55609090909091,
+        "predicted_per_second": 25.93623929245939
+      },
+      "verdict": [
+        "route",
+        "status",
+        "validated_llm_map_action"
+      ]
+    },
+    {
+      "text": "이 상황에서 무엇을 먼저 살펴보면 좋을까",
+      "elapsed_s": 0.6,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"unknown\",\"action\":\"none\"}",
+      "usage": {
+        "completion_tokens": 11,
+        "prompt_tokens": 1713,
+        "total_tokens": 1724,
+        "prompt_tokens_details": {
+          "cached_tokens": 1686
+        }
+      },
+      "timings": {
+        "cache_n": 1686,
+        "prompt_n": 27,
+        "prompt_ms": 121.124,
+        "prompt_per_token_ms": 4.486074074074074,
+        "prompt_per_second": 222.9120570654866,
+        "predicted_n": 11,
+        "predicted_ms": 418.094,
+        "predicted_per_token_ms": 38.008545454545455,
+        "predicted_per_second": 26.30987289939583
+      },
+      "verdict": [
+        "unknown",
+        null,
+        "llm_unknown"
+      ]
+    },
+    {
+      "text": "텐트 안에서 버너 켜도 될까",
+      "elapsed_s": 0.69,
+      "ok": true,
+      "raw": "{\"scenario_id\":\"sleep_safety\",\"action\":\"none\"}",
+      "usage": {
+        "completion_tokens": 13,
+        "prompt_tokens": 1713,
+        "total_tokens": 1726,
+        "prompt_tokens_details": {
+          "cached_tokens": 1686
+        }
+      },
+      "timings": {
+        "cache_n": 1686,
+        "prompt_n": 27,
+        "prompt_ms": 118.943,
+        "prompt_per_token_ms": 4.405296296296296,
+        "prompt_per_second": 226.9994871493068,
+        "predicted_n": 13,
+        "predicted_ms": 505.838,
+        "predicted_per_token_ms": 38.91061538461538,
+        "predicted_per_second": 25.69992764481909
+      },
+      "verdict": [
+        "unknown",
+        null,
+        "llm_life_label_blocked"
+      ]
+    }
+  ]
+}

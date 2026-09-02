@@ -1,0 +1,19 @@
+{
+  "name": "ogtech_intent",
+  "strict": true,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "scenario_id": {
+        "type": "string",
+        "enum": ["lost", "route", "daylight", "weather", "shelter", "warmth", "water", "food", "sleep_safety", "injury", "wildlife", "gear", "refuse", "unknown"]
+      },
+      "action": {
+        "type": "string",
+        "enum": ["none", "save_basecamp", "save_checkpoint", "route_basecamp", "route_destination", "route_last_checkpoint", "route_recent_trace", "clear_destination", "find_nearest_water", "confirm_destination", "reject_destination", "night_on", "night_off", "status", "cancel", "repeat_response"]
+      }
+    },
+    "required": ["scenario_id", "action"],
+    "additionalProperties": false
+  }
+}

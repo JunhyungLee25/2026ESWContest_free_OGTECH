@@ -1,0 +1,25 @@
+phase,label,dataset,model,backend,clocks,args,n,gate_pass,gate_total,ms_load_med,ms_encode_med,ms_total_med,ms_total_max,idle_mW,active_mW,peak_mW,mWh_per_query,cpu_temp_c,power_valid,note
+P1,baseline_cold,jfk_en_11s,small,GPU,off,"-fa -bo 5 -bs 5",1,,,3168.22,18173.26,22756.75,22756.75,,,,,,no,최초 실행. 클럭 미고정
+P1,after_jetson_clocks,jfk_en_11s,small,GPU,pinned,"-bo 1 -bs 1",1,,,,2932.86,10258.42,10258.42,,,,,,no,encode 18173->2933 (6.2x)
+P1,warm_run1,jfk_en_11s,small,GPU,pinned,"-bo 1 -bs 1",1,,,1882.76,2733.64,5223.13,5223.13,,,,,,no,
+P1,warm_run2,jfk_en_11s,small,GPU,pinned,"-bo 1 -bs 1",1,,,1894.88,2443.39,4922.97,4922.97,,,,,,no,load가 캐시로 안 줄어듦 -> CUDA ctx init
+P1,no_flash_attn,jfk_en_11s,small,GPU,pinned,"-bo 1 -bs 1 -nfa",1,,,1965.40,3284.77,6237.45,6237.45,,,,,,no,FA 끄니 느려짐. FA 유지 확정
+P1,audio_ctx_600,jfk_en_11s,small,GPU,pinned,"-bo 1 -bs 1 -ac 600",1,,,2006.46,2547.30,5180.52,5180.52,,,,,,no,GPU에서는 ac 효과 거의 없음
+P1,base_gpu,jfk_en_11s,base,GPU,pinned,"-bo 1 -bs 1 -ac 600",1,,,1669.55,2134.93,4172.19,4172.19,,,,,,no,파라미터 1/3인데 encode 13%만 감소
+P1,base_cpu,jfk_en_11s,base,CPU,pinned,"-bo 1 -bs 1 -ac 600 -ng",1,,,381.93,1305.15,2219.28,2219.28,,,,,,no,load 1895->382. CUDA ctx init 확정
+P2,base_cpu,ko_6utt,base,CPU,pinned,"-ng -ac 600 -bo 1 -bs 1",6,6,6,325.5,1286.5,1922,9531.58,4330,7490,8940,3.05,41.5,no,tegrastats 로그 누적. 전력 무효
+P2,small_cpu,ko_6utt,small,CPU,pinned,"-ng -ac 600 -bo 1 -bs 1",6,6,6,866.0,4376.9,5857,6289.80,4381,7388,8940,5.37,43.5,no,동일
+P2,base_gpu,ko_6utt,base,GPU,pinned,"-ac 600 -bo 1 -bs 1",6,6,6,1591.9,1990.2,3762,8139.92,4675,7005,10891,3.24,42.5,no,동일
+P2,small_gpu,ko_6utt,small,GPU,pinned,"-ac 600 -bo 1 -bs 1",6,6,6,1901.6,2105.6,4223,4505.84,4623,6702,10891,2.79,43.0,no,동일
+P2,base_cpu_clk,ko_6utt,base,CPU,pinned,"-ng -ac 600 -bo 1 -bs 1",6,6,6,364.3,1160.7,1774,8232.47,4588,6755,10891,1.92,44.0,no,jetson_clocks --restore 실패
+P3,base_cpu_noclk,ko_6utt,base,CPU,off,"-ng -ac 600 -bo 1 -bs 1",6,6,6,186.60,1204.87,1582,6452.13,4036,7149,8128,2.31,40.0,yes,대조군
+P3,base_cpu_burst,ko_6utt,base,CPU,burst,"-ng -ac 600 -bo 1 -bs 1",6,6,6,189.62,1183.74,1577,6794.40,4067,7164,8249,2.35,41.0,yes,noclk과 차이 0.3% = 노이즈
+P3,base_cpu_ac300,ko_6utt,base,CPU,burst,"-ng -ac 300 -bo 1 -bs 1",6,6,6,188.34,592.28,983,12602.26,4087,7556,8249,4.64,42.0,yes,환각 2건. tail 12.6s. 기각
+P3,base_gpu_burst,ko_6utt,base,GPU,burst,"-ac 600 -bo 1 -bs 1",6,6,6,1590.20,2065.72,3805,26049.17,4101,5415,11257,2.94,41.5,yes,순간전력은 낮으나 총에너지 큼
+P4,base_cpu_nf,ko_6utt,base,CPU,off,"-ng -ac 600 -bo 1 -bs 1 -nf",6,6,6,184.26,1190.49,1568,3785.85,4044,7063,8209,1.86,39.0,yes,#1 6452->3786. 개선되나 반복 루프 발생
+P4,base_cpu_ac450nf,ko_6utt,base,CPU,off,"-ng -ac 450 -bo 1 -bs 1 -nf",6,6,6,187.14,874.66,1244,3362.68,4089,6934,8087,1.48,39.0,yes,최적 후보. #5 오인식도 교정됨
+P5,diag_ko1_novad,ko_1_only,base,CPU,off,"-ng -ac 450 -bo 1 -bs 1 -nf",1,,,193.30,849.89,3263.08,3263.08,,,,,,no,진단용. decode 1820.97ms/219runs. fallbacks 0. 반복 루프 확정
+P5,diag_ko1_vad,ko_1_only,base,CPU,off,"-ng -ac 450 -bo 1 -bs 1 -nf --vad",1,,,191.32,722.10,1201.78,1201.78,,,,,,no,진단용. decode 41.63ms/5runs. VAD가 80000->18400 samples 77% 감소
+P5,diag_ko1_mc0sns,ko_1_only,base,CPU,off,"-ng -ac 450 -bo 1 -bs 1 -nf -mc 0 -sns",1,,,184.21,766.45,3250.04,3250.04,,,,,,no,진단용. decode 1851.71ms/219runs. 디코더측 완화책 무효
+P5,base_cpu_vad,ko_6utt,base,CPU,off,"-ng -ac 450 -bo 1 -bs 1 -nf --vad -vm silero-v5.1.2",6,6,6,179.87,916.46,1385,1495.19,4003,6634,7518,1.22,36.5,yes,**최종 선정.** tail 3363->1495 소멸. #4에서 물 탈락(게이트는 통과)
+P5,base_cpu_vad_pad,ko_6utt,base,CPU,off,"위 + -vp 200",6,6,6,182.99,863.85,1340,3445.92,4025,7009,8371,1.63,37.0,yes,기각. #4는 교정됐으나 #3에서 38회 반복. 패딩이 무음을 되돌림

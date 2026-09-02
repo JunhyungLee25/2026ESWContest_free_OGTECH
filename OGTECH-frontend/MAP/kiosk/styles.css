@@ -1,0 +1,629 @@
+/* OGTECH 시연용 지도 화면 — 7인치 1024x600 (169.5 PPI, 1mm = 6.675px)
+ *
+ * 물리 스케일 규칙 (AGENTS.md 6절)
+ *   터치 타깃 바닥 80px(12.0mm). 폭이 높이의 2배 이상인 넓은 컨트롤만 72px(10.8mm)
+ *   본문 텍스트 20px(3.0mm) 미만 금지. 15px는 스텐실 라벨 전용
+ *   상단 계기 스트립은 읽기 전용이라 터치 규격 예외
+ *
+ * 성능 규칙
+ *   backdrop-filter, 큰 blur 그림자, filter() 금지
+ *   깊이는 1px 하드 라인 + inset 하이라이트로만
+ *   애니메이션은 transform/opacity, 작은 요소에만
+ *   외부 폰트·CDN 없음
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* 색 규율 — 적색은 경고에만. 회색이 녹색을 빌려 쓰지 않습니다 */
+  --bg: #070a0a;
+  --panel: #101616;
+  --panel-raised: #151d1d;
+  --line: #354141;
+  --line-bright: #526262;
+  --muted: #9aa8a3;
+  --text: #eef5ef;
+
+  --cyan: #3fe3e3;   /* 계측 판독값 — 시각, 좌표, 거리, 방위 */
+  --amber: #f5b942;  /* 주의 — 기본 액션, 모의 데이터, 추정값 */
+  --green: #57d47b;  /* 실제 센서로 확인됨 */
+  --red: #ff5b58;    /* 경고 — 즉시 행동. 여기만 */
+  --grey: #6e7a77;   /* 데이터 없음 */
+
+  --map-bg: #0a0f0f;
+  --map-grid: #141c1c;
+  --map-contour: #1d2827;
+  --map-trail: #6d817e;   /* 야외 화면에서 읽히도록 대비를 올렸습니다 */
+}
+
+/* 야간 모드 — 적색 단색.
+   백색광은 암순응을 파괴하고 전력도 더 씁니다. */
+:root[data-night="on"] {
+  --bg: #060202;
+  --panel: #150707;
+  --panel-raised: #1d0909;
+  --line: #4a1414;
+  --line-bright: #6b1d1d;
+  --muted: #b06060;
+  --text: #ffbdbd;
+
+  --cyan: #ff8a8a;
+  --amber: #ff7a6a;
+  --green: #ff9a9a;
+  --red: #ff4d4d;
+  --grey: #7a3636;
+
+  --map-bg: #0a0303;
+  --map-grid: #1a0808;
+  --map-contour: #2a0d0d;
+  --map-trail: #6b2626;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: #000;
+  font-family: "Noto Sans KR", "Malgun Gothic", Arial, sans-serif;
+  color: var(--text);
+  overflow: hidden;
+}
+
+button { font: inherit; color: inherit; }
+
+.stencil {
+  margin: 0;
+  color: var(--muted);
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 15px;              /* 스텐실 라벨 전용 크기 */
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
+/* 개발 PC에서 실기와 같은 크기로 보기 위한 무대.
+   Jetson kiosk에서는 화면이 정확히 1024x600이라 여백이 사라집니다. */
+.stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  height: 100%;
+  padding: 16px;
+}
+
+.screen {
+  position: relative;
+  flex: 0 0 auto;
+  width: 1024px;
+  height: 600px;
+  display: grid;
+  grid-template-rows: 84px 1fr 96px;   /* 84 + 420 + 96 = 600 */
+  background: var(--bg);
+  border: 1px solid var(--line-bright);
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------------
+   상단 계기 스트립 — 글랜서블 4개
+   화면을 켠 순간 1초 안에 읽혀야 합니다.
+   --------------------------------------------------------------- */
+
+.strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) 210px;
+  align-items: stretch;
+  background: #0d1212;
+  border-bottom: 1px solid var(--line-bright);
+  box-shadow: inset 0 -2px 0 #050707;
+}
+
+:root[data-night="on"] .strip { background: #120505; }
+
+.glance {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  padding: 0 16px;
+  border-right: 1px solid var(--line);
+}
+
+.glance strong {
+  font-size: 30px;           /* 글랜서블 = 1초 판독. 본문보다 크게 */
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--cyan);
+}
+
+.glance .sub {
+  font-size: 15px;
+  font-family: Consolas, "Courier New", monospace;
+  color: var(--muted);
+  line-height: 1;
+}
+
+/* 상태별 색은 JS가 data-state로 지정합니다 */
+.glance[data-state="live"] strong  { color: var(--green); }
+.glance[data-state="caution"] strong { color: var(--amber); }
+.glance[data-state="warn"] strong  { color: var(--red); }
+.glance[data-state="none"] strong  { color: var(--grey); }
+.glance[data-state="none"] .sub    { color: var(--grey); }
+
+.glance-env { padding: 0 10px; border-right: 0; }
+.glance-env strong { font-size: 20px; }
+.glance-env .sub { font-size: 13px; white-space: nowrap; }
+
+.glance-location .location-meta {
+  display: grid;
+  gap: 2px;
+  line-height: 1.05;
+}
+
+.glance-coordinate strong,
+.glance-coordinate .sub {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--amber);
+}
+
+.glance-co {
+  padding: 0 10px;
+  border-right: 0;
+}
+
+.glance-co strong { font-size: 26px; }
+.glance-co .sub { font-size: 14px; white-space: nowrap; }
+
+/* ---------------------------------------------------------------
+   지도
+   --------------------------------------------------------------- */
+
+.map {
+  position: relative;
+  background: var(--map-bg);
+  overflow: hidden;
+}
+
+#mapCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.map-topline {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: calc(100% - 28px);
+  padding: 4px 6px;
+  background: rgba(7, 10, 10, 0.90);
+  border: 1px solid var(--line);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  text-shadow: 0 1px 0 #000;
+}
+
+#mapName {
+  max-width: 360px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.map.has-alert .map-topline { top: 76px; }
+
+.tag-offline,
+.tag-voice {
+  flex: 0 0 auto;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
+}
+
+.tag-offline {
+  color: var(--green);
+  border: 1px solid var(--green);
+}
+
+.tag-voice {
+  color: var(--cyan);
+  border: 1px solid var(--cyan);
+}
+
+.tag-voice[data-status="rejected"] {
+  color: var(--amber);
+  border-color: var(--amber);
+}
+
+.tag-voice[hidden] { display: none; }
+
+.tag-demo {
+  font-family: Consolas, monospace;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  color: var(--amber);
+  border: 1px solid var(--amber);
+  padding: 3px 8px;
+}
+
+.tag-demo[hidden] { display: none; }
+
+.sun-details {
+  position: absolute;
+  top: 48px;
+  left: 14px;
+  padding: 4px 8px;
+  background: rgba(7, 10, 10, 0.82);
+  border: 1px solid var(--line);
+  color: var(--cyan);
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.15;
+  display: grid;
+  gap: 4px;
+  max-width: calc(100% - 92px);
+}
+
+.position-details[data-state="live"] { color: var(--green); }
+.position-details[data-state="normal"] { color: var(--cyan); }
+.position-details[data-state="none"] { color: var(--muted); }
+
+.map.has-alert .sun-details { top: 112px; }
+
+/* 경고 배너 — 적색. 지도 상단을 가로지릅니다.
+   display:flex 가 UA의 [hidden]{display:none} 을 이기므로 명시적으로 되돌립니다. */
+.alert[hidden] { display: none; }
+
+.alert {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 18px;
+  background: #2a0b0b;
+  border-bottom: 2px solid var(--red);
+}
+
+.alert strong {
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--red);
+  line-height: 1;
+}
+
+/* 작은 요소만 opacity로 점멸시킵니다 */
+.alert-dot {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  background: var(--red);
+  animation: pulse 1.1s steps(1, end) infinite;
+}
+
+@keyframes pulse {
+  0%, 55% { opacity: 1; }
+  56%, 100% { opacity: 0.15; }
+}
+
+/* 방위·거리 판독 카드 — 지도 엔진 계산값.
+   위쪽은 경고 배너와 목적지 마커가 쓰는 자리라 아래로 내렸습니다.
+   마커는 지도 중앙대에 몰리므로 아래 띠가 가장 안전합니다. */
+.readout-card {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  width: 390px;
+  padding: 10px 14px 12px;
+  background: var(--panel-raised);
+  border: 1px solid var(--line-bright);
+  box-shadow: inset 0 1px 0 #26302f;
+}
+
+.readout-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.verified {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--green);
+  border: 1px solid var(--green);
+  padding: 2px 7px;
+}
+
+.readout-body {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.bearing, .distance {
+  font-family: Consolas, "Courier New", monospace;
+  font-weight: 800;
+  color: var(--cyan);
+  line-height: 1;
+}
+
+.bearing  { font-size: 40px; }
+.distance { font-size: 34px; }
+
+.readout-timing,
+.readout-sub {
+  margin: 8px 0 0;
+  font-size: 20px;
+  color: var(--muted);
+  line-height: 1.25;
+  display: grid;
+  gap: 2px;
+}
+
+/* 축척과 범례는 왼쪽 아래. 오른쪽 아래는 판독 카드가 씁니다 */
+.map-meta {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.scalebar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  font-family: Consolas, monospace;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  text-shadow: 0 1px 0 #000;
+}
+
+.scalebar i {
+  display: block;
+  height: 9px;
+  border: 1px solid var(--text);
+  border-top: 0;
+}
+
+.legend {
+  display: flex;
+  gap: 14px;
+  padding: 6px 10px;
+  background: rgba(7, 10, 10, 0.82);
+  border: 1px solid var(--line);
+}
+
+.legend span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.legend i { width: 13px; height: 13px; }
+.dot-current { background: var(--green); border-radius: 50%; }
+.dot-goal    { background: var(--cyan); }
+.dot-camp    { background: var(--amber); }
+
+.status-toast {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  min-width: 320px;
+  max-width: 620px;
+  padding: 12px 18px;
+  transform: translateX(-50%);
+  background: var(--panel-raised);
+  border: 1px solid var(--amber);
+  color: var(--text);
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.status-toast[hidden] { display: none; }
+
+.map.selecting { cursor: crosshair; }
+
+/* 부팅 시 한 번 반드시 읽는 작동 한계. 키보드 Escape나 배경 클릭으로 닫히지 않습니다. */
+.boot-notice {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.92);
+}
+
+.boot-notice[hidden] { display: none; }
+
+.boot-notice-card {
+  width: min(820px, calc(100vw - 48px));
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  padding: 19px 30px;
+  background: var(--panel-raised);
+  border: 2px solid var(--amber);
+  box-shadow: inset 0 0 0 1px #050707;
+}
+
+.boot-notice h1 {
+  margin: 8px 0 10px;
+  color: var(--amber);
+  font-size: 38px;
+  line-height: 1.15;
+}
+
+.boot-notice p {
+  margin: 0 0 10px;
+  font-size: 24px;
+  line-height: 1.45;
+}
+
+.boot-notice .boot-note {
+  color: var(--muted);
+  font-size: 20px;
+}
+
+.boot-diagnostics {
+  margin-top: 4px;
+}
+
+.boot-diagnostics ul {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.boot-diagnostics li {
+  min-height: 58px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  border: 1px solid var(--line);
+  background: #0b1010;
+  font-size: 20px;
+}
+
+.boot-diagnostics li strong { color: var(--grey); }
+.boot-diagnostics li small {
+  grid-column: 1 / -1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1.15;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.boot-diagnostics li[data-state="pass"] strong { color: var(--green); }
+.boot-diagnostics li[data-state="demo"] strong { color: var(--amber); }
+.boot-diagnostics li[data-state="fail"] strong { color: var(--red); }
+
+#bootAcknowledge {
+  width: 100%;
+  min-height: 96px;
+  margin-top: 10px;
+  padding: 12px 20px;
+  border: 1px solid var(--amber);
+  background: var(--amber);
+  color: var(--bg);
+  font-size: 24px;
+  font-weight: 800;
+}
+
+#bootAcknowledge:disabled {
+  border-color: var(--grey);
+  background: #111717;
+  color: var(--grey);
+}
+
+#bootAcknowledge:focus-visible {
+  outline: 3px solid var(--cyan);
+  outline-offset: 4px;
+}
+
+/* ---------------------------------------------------------------
+   하단 동작 바 — 96px = 14.4mm. 주요 동작 기준
+   --------------------------------------------------------------- */
+
+.actions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: #0d1212;
+  border-top: 1px solid var(--line-bright);
+}
+
+:root[data-night="on"] .actions { background: #120505; }
+
+.action {
+  min-height: 96px;             /* 12mm 바닥을 넘는 14.4mm */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: transparent;
+  border: 0;
+  border-right: 1px solid var(--line);
+  color: var(--amber);          /* 기본 액션은 앰버 */
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.action:last-child { border-right: 0; }
+
+.action .glyph { font-size: 30px; line-height: 1; }
+.action .label { font-size: 22px; font-weight: 700; line-height: 1; }
+
+.action:active { background: #182020; }
+
+.action[aria-pressed="true"] {
+  color: var(--bg);
+  background: var(--amber);
+}
+
+.action:focus-visible {
+  outline: 3px solid var(--cyan);
+  outline-offset: -6px;
+}
+
+/* ---------------------------------------------------------------
+   촬영 보조 패널 — 장치 UI가 아닙니다. 화면 밖에 있습니다
+   --------------------------------------------------------------- */
+
+.director {
+  flex: 0 0 auto;
+  width: 268px;
+  padding: 14px;
+  background: #0c1010;
+  border: 1px dashed var(--line-bright);
+  color: var(--muted);
+}
+
+.director[hidden] { display: none; }
+
+.director ol {
+  margin: 10px 0 0;
+  padding-left: 18px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.director b { color: var(--amber); font-family: Consolas, monospace; }
+.director em { color: var(--cyan); font-style: normal; }
+
+@media (max-width: 1360px) {
+  .director { display: none; }
+}

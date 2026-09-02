@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>OGTECH · 화면 선택</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* 7인치 1024x600 전용. 터치 타깃은 styles.css 규칙(바닥 80px)을 넘긴다. */
+    .select-screen {
+      width: 1024px;
+      height: 600px;
+      display: grid;
+      grid-template-rows: 96px 1fr 56px;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .select-head {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 28px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .select-mark {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--amber);
+      color: var(--amber);
+      font: 900 22px/1 Consolas, monospace;
+    }
+
+    .select-head h1 {
+      margin: 0;
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+
+    .select-head .stencil {
+      margin: 0 0 2px;
+      font: 700 15px/1 Consolas, monospace;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+
+    .select-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      padding: 20px 28px;
+    }
+
+    /* 카드 전체가 터치 타깃이다. 손가락이 어디에 닿아도 열린다. */
+    .select-card {
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      gap: 10px;
+      padding: 22px 24px;
+      border: 2px solid var(--line-bright);
+      background: var(--panel-raised);
+      color: inherit;
+      font: inherit;
+      text-align: left;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .select-card:active {
+      transform: translateY(1px);
+      border-color: var(--amber);
+    }
+
+    .select-card .stencil {
+      margin: 0;
+      font: 700 15px/1 Consolas, monospace;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+
+    .select-card strong {
+      font-size: 34px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .select-card .desc {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .select-card .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .select-card .tag {
+      padding: 5px 9px;
+      border: 1px solid currentColor;
+      font: 700 15px/1 Consolas, monospace;
+      letter-spacing: 0.08em;
+    }
+
+    .tag-live { color: var(--green); }
+    .tag-fixed { color: var(--amber); }
+    .tag-neutral { color: var(--muted); }
+
+    .card-product strong { color: var(--green); }
+    .card-video strong { color: var(--cyan); }
+
+    .select-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      border-top: 1px solid var(--line);
+      background: var(--panel);
+      font: 700 15px/1 Consolas, monospace;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <main class="select-screen" aria-label="OGTECH 화면 선택">
+      <header class="select-head">
+        <div class="select-mark" aria-hidden="true">OG</div>
+        <div>
+          <p class="stencil">OGTECH · SCREEN SELECT</p>
+          <h1>화면을 선택하세요</h1>
+        </div>
+      </header>
+
+      <div class="select-grid">
+        <a class="select-card card-product" href="/product/" id="linkProduct">
+          <p class="stencil">PRODUCT</p>
+          <strong>제품 화면</strong>
+          <p class="desc">STM32 실측 좌표·온습도·CO·배터리를 그대로 표시합니다. 목적지 저장과 음성 명령이 동작합니다.</p>
+          <div class="tags">
+            <span class="tag tag-live">좌표 실측</span>
+            <span class="tag tag-live">센서 실측</span>
+            <span class="tag tag-neutral">음성·웨이포인트</span>
+          </div>
+        </a>
+
+        <a class="select-card card-video" href="/video/?live=1" id="linkVideo">
+          <p class="stencil">FILMING</p>
+          <strong>촬영 화면</strong>
+          <p class="desc">공학관↔일감호 시연 시나리오를 재생합니다. 온습도·CO는 실측이고 좌표와 경로는 고정 시나리오입니다.</p>
+          <div class="tags">
+            <span class="tag tag-fixed">좌표 고정</span>
+            <span class="tag tag-live">센서 실측</span>
+            <span class="tag tag-neutral">A키 자동 재생</span>
+          </div>
+        </a>
+      </div>
+
+      <footer class="select-foot">
+        <span id="selectReturnHint">OGTECH · 오프라인 지도 엔진</span>
+        <span id="selectClock">----.--.-- --:-- KST</span>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    "use strict";
+    // 시각은 화면 안에서만 쓰는 표시값이다. RTC 판정은 제품 화면이 한다.
+    const clockFormatter = new Intl.DateTimeFormat("ko-KR", {
+      timeZone: "Asia/Seoul",
+      year: "numeric", month: "2-digit", day: "2-digit",
+      hour: "2-digit", minute: "2-digit", hour12: false,
+    });
+
+    function updateClock() {
+      const parts = Object.fromEntries(
+        clockFormatter.formatToParts(new Date()).map((part) => [part.type, part.value])
+      );
+      document.querySelector("#selectClock").textContent =
+        `${parts.year}.${parts.month}.${parts.day} ${parts.hour}:${parts.minute} KST`;
+    }
+
+    updateClock();
+    window.setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>

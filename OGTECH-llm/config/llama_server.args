@@ -1,0 +1,14 @@
+# llama-server 실행 옵션 — Co-LLM/docs/00_frozen_decisions.md §5 실행 옵션 그대로.
+# 한 줄에 옵션 하나. '#' 뒤는 주석. 모델 경로·별칭·포트는 runner/start_llama_server.sh가 환경변수로 붙인다.
+--flash-attn on
+--cache-type-k q8_0
+--cache-type-v q8_0
+--cache-reuse 256
+--mlock
+-b 128                 # Xavier NX 통합 메모리: 1,300 tok prefill의 512 배치가 CUDA 약 1 GB 추가 예약으로 OOM
+-ub 128
+--threads 6
+--parallel 1            # polish.mode=speak로 두 슬롯을 쓰면 2로 올리고 -c 4096
+-c 2048
+-ngl 99                 # LLM은 GPU (§5 실행 타깃 원칙). STT는 CPU(-ng)로 별도 프로세스
+--host 127.0.0.1

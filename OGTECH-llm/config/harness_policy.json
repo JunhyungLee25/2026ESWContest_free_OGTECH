@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "profile": "demo",
+  "llm": {
+    "url": "http://127.0.0.1:8080/v1/chat/completions",
+    "health_url": "http://127.0.0.1:8080/health",
+    "tokenize_url": "http://127.0.0.1:8080/tokenize",
+    "model": "qwen2.5-1.5b-instruct",
+    "timeout_s": 2.0,
+    "warmup_timeout_s": 20.0,
+    "temperature": 0.0,
+    "seed": 0,
+    "cache_prompt": true,
+    "intent_slot": 0,
+    "polish_slot": -1,
+    "warmup_on_start": true
+  },
+  "stt_lexicon": {
+    "enabled": true,
+    "file": "stt_lexicon.json"
+  },
+  "demo_rules": {
+    "enabled": true,
+    "file": "keyword_rules_demo.yaml"
+  },
+  "intent": {
+    "enabled": true,
+    "system_prompt_file": "system_prompt_ko.txt",
+    "fewshot_file": "fewshot_intent.jsonl",
+    "schema_file": "schema_intent.json",
+    "max_tokens": 32,
+    "max_utterance_chars": 240,
+    "allow_life_status_readout": false,
+    "allow_actions": [
+      "save_basecamp",
+      "save_checkpoint",
+      "route_basecamp",
+      "route_destination",
+      "route_last_checkpoint",
+      "route_recent_trace",
+      "clear_destination",
+      "find_nearest_water",
+      "confirm_destination",
+      "reject_destination",
+      "night_on",
+      "night_off",
+      "status",
+      "cancel"
+    ]
+  },
+  "polish": {
+    "mode": "off",
+    "system_prompt_file": "system_prompt_polish_ko.txt",
+    "schema_file": "schema_polish.json",
+    "forbidden_file": "polish_forbidden.json",
+    "max_tokens": 96,
+    "timeout_s": 1.5,
+    "device_state_max_tokens": 60,
+    "shadow_log": "results/polish_shadow.jsonl",
+    "mode_note": "shadow/speak은 llama-server --parallel 2 -c 4096 필요(slot 0의 intent 프리픽스 KV 캐시를 지우지 않도록). 시연 프로필은 off — 2026-08-30 결정"
+  }
+}

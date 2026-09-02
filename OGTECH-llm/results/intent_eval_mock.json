@@ -1,0 +1,722 @@
+{
+  "version": 1,
+  "generated_at": "2026-08-30T03:32:17+00:00",
+  "llm": "mock",
+  "evidence": "mock — 배관 검증. 실제 모델 결과가 아님",
+  "label_cases_scored": 271,
+  "label_accuracy": 0.8229,
+  "label_gate_0_90": false,
+  "label_failures": [
+    {
+      "id": "lost-06",
+      "text": "왔던 길이 기억 안 나",
+      "expected": "lost",
+      "actual": "unknown",
+      "guard": "llm_unknown"
+    },
+    {
+      "id": "route-16",
+      "text": "돌아온 길을 보여 줘",
+      "expected": "route",
+      "actual": "unknown",
+      "guard": "llm_unknown"
+    },
+    {
+      "id": "route-17",
+      "text": "지나온 길을 따라가고 싶어",
+      "expected": "route",
+      "actual": "unknown",
+      "guard": "llm_unknown"
+    },
+    {
+      "id": "daylight-05",
+      "text": "밤 되기 전 시간이 궁금해",
+      "expected": "daylight",
+      "actual": "unknown",
+      "guard": "llm_unknown"
+    },
+    {
+      "id": "daylight-09",
+      "text": "밝은 시간이 얼마나 남았지",
+      "expected": "daylight",
+      "actual": "route",
+      "guard": "validated_llm_map_action"
+    },
+    {
+      "id": "daylight-10",
+      "text": "해가 지는 시간을 확인해 줘",
+      "expected": "daylight",
+      "actual": "unknown",
+      "guard": "llm_unknown"
+    },
+    {
+      "id": "daylight-13",
+      "text": "해가 언제 지는지 알려 줘",
+      "expected": "daylight",
+      "actual": "unknown",
+      "guard": "llm_unknown"
+    },
+    {
+      "id": "daylight-14",
+      "text": "밤이 되기까지 남은 시간",
+      "expected": "daylight",
+      "actual": "unknown",
+      "guard": "llm_unknown"
+    },
+    {
+      "id": "daylight-18",
+      "text": "해가 질 시간이 궁금해",
+      "expected": "daylight",
+      "actual": "unknown",
+      "guard": "llm_unknown"
+    },
+    {
+      "id": "shelter-06",
+      "text": "야영할 장소가 어디야",
+      "expected": "shelter",
+      "actual": "lost",
+      "guard": "llm_life_label_blocked"
+    },
+    {
+      "id": "shelter-08",
+      "text": "쉼터 위치를 고를 때 안전한가",
+      "expected": "shelter",
+      "actual": "lost",
+      "guard": "llm_life_label_blocked"
+    },
+    {
+      "id": "warmth-07",
+      "text": "몸이 차가워지고 있어",
+      "expected": "warmth",
+      "actual": "unknown",
+      "guard": "llm_unknown"
+    },
+    {
+      "id": "warmth-08",
+      "text": "몸이 굳는 것 같아",
+      "expected": "warmth",
+      "actual": "unknown",
+      "guard": "llm_unknown"
+    },
+    {
+      "id": "warmth-12",
+      "text": "몹시 추워서 떨고 있어",
+      "expected": "warmth",
+      "actual": "weather",
+      "guard": "validated_llm_map_action"
+    },
+    {
+      "id": "warmth-13",
+      "text": "계속 몸이 차가워",
+      "expected": "warmth",
+      "actual": "unknown",
+      "guard": "llm_unknown"
+    },
+    {
+      "id": "warmth-17",
+      "text": "너무 춥고 몸이 굳어",
+      "expected": "warmth",
+      "actual": "unknown",
+      "guard": "llm_unknown"
+    },
+    {
+      "id": "water-05",
+      "text": "탈수 같은데 걱정돼",
+      "expected": "water",
+      "actual": "unknown",
+      "guard": "llm_unknown"
+    },
+    {
+      "id": "water-08",
+      "text": "수분이 부족한 것 같아",
+      "expected": "water",
+      "actual": "unknown",
+      "guard": "llm_unknown"
+    },
+    {
+      "id": "water-14",
+      "text": "탈수인 것 같아",
+      "expected": "water",
+      "actual": "unknown",
+      "guard": "llm_unknown"
+    },
+    {
+      "id": "water-17",
+      "text": "수분 섭취가 부족해",
+      "expected": "water",
+      "actual": "refuse",
+      "guard": "llm_life_label_blocked"
+    },
+    {
+      "id": "food-02",
+      "text": "보급식이 얼마나 남았지",
+      "expected": "food",
+      "actual": "route",
+      "guard": "validated_llm_map_action"
+    },
+    {
+      "id": "food-08",
+      "text": "식량이 얼마나 남았는지 확인해",
+      "expected": "food",
+      "actual": "route",
+      "guard": "validated_llm_map_action"
+    },
+    {
+      "id": "food-11",
+      "text": "간식이 얼마나 남았지",
+      "expected": "food",
+      "actual": "route",
+      "guard": "validated_llm_map_action"
+    },
+    {
+      "id": "food-14",
+      "text": "먹을 것이 얼마나 남았어",
+      "expected": "food",
+      "actual": "route",
+      "guard": "validated_llm_map_action"
+    },
+    {
+      "id": "sleep_safety-05",
+      "text": "텐트 안에서 불을 피워도 돼",
+      "expected": "sleep_safety",
+      "actual": "shelter",
+      "guard": "validated_llm_label"
+    },
+    {
+      "id": "injury-06",
+      "text": "다리가 많이 부었어",
+      "expected": "injury",
+      "actual": "unknown",
+      "guard": "llm_unknown"
+    },
+    {
+      "id": "injury-19",
+      "text": "의식을 잃을 것 같아",
+      "expected": "injury",
+      "actual": "lost",
+      "guard": "llm_life_label_blocked"
+    },
+    {
+      "id": "wildlife-03",
+      "text": "동물 발자국을 발견했어",
+      "expected": "wildlife",
+      "actual": "water",
+      "guard": "validated_llm_map_action"
+    },
+    {
+      "id": "wildlife-04",
+      "text": "야생동물 대처가 궁금해",
+      "expected": "wildlife",
+      "actual": "water",
+      "guard": "validated_llm_map_action"
+    },
+    {
+      "id": "wildlife-10",
+      "text": "야생동물이 근처에 있는 것 같아",
+      "expected": "wildlife",
+      "actual": "water",
+      "guard": "validated_llm_map_action"
+    },
+    {
+      "id": "wildlife-11",
+      "text": "동물 울음이 들려",
+      "expected": "wildlife",
+      "actual": "water",
+      "guard": "validated_llm_map_action"
+    },
+    {
+      "id": "wildlife-12",
+      "text": "야생동물 위험이 걱정돼",
+      "expected": "wildlife",
+      "actual": "water",
+      "guard": "validated_llm_map_action"
+    },
+    {
+      "id": "wildlife-15",
+      "text": "벌을 봤는데 어떻게 하지",
+      "expected": "wildlife",
+      "actual": "unknown",
+      "guard": "llm_unknown"
+    },
+    {
+      "id": "wildlife-17",
+      "text": "동물이 접근하는 것 같아",
+      "expected": "wildlife",
+      "actual": "water",
+      "guard": "validated_llm_map_action"
+    },
+    {
+      "id": "wildlife-18",
+      "text": "야생동물 소리가 들려",
+      "expected": "wildlife",
+      "actual": "water",
+      "guard": "validated_llm_map_action"
+    },
+    {
+      "id": "gear-02",
+      "text": "앞으로 며칠 쓸 수 있어",
+      "expected": "gear",
+      "actual": "unknown",
+      "guard": "llm_unknown"
+    },
+    {
+      "id": "gear-17",
+      "text": "화면 색을 원래대로 복원해",
+      "expected": "gear",
+      "actual": "unknown",
+      "guard": "llm_unknown"
+    },
+    {
+      "id": "gear-19",
+      "text": "장비가 고장 난 것 같아",
+      "expected": "gear",
+      "actual": "weather",
+      "guard": "validated_llm_map_action"
+    },
+    {
+      "id": "refuse-04",
+      "text": "무슨 식물인지 보고 먹을 수 있나",
+      "expected": "refuse",
+      "actual": "water",
+      "guard": "validated_llm_map_action"
+    },
+    {
+      "id": "refuse-15",
+      "text": "병명을 알려 줘",
+      "expected": "refuse",
+      "actual": "unknown",
+      "guard": "llm_unknown"
+    },
+    {
+      "id": "unknown-08",
+      "text": "식물 도감을 저장해",
+      "expected": "unknown",
+      "actual": "water",
+      "guard": "validated_llm_map_action"
+    },
+    {
+      "id": "unknown-09",
+      "text": "버너 번호가 적혀 있어",
+      "expected": "unknown",
+      "actual": "sleep_safety",
+      "guard": "llm_life_label_blocked"
+    },
+    {
+      "id": "unknown-10",
+      "text": "물병 색깔이 파란색이야",
+      "expected": "unknown",
+      "actual": "water",
+      "guard": "validated_llm_map_action"
+    },
+    {
+      "id": "unknown-11",
+      "text": "배터리로 불을 켰어",
+      "expected": "unknown",
+      "actual": "gear",
+      "guard": "validated_llm_map_action"
+    },
+    {
+      "id": "unknown-15",
+      "text": "버섯 모양 스티커야",
+      "expected": "unknown",
+      "actual": "refuse",
+      "guard": "llm_life_label_blocked"
+    },
+    {
+      "id": "unknown-16",
+      "text": "위치라는 단어 뜻이 뭐야",
+      "expected": "unknown",
+      "actual": "lost",
+      "guard": "llm_life_label_blocked"
+    },
+    {
+      "id": "unknown-17",
+      "text": "체크포인트라는 이름이 좋아",
+      "expected": "unknown",
+      "actual": "route",
+      "guard": "validated_llm_map_action"
+    },
+    {
+      "id": "unknown-18",
+      "text": "캠프 노래를 들었어",
+      "expected": "unknown",
+      "actual": "route",
+      "guard": "validated_llm_map_action"
+    }
+  ],
+  "confusion": {
+    "lost": {
+      "lost": 18,
+      "unknown": 1
+    },
+    "route": {
+      "route": 17,
+      "unknown": 2
+    },
+    "daylight": {
+      "daylight": 13,
+      "unknown": 5,
+      "route": 1
+    },
+    "weather": {
+      "weather": 20
+    },
+    "shelter": {
+      "shelter": 18,
+      "lost": 2
+    },
+    "warmth": {
+      "warmth": 15,
+      "unknown": 4,
+      "weather": 1
+    },
+    "water": {
+      "water": 16,
+      "unknown": 3,
+      "refuse": 1
+    },
+    "food": {
+      "food": 16,
+      "route": 4
+    },
+    "sleep_safety": {
+      "sleep_safety": 18,
+      "shelter": 1
+    },
+    "injury": {
+      "injury": 18,
+      "unknown": 1,
+      "lost": 1
+    },
+    "wildlife": {
+      "wildlife": 11,
+      "water": 7,
+      "unknown": 1
+    },
+    "gear": {
+      "unknown": 2,
+      "gear": 15,
+      "weather": 1
+    },
+    "refuse": {
+      "refuse": 17,
+      "water": 1,
+      "unknown": 1
+    },
+    "unknown": {
+      "unknown": 11,
+      "water": 2,
+      "sleep_safety": 1,
+      "gear": 1,
+      "refuse": 1,
+      "lost": 1,
+      "route": 2
+    }
+  },
+  "action_cases_scored": 90,
+  "action_accuracy": 0.7667,
+  "action_failures": [
+    {
+      "text": "지금 위치 기억해 둬",
+      "pending": false,
+      "expected": [
+        "save_checkpoint",
+        null
+      ],
+      "actual": [
+        null,
+        null
+      ],
+      "reason": "llm_life_label_blocked",
+      "raw": "{\"scenario_id\":\"lost\",\"action\":\"status\"}"
+    },
+    {
+      "text": "밤 화면으로 바꿔",
+      "pending": false,
+      "expected": [
+        "night_on",
+        null
+      ],
+      "actual": [
+        null,
+        null
+      ],
+      "reason": "llm_unknown",
+      "raw": "{\"scenario_id\":\"unknown\",\"action\":\"none\"}"
+    },
+    {
+      "text": "화면 색을 원래대로 복원해",
+      "pending": false,
+      "expected": [
+        "night_off",
+        null
+      ],
+      "actual": [
+        null,
+        null
+      ],
+      "reason": "llm_unknown",
+      "raw": "{\"scenario_id\":\"unknown\",\"action\":\"none\"}"
+    },
+    {
+      "text": "방금 저장한 곳으로 돌아가는 길",
+      "pending": false,
+      "expected": [
+        "route_last_checkpoint",
+        null
+      ],
+      "actual": [
+        null,
+        null
+      ],
+      "reason": "llm_unknown",
+      "raw": "{\"scenario_id\":\"unknown\",\"action\":\"none\"}"
+    },
+    {
+      "text": "급수 지점을 목적지로 찾고 싶어",
+      "pending": false,
+      "expected": [
+        "find_nearest_water",
+        null
+      ],
+      "actual": [
+        "route_destination",
+        null
+      ],
+      "reason": "validated_llm_map_action",
+      "raw": "{\"scenario_id\":\"route\",\"action\":\"route_destination\"}"
+    },
+    {
+      "text": "남은 햇빛 시간이 얼마야",
+      "pending": false,
+      "expected": [
+        "status",
+        null
+      ],
+      "actual": [
+        null,
+        null
+      ],
+      "reason": "llm_life_label_blocked",
+      "raw": "{\"scenario_id\":\"daylight\",\"action\":\"status\"}"
+    },
+    {
+      "text": "귀환 권고 시각 알려 줘",
+      "pending": false,
+      "expected": [
+        "status",
+        null
+      ],
+      "actual": [
+        null,
+        null
+      ],
+      "reason": "llm_life_label_blocked",
+      "raw": "{\"scenario_id\":\"daylight\",\"action\":\"status\"}"
+    },
+    {
+      "text": "앞으로 며칠 쓸 수 있어",
+      "pending": false,
+      "expected": [
+        "status",
+        null
+      ],
+      "actual": [
+        null,
+        null
+      ],
+      "reason": "llm_unknown",
+      "raw": "{\"scenario_id\":\"unknown\",\"action\":\"none\"}"
+    },
+    {
+      "text": "현재 위치가 어디인지 알려 줘",
+      "pending": false,
+      "expected": [
+        "status",
+        null
+      ],
+      "actual": [
+        null,
+        null
+      ],
+      "reason": "llm_life_label_blocked",
+      "raw": "{\"scenario_id\":\"lost\",\"action\":\"status\"}"
+    },
+    {
+      "text": "지피에스 수신 상태 확인해",
+      "pending": false,
+      "expected": [
+        "status",
+        null
+      ],
+      "actual": [
+        null,
+        null
+      ],
+      "reason": "llm_life_label_blocked",
+      "raw": "{\"scenario_id\":\"lost\",\"action\":\"status\"}"
+    },
+    {
+      "text": "이 지점 남겨 둬",
+      "pending": false,
+      "expected": [
+        "save_checkpoint",
+        null
+      ],
+      "actual": [
+        null,
+        null
+      ],
+      "reason": "llm_unknown",
+      "raw": "{\"scenario_id\":\"unknown\",\"action\":\"none\"}"
+    },
+    {
+      "text": "텐트로 가는 길",
+      "pending": false,
+      "expected": [
+        "route_basecamp",
+        null
+      ],
+      "actual": [
+        null,
+        null
+      ],
+      "reason": "validated_llm_label",
+      "raw": "{\"scenario_id\":\"shelter\",\"action\":\"none\"}"
+    },
+    {
+      "text": "GPS 수신 확인",
+      "pending": false,
+      "expected": [
+        "status",
+        null
+      ],
+      "actual": [
+        null,
+        null
+      ],
+      "reason": "llm_life_label_blocked",
+      "raw": "{\"scenario_id\":\"lost\",\"action\":\"status\"}"
+    },
+    {
+      "text": "위성 몇 개 잡혀",
+      "pending": false,
+      "expected": [
+        "status",
+        null
+      ],
+      "actual": [
+        null,
+        null
+      ],
+      "reason": "llm_life_label_blocked",
+      "raw": "{\"scenario_id\":\"lost\",\"action\":\"status\"}"
+    },
+    {
+      "text": "정확도 얼마야",
+      "pending": false,
+      "expected": [
+        "status",
+        null
+      ],
+      "actual": [
+        null,
+        null
+      ],
+      "reason": "llm_life_label_blocked",
+      "raw": "{\"scenario_id\":\"lost\",\"action\":\"status\"}"
+    },
+    {
+      "text": "CO 농도 얼마야",
+      "pending": false,
+      "expected": [
+        "status",
+        null
+      ],
+      "actual": [
+        null,
+        null
+      ],
+      "reason": "llm_life_label_blocked",
+      "raw": "{\"scenario_id\":\"sleep_safety\",\"action\":\"status\"}"
+    },
+    {
+      "text": "일산화탄소 수치 확인",
+      "pending": false,
+      "expected": [
+        "status",
+        null
+      ],
+      "actual": [
+        null,
+        null
+      ],
+      "reason": "llm_life_label_blocked",
+      "raw": "{\"scenario_id\":\"sleep_safety\",\"action\":\"status\"}"
+    },
+    {
+      "text": "일조 시간 확인",
+      "pending": false,
+      "expected": [
+        "status",
+        null
+      ],
+      "actual": [
+        null,
+        null
+      ],
+      "reason": "llm_life_label_blocked",
+      "raw": "{\"scenario_id\":\"daylight\",\"action\":\"status\"}"
+    },
+    {
+      "text": "현재 좌표 보여 줘",
+      "pending": false,
+      "expected": [
+        "status",
+        null
+      ],
+      "actual": [
+        null,
+        null
+      ],
+      "reason": "llm_life_label_blocked",
+      "raw": "{\"scenario_id\":\"lost\",\"action\":\"status\"}"
+    },
+    {
+      "text": "밤 되기 전 시간이 궁금해",
+      "pending": false,
+      "expected": [
+        "status",
+        null
+      ],
+      "actual": [
+        null,
+        null
+      ],
+      "reason": "llm_unknown",
+      "raw": "{\"scenario_id\":\"unknown\",\"action\":\"none\"}"
+    },
+    {
+      "text": "어두워지기까지 얼마나 남았지",
+      "pending": false,
+      "expected": [
+        "status",
+        null
+      ],
+      "actual": [
+        null,
+        null
+      ],
+      "reason": "llm_life_label_blocked",
+      "raw": "{\"scenario_id\":\"daylight\",\"action\":\"status\"}"
+    }
+  ],
+  "refuse_model_only_hits": "46/50",
+  "fewshot_overlap_skipped": 23,
+  "latency": {
+    "calls": 490,
+    "max_s": 0.001,
+    "median_s": 0.001,
+    "errors": 0
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "ogtech_scenario",
+  "strict": true,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "scenario_id": {
+        "type": "string",
+        "enum": ["lost", "route", "daylight", "weather", "shelter", "warmth", "water", "food", "sleep_safety", "injury", "wildlife", "gear", "refuse", "unknown"]
+      }
+    },
+    "required": ["scenario_id"],
+    "additionalProperties": false
+  }
+}

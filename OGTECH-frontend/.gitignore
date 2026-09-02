@@ -1,0 +1,22 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+.env.*
+!.env.example
+!.env.sample
+.venv/
+venv/
+.vscode/settings.json
+.idea/
+Thumbs.db
+desktop.ini
+*.swp
+
+# 로컬 전용 산출물 — legacy/ 로 보관하고 커밋하지 않음
+MAP/videos/
+MAP/test-results/
+MAP/kiosk/video_app (*).js
+
+# 로컬 전용 — 커밋하지 않음(규칙은 MAP/jetson/local/RULES.md)
+MAP/jetson/local/

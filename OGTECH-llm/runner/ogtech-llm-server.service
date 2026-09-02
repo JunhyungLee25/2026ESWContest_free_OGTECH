@@ -1,0 +1,19 @@
+[Unit]
+Description=OGTECH llama-server (Qwen2.5 1.5B Q4_K_M, 의도 분류 전용)
+After=network.target
+# 음성 데몬이 이 서비스를 Requires로 걸지 않는다 — LLM이 죽어도 고정 카드 폴백으로 동작해야 한다(경로 B).
+
+[Service]
+Type=simple
+User=kit
+WorkingDirectory=/home/kit/ogtech/OGTECH-llm
+EnvironmentFile=-/etc/ogtech/llm.env
+ExecStart=/usr/bin/env bash /home/kit/ogtech/OGTECH-llm/runner/start_llama_server.sh --foreground
+# health가 준비될 때까지 기다린 뒤 프리픽스를 KV 캐시에 올린다. 실패를 숨기지 않아 cold 첫 요청을 막는다.
+ExecStartPost=/home/kit/ogtech/OGTECH-llm/runner/warmup_llm.sh
+Restart=on-failure
+RestartSec=3
+LimitMEMLOCK=infinity
+
+[Install]
+WantedBy=multi-user.target

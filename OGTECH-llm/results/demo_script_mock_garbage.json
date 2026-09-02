@@ -1,0 +1,1054 @@
+{
+  "version": 1,
+  "generated_at": "2026-08-30T04:00:16+00:00",
+  "llm": "mock:garbage",
+  "evidence": "mock 또는 LLM 없음 — 배관 검증. 실제 모델 결과가 아님",
+  "runs": 1,
+  "reproducible": true,
+  "turns": 11,
+  "variants": 66,
+  "passed_turns": 11,
+  "failures": [],
+  "llm_calls_on_canonical": 0,
+  "observed_rule_defects": [
+    {
+      "worklog": 25,
+      "text": "일몰까지 약 몇 분 남았어",
+      "expected_after_fix": "daylight",
+      "assert": true,
+      "fixed_on": "2026-08-30",
+      "actual": [
+        "daylight",
+        "status",
+        null
+      ],
+      "reason": "map_enum_action",
+      "ok": true
+    },
+    {
+      "worklog": 25,
+      "text": "약수터까지 얼마나 걸려",
+      "expected_after_fix": "route",
+      "assert": true,
+      "fixed_on": "2026-08-30",
+      "actual": [
+        "route",
+        "status",
+        null
+      ],
+      "reason": "map_enum_action",
+      "ok": true
+    },
+    {
+      "worklog": 26,
+      "text": "지금 너무 추워 저체온증 같아",
+      "expected_after_fix": "warmth",
+      "assert": true,
+      "fixed_on": "2026-08-30",
+      "actual": [
+        "warmth",
+        null,
+        null
+      ],
+      "reason": "single_scenario",
+      "ok": true
+    },
+    {
+      "worklog": 27,
+      "text": "야영지는 여기로 설정해 줘",
+      "pending": true,
+      "expected_after_fix": "save_basecamp",
+      "assert": true,
+      "fixed_on": "2026-08-30",
+      "actual": [
+        "route",
+        "save_basecamp",
+        null
+      ],
+      "reason": "map_enum_action",
+      "ok": true
+    },
+    {
+      "worklog": "daylight-해야",
+      "text": "지금 뭘 해야 하지",
+      "expected_after_fix": "llm_required",
+      "assert": true,
+      "fixed_on": "2026-08-30",
+      "actual": [
+        "unknown",
+        null,
+        null
+      ],
+      "reason": "no_rule_match",
+      "ok": true
+    }
+  ],
+  "rows": [
+    {
+      "id": "D01",
+      "utterance": "여기를 베이스캠프로 저장해 줘",
+      "stage": "rule",
+      "reason": "map_enum_action",
+      "scenario_id": "route",
+      "map_action": "save_basecamp",
+      "assistant_action": null,
+      "source_id": "SAFE-MAP-SAVE_BASECAMP",
+      "speech": "현재 GPS 위치를 베이스캠프로 저장했습니다.",
+      "ok": true,
+      "variants": [
+        {
+          "text": "여기 베이스 캠프로 저장해줘",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "route",
+            "save_basecamp",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "여기를 베이스캠프로 저장해",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "route",
+            "save_basecamp",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "현재 위치를 베이스캠프로 등록해",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "route",
+            "save_basecamp",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "이곳을 베이스캠프로 저장해 주세요",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "route",
+            "save_basecamp",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "베이스캠프 여기로 해 줘",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "route",
+            "save_basecamp",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "여기 베이스캠프로 찍어 줘",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "route",
+            "save_basecamp",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "베이스캠프 저장",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "route",
+            "save_basecamp",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "여기를 야영지로 저장해 줘",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "route",
+            "save_basecamp",
+            null
+          ],
+          "ok": true
+        }
+      ],
+      "observe": [
+        {
+          "text": "여기가 베이스캠프로 적당하겠는걸",
+          "stage": "llm",
+          "reason": "classifier_failed_no_retry",
+          "decision": [
+            "unknown",
+            null,
+            null
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D02",
+      "utterance": "아 너무 목마른데",
+      "stage": "rule",
+      "reason": "map_enum_action",
+      "scenario_id": "water",
+      "map_action": "find_nearest_water",
+      "assistant_action": null,
+      "source_id": "SAFE-MAP-FIND_NEAREST_WATER",
+      "speech": "가장 가까운 검수 수원 표식을 찾았습니다. 수질은 확인되지 않았습니다. 이 위치를 목적지로 지정할까요?",
+      "ok": true,
+      "variants": [
+        {
+          "text": "너무 목말라",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "water",
+            "find_nearest_water",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "아 목마르다",
+          "stage": "overlay",
+          "reason": "demo_overlay:map_enum_action",
+          "decision": [
+            "water",
+            "find_nearest_water",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "목이 너무 마른데",
+          "stage": "overlay",
+          "reason": "demo_overlay:map_enum_action",
+          "decision": [
+            "water",
+            "find_nearest_water",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "물 마실 곳 어디 있어",
+          "stage": "overlay",
+          "reason": "demo_overlay:map_enum_action",
+          "decision": [
+            "water",
+            "find_nearest_water",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "근처에 물 있어",
+          "stage": "overlay",
+          "reason": "demo_overlay:map_enum_action",
+          "decision": [
+            "water",
+            "find_nearest_water",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "가까운 물 있는 곳 찾아 줘",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "water",
+            "find_nearest_water",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "물 좀 찾아 줘",
+          "stage": "overlay",
+          "reason": "demo_overlay:map_enum_action",
+          "decision": [
+            "water",
+            "find_nearest_water",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "주변에 호수 있어",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "water",
+            "find_nearest_water",
+            null
+          ],
+          "ok": true
+        }
+      ],
+      "observe": [
+        {
+          "text": "근처 계곡물 마셔도 돼",
+          "stage": "rule",
+          "reason": "single_scenario",
+          "decision": [
+            "water",
+            null,
+            null
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D03",
+      "utterance": "네",
+      "stage": "rule",
+      "reason": "confirmation_yes",
+      "scenario_id": "route",
+      "map_action": "confirm_destination",
+      "assistant_action": null,
+      "source_id": "SAFE-MAP-CONFIRM_DESTINATION",
+      "speech": "네, 목적지로 설정되었습니다.",
+      "ok": true,
+      "variants": [
+        {
+          "text": "응",
+          "stage": "rule",
+          "reason": "confirmation_yes",
+          "decision": [
+            "route",
+            "confirm_destination",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "예",
+          "stage": "rule",
+          "reason": "confirmation_yes",
+          "decision": [
+            "route",
+            "confirm_destination",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "네 설정해 줘",
+          "stage": "rule",
+          "reason": "confirmation_yes",
+          "decision": [
+            "route",
+            "confirm_destination",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "그래 거기로 해 줘",
+          "stage": "rule",
+          "reason": "confirmation_yes",
+          "decision": [
+            "route",
+            "confirm_destination",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "좋아",
+          "stage": "rule",
+          "reason": "confirmation_yes",
+          "decision": [
+            "route",
+            "confirm_destination",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "네 목적지로 해 줘",
+          "stage": "rule",
+          "reason": "confirmation_yes",
+          "decision": [
+            "route",
+            "confirm_destination",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "그렇게 해 줘",
+          "stage": "overlay",
+          "reason": "demo_overlay:confirmation_yes",
+          "decision": [
+            "route",
+            "confirm_destination",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "거기로 지정해 줘",
+          "stage": "rule",
+          "reason": "confirmation_yes",
+          "decision": [
+            "route",
+            "confirm_destination",
+            null
+          ],
+          "ok": true
+        }
+      ],
+      "observe": [
+        {
+          "text": "야영지는 여기로 설정해 줘",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "route",
+            "save_basecamp",
+            null
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D04",
+      "utterance": "베이스캠프 복귀 경로 보여 줘",
+      "stage": "rule",
+      "reason": "map_enum_action",
+      "scenario_id": "route",
+      "map_action": "route_basecamp",
+      "assistant_action": null,
+      "source_id": "SAFE-MAP-ROUTE_BASECAMP",
+      "speech": "베이스캠프 경로를 불러왔습니다. 방위와 거리는 지도 엔진 계산값입니다.",
+      "ok": true,
+      "variants": [
+        {
+          "text": "베이스 캠프로 돌아가는 길 알려 줘",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "route",
+            "route_basecamp",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "베이스캠프로 가자",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "route",
+            "route_basecamp",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "캠프로 돌아갈래",
+          "stage": "overlay",
+          "reason": "demo_overlay:map_enum_action",
+          "decision": [
+            "route",
+            "route_basecamp",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "베이스캠프 경로",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "route",
+            "route_basecamp",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "베이스캠프로 돌아가자",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "route",
+            "route_basecamp",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "베이스캠프까지 안내해 줘",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "route",
+            "route_basecamp",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "야영지로 복귀할래",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "route",
+            "route_basecamp",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "베이스캠프 복귀",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "route",
+            "route_basecamp",
+            null
+          ],
+          "ok": true
+        }
+      ],
+      "observe": [
+        {
+          "text": "돌아가는 길 보여 줘",
+          "stage": "llm",
+          "reason": "classifier_failed_no_retry",
+          "decision": [
+            "unknown",
+            null,
+            null
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D05",
+      "utterance": "야간 모드 켜 줘",
+      "stage": "rule",
+      "reason": "map_enum_action",
+      "scenario_id": "gear",
+      "map_action": "night_on",
+      "assistant_action": null,
+      "source_id": "SAFE-MAP-NIGHT_ON",
+      "speech": "야간 모드를 켰습니다.",
+      "ok": true,
+      "variants": [
+        {
+          "text": "야간모드 켜줘",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "gear",
+            "night_on",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "야간 모드로 바꿔 줘",
+          "stage": "overlay",
+          "reason": "demo_overlay:map_enum_action",
+          "decision": [
+            "gear",
+            "night_on",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "야간 모드 실행",
+          "stage": "overlay",
+          "reason": "demo_overlay:map_enum_action",
+          "decision": [
+            "gear",
+            "night_on",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "야간 모드",
+          "stage": "overlay",
+          "reason": "demo_overlay:map_enum_action",
+          "decision": [
+            "gear",
+            "night_on",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "화면 빨갛게 해 줘",
+          "stage": "overlay",
+          "reason": "demo_overlay:map_enum_action",
+          "decision": [
+            "gear",
+            "night_on",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "밤 모드 켜",
+          "stage": "overlay",
+          "reason": "demo_overlay:map_enum_action",
+          "decision": [
+            "gear",
+            "night_on",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "야간 모드 켜 주세요",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "gear",
+            "night_on",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "야간모드가 있었지 켜 줘",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "gear",
+            "night_on",
+            null
+          ],
+          "ok": true
+        }
+      ],
+      "observe": []
+    },
+    {
+      "id": "D06",
+      "utterance": "텐트 안에서 버너 켜도 돼",
+      "stage": "rule",
+      "reason": "single_scenario",
+      "scenario_id": "sleep_safety",
+      "map_action": null,
+      "assistant_action": null,
+      "source_id": "SAFE-SLEEP-001",
+      "speech": "현재 일산화탄소 센서 계측값은 0피피엠입니다. 텐트나 차량 안에서는 연소 기구를 켜지 마세요. 센서 감시는 예방을 대신하지 않습니다.",
+      "ok": true,
+      "variants": [
+        {
+          "text": "헨트 안에서 번호 켜도 돼",
+          "stage": "rule",
+          "reason": "single_scenario",
+          "decision": [
+            "sleep_safety",
+            null,
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "텐트에서 버너 써도 돼",
+          "stage": "overlay",
+          "reason": "demo_overlay:single_scenario",
+          "decision": [
+            "sleep_safety",
+            null,
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "텐트 안에서 가스 켜도 괜찮아",
+          "stage": "rule",
+          "reason": "single_scenario",
+          "decision": [
+            "sleep_safety",
+            null,
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "텐트 안에 난로 켜도 되나",
+          "stage": "rule",
+          "reason": "single_scenario",
+          "decision": [
+            "sleep_safety",
+            null,
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "텐트 안에서 버너 켜도 될까",
+          "stage": "rule",
+          "reason": "single_scenario",
+          "decision": [
+            "sleep_safety",
+            null,
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "텐트 안에서 불 피워도 돼",
+          "stage": "rule",
+          "reason": "single_scenario",
+          "decision": [
+            "sleep_safety",
+            null,
+            null
+          ],
+          "ok": true
+        }
+      ],
+      "observe": []
+    },
+    {
+      "id": "D07",
+      "utterance": "일몰까지 몇 분 남았어",
+      "stage": "rule",
+      "reason": "map_enum_action",
+      "scenario_id": "daylight",
+      "map_action": "status",
+      "assistant_action": null,
+      "source_id": "SAFE-DAYLIGHT-001",
+      "speech": "일몰까지 41분 남았습니다. 현재 GPS 위치 기준입니다. 등록된 베이스캠프 기준 귀환 권고 시각은 18:52입니다. 귀환 권고 시각이 가까워졌습니다. 베이스캠프 경로를 확인하세요.",
+      "ok": true,
+      "variants": [
+        {
+          "text": "해 지기까지 얼마나 남았어",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "daylight",
+            "status",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "일몰까지 얼마 남았어",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "daylight",
+            "status",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "해 언제 져",
+          "stage": "rule",
+          "reason": "single_scenario",
+          "decision": [
+            "daylight",
+            null,
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "얼마나 있으면 어두워져",
+          "stage": "overlay",
+          "reason": "demo_overlay:map_enum_action",
+          "decision": [
+            "daylight",
+            "status",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "해 지는 시간 알려 줘",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "daylight",
+            "status",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "일몰 시각 알려 줘",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "daylight",
+            "status",
+            null
+          ],
+          "ok": true
+        }
+      ],
+      "observe": [
+        {
+          "text": "일몰까지 약 몇 분 남았어",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "daylight",
+            "status",
+            null
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D08",
+      "utterance": "다시 말해 줘",
+      "stage": "rule",
+      "reason": "assistant_action",
+      "scenario_id": "gear",
+      "map_action": null,
+      "assistant_action": "repeat_response",
+      "source_id": "SAFE-SYSTEM-NO-REPEAT",
+      "speech": "이전에 재생한 검수 응답이 없습니다.",
+      "ok": true,
+      "variants": [
+        {
+          "text": "다시 한 번 말해 줘",
+          "stage": "overlay",
+          "reason": "demo_overlay:assistant_action",
+          "decision": [
+            "gear",
+            null,
+            "repeat_response"
+          ],
+          "ok": true
+        },
+        {
+          "text": "방금 뭐라고 했어",
+          "stage": "rule",
+          "reason": "assistant_action",
+          "decision": [
+            "gear",
+            null,
+            "repeat_response"
+          ],
+          "ok": true
+        },
+        {
+          "text": "다시 들려줘",
+          "stage": "rule",
+          "reason": "assistant_action",
+          "decision": [
+            "gear",
+            null,
+            "repeat_response"
+          ],
+          "ok": true
+        },
+        {
+          "text": "한 번 더 말해 줘",
+          "stage": "rule",
+          "reason": "assistant_action",
+          "decision": [
+            "gear",
+            null,
+            "repeat_response"
+          ],
+          "ok": true
+        },
+        {
+          "text": "다시 말해",
+          "stage": "rule",
+          "reason": "assistant_action",
+          "decision": [
+            "gear",
+            null,
+            "repeat_response"
+          ],
+          "ok": true
+        }
+      ],
+      "observe": []
+    },
+    {
+      "id": "D09",
+      "utterance": "현재 목적지 삭제해 줘",
+      "stage": "rule",
+      "reason": "map_enum_action",
+      "scenario_id": "route",
+      "map_action": "clear_destination",
+      "assistant_action": null,
+      "source_id": "SAFE-MAP-CLEAR_DESTINATION",
+      "speech": "현재 목적지와 목적지 경로를 삭제했습니다.",
+      "ok": true,
+      "variants": [
+        {
+          "text": "목적지 지워",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "route",
+            "clear_destination",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "목적지 취소해 줘",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "route",
+            "clear_destination",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "목적지 삭제",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "route",
+            "clear_destination",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "도착지 해제해 줘",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "route",
+            "clear_destination",
+            null
+          ],
+          "ok": true
+        }
+      ],
+      "observe": []
+    },
+    {
+      "id": "D10",
+      "utterance": "이 상황에서 무엇을 먼저 살펴보면 좋을까",
+      "stage": "llm",
+      "reason": "classifier_failed_no_retry",
+      "scenario_id": "unknown",
+      "map_action": null,
+      "assistant_action": null,
+      "source_id": "SAFE-UNKNOWN-001",
+      "speech": "요청을 안전하게 분류하지 못했습니다. 지도 상태, 남은 일조 시간, 날씨 추정, 장비 상태처럼 한 가지씩 다시 말해 주세요.",
+      "ok": true,
+      "variants": [],
+      "observe": [
+        {
+          "text": "지금 뭘 해야 하지",
+          "stage": "llm",
+          "reason": "classifier_failed_no_retry",
+          "decision": [
+            "unknown",
+            null,
+            null
+          ]
+        },
+        {
+          "text": "어떻게 하면 좋을까",
+          "stage": "llm",
+          "reason": "classifier_failed_no_retry",
+          "decision": [
+            "unknown",
+            null,
+            null
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D11",
+      "utterance": "야간 모드 꺼 줘",
+      "stage": "rule",
+      "reason": "map_enum_action",
+      "scenario_id": "gear",
+      "map_action": "night_off",
+      "assistant_action": null,
+      "source_id": "SAFE-MAP-NIGHT_OFF",
+      "speech": "야간 모드를 껐습니다.",
+      "ok": true,
+      "variants": [
+        {
+          "text": "야간모드 꺼줘",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "gear",
+            "night_off",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "야간 모드 해제",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "gear",
+            "night_off",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "주간 모드로 전환해",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "gear",
+            "night_off",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "원래 화면으로 돌려 줘",
+          "stage": "overlay",
+          "reason": "demo_overlay:map_enum_action",
+          "decision": [
+            "gear",
+            "night_off",
+            null
+          ],
+          "ok": true
+        },
+        {
+          "text": "야간 모드 종료",
+          "stage": "rule",
+          "reason": "map_enum_action",
+          "decision": [
+            "gear",
+            "night_off",
+            null
+          ],
+          "ok": true
+        }
+      ],
+      "observe": []
+    }
+  ]
+}

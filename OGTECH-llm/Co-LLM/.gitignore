@@ -1,0 +1,4 @@
+# 녹음 음성·합성 음성·측정 결과는 커밋하지 않습니다.
+scripts/test_rec/
+__pycache__/
+*.pyc

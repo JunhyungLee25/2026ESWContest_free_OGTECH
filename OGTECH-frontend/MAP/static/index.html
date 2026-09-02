@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="theme-color" content="#0b0f0f">
+    <title>OGTECH 지도 변환 검증기</title>
+    <meta name="description" content="GraphML과 OSM XML을 오프라인에서 검증하고 경로를 표시하는 Jetson용 웹앱">
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <header class="instrument-strip">
+      <div class="brand-block">
+        <span class="brand-mark" aria-hidden="true">SA</span>
+        <div>
+          <p class="stencil">OGTECH / MAP PIPELINE</p>
+          <h1>오프라인 지도 검증기</h1>
+        </div>
+      </div>
+      <div class="header-readouts" aria-label="지도 상태">
+        <div class="readout">
+          <span class="stencil">MAP</span>
+          <strong id="mapStatus">불러오는 중</strong>
+        </div>
+        <div class="readout gps-readout">
+          <span class="stencil">GNSS / AIR530</span>
+          <strong id="gpsStatus">연결 안 됨</strong>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-grid">
+      <section class="map-panel" aria-label="오프라인 지도">
+        <canvas id="mapCanvas" role="img" aria-label="보행로, 현재 위치, 목적지와 계산 경로"></canvas>
+        <div id="processingOverlay" class="processing-overlay" role="status" aria-live="polite" hidden>
+          <div class="processing-card">
+            <span class="stencil">MAP IMPORT / OFFLINE</span>
+            <strong id="processingTitle">대형 지도 변환 중</strong>
+            <p id="processingStage">지도 파일을 Jetson으로 전달하고 있습니다.</p>
+            <progress id="processingProgress" max="100" value="10">10%</progress>
+            <button id="processingClose" type="button" hidden>확인</button>
+          </div>
+        </div>
+        <div id="gpsSetup" class="gps-setup" role="dialog" aria-modal="true" aria-labelledby="gpsSetupTitle" hidden>
+          <div class="gps-setup-card">
+            <span class="stencil">GNSS INPUT / LOCAL ONLY</span>
+            <strong id="gpsSetupTitle">GPS 입력 선택</strong>
+            <div class="gps-mode-buttons" role="group" aria-label="GPS 입력 모드">
+              <button type="button" data-gps-mode="replay">NMEA 재생</button>
+              <button type="button" data-gps-mode="air530">Air530 직결</button>
+              <button type="button" data-gps-mode="stm32">STM32 최종</button>
+            </div>
+            <div class="gps-fields">
+              <label>
+                <span class="stencil">SERIAL PORT</span>
+                <input id="gpsPort" type="text" list="gpsPortList" placeholder="/dev/ttyUSB0" autocomplete="off">
+                <datalist id="gpsPortList"></datalist>
+              </label>
+              <label>
+                <span class="stencil">BAUD RATE</span>
+                <select id="gpsBaud">
+                  <option value="9600">9600</option>
+                  <option value="115200">115200</option>
+                </select>
+              </label>
+            </div>
+            <p id="gpsSetupHelp">하드웨어 없이 저장된 NMEA를 반복 재생합니다.</p>
+            <div class="gps-setup-actions">
+              <button id="gpsConnect" class="primary" type="button">연결</button>
+              <button id="gpsStop" type="button">GPS 중지</button>
+              <button id="gpsSetupClose" type="button">닫기</button>
+            </div>
+          </div>
+        </div>
+        <div class="map-topline">
+          <span id="mapName">지도 대기 중</span>
+          <span id="mapScale">WGS84 · OFFLINE</span>
+        </div>
+        <div class="map-legend" aria-hidden="true">
+          <span><i class="legend-current"></i>현재</span>
+          <span><i class="legend-goal"></i>목적지</span>
+          <span><i class="legend-route"></i>코드 계산 경로</span>
+        </div>
+        <div class="map-attribution">
+          © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a>
+        </div>
+        <div class="gps-instrument" aria-label="GPS 계측 상태">
+          <strong id="gpsFixBadge">NO FIX</strong>
+          <span id="gpsAccuracy">±— m</span>
+          <span id="gpsSatellites">SAT —</span>
+          <span id="gpsAge">AGE —</span>
+        </div>
+        <div class="map-tools" role="group" aria-label="지도 좌표 지정 방식">
+          <button id="setCurrent" class="mode-button" type="button" data-mode="current">
+            현재 위치 지정
+          </button>
+          <button id="setDestination" class="mode-button active" type="button" data-mode="destination">
+            목적지 지정
+          </button>
+          <button id="openGpsSetup" class="mode-button gps-button" type="button">
+            GPS 연결
+          </button>
+        </div>
+      </section>
+
+      <aside class="control-panel" aria-label="변환 및 경로 검증">
+        <label class="file-button" for="mapFile">
+          <span class="file-icon" aria-hidden="true">+</span>
+          <span>
+            <strong>오프라인 지도 넣기</strong>
+            <small class="stencil">GraphML · OSM XML / 최대 64MB</small>
+          </span>
+          <input id="mapFile" type="file" accept=".graphml,.osm,.xml">
+        </label>
+
+        <div class="point-stack">
+          <button id="currentCard" class="point-card current" type="button" data-mode="current">
+            <span id="currentSource" class="stencil">CURRENT / SAMPLE</span>
+            <strong id="currentCoordinate">—</strong>
+          </button>
+          <button id="destinationCard" class="point-card destination" type="button" data-mode="destination">
+            <span class="stencil">DESTINATION</span>
+            <strong id="destinationCoordinate">—</strong>
+          </button>
+        </div>
+
+        <button id="calculateRoute" class="calculate-button" type="button">
+          경로 다시 계산
+        </button>
+
+        <section class="route-result" aria-live="polite">
+          <div>
+            <span class="stencil">MAP ENGINE</span>
+            <strong id="routeDistance">경로 대기</strong>
+          </div>
+          <p id="routeDetail">지도 위 두 지점을 지정하세요.</p>
+        </section>
+
+        <section class="contract-panel">
+          <div class="contract-heading">
+            <span class="stencil">LLM READ-ONLY INPUT</span>
+            <span class="verified-badge">코드 계산</span>
+          </div>
+          <code id="deviceState">DEVICE_STATE 대기 중</code>
+        </section>
+
+        <p id="notice" class="notice" role="status">샘플 지도를 준비하고 있습니다.</p>
+      </aside>
+    </main>
+
+    <script src="/app.js" defer></script>
+  </body>
+</html>

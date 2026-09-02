@@ -1,0 +1,18 @@
+[Unit]
+Description=OGTECH CO·트레일·일조 선제 음성 알림
+After=sound.target ogtech-map.service
+Requires=ogtech-map.service
+
+[Service]
+Type=simple
+User=kit
+SupplementaryGroups=audio
+WorkingDirectory=/home/kit/ogtech/OGTECH-llm/Co-LLM
+Environment=PYTHONUNBUFFERED=1
+EnvironmentFile=-/etc/ogtech/audio.env
+ExecStart=/usr/bin/python3 /home/kit/ogtech/OGTECH-llm/Co-LLM/scripts/device_monitor.py
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

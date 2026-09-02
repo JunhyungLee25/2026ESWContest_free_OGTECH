@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="330" viewBox="0 0 900 330">
+<defs>
+  <marker id="a" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+    <path d="M0,0 L9,4.5 L0,9 z" fill="#5f6f6f"/>
+  </marker>
+  <marker id="ar" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+    <path d="M0,0 L9,4.5 L0,9 z" fill="#d92c2c"/>
+  </marker>
+  <marker id="ac" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+    <path d="M0,0 L9,4.5 L0,9 z" fill="#0d7f8f"/>
+  </marker>
+</defs>
+<rect width="900" height="330" fill="#ffffff"/>
+<text x="24" y="34" fill="#14201f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="17" text-anchor="start">백엔드 모듈 구성</text>
+<line x1="24" y1="48" x2="876" y2="48" stroke="#d7e0e0" stroke-width="1"/>
+<rect x="40" y="148" width="170" height="60" rx="4" fill="#ffffff" stroke="#5f6f6f" stroke-width="1.5"/><text x="125.0" y="172.0" fill="#14201f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="15" font-weight="700" text-anchor="middle">키오스크 UI</text><text x="125.0" y="192.0" fill="#5f6f6f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="12" text-anchor="middle">:8780</text>
+<rect x="260" y="148" width="170" height="60" rx="4" fill="#ffffff" stroke="#0d7f8f" stroke-width="1.5"/><text x="345.0" y="172.0" fill="#14201f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="15" font-weight="700" text-anchor="middle">HTTP API</text><text x="345.0" y="192.0" fill="#5f6f6f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="12" text-anchor="middle">:8765</text>
+<line x1="210" y1="178" x2="258" y2="178" stroke="#5f6f6f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="490" y="76" width="190" height="54" rx="4" fill="#ffffff" stroke="#0d7f8f" stroke-width="1.5"/><text x="585.0" y="97.0" fill="#14201f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="15" font-weight="700" text-anchor="middle">ogtech_core</text><text x="585.0" y="117.0" fill="#5f6f6f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="12" text-anchor="middle">시나리오 · 고정 카드</text>
+<rect x="490" y="148" width="190" height="54" rx="4" fill="#ffffff" stroke="#b06f00" stroke-width="1.5"/><text x="585.0" y="169.0" fill="#14201f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="15" font-weight="700" text-anchor="middle">hardware</text><text x="585.0" y="189.0" fill="#5f6f6f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="12" text-anchor="middle">STM32 UART · 경보</text>
+<rect x="490" y="220" width="190" height="54" rx="4" fill="#ffffff" stroke="#5f6f6f" stroke-width="1.5"/><text x="585.0" y="241.0" fill="#14201f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="15" font-weight="700" text-anchor="middle">inventory</text><text x="585.0" y="261.0" fill="#5f6f6f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="12" text-anchor="middle">장비 점검</text>
+<polyline points="430,178 460,178 460,103 488,103" fill="none" stroke="#5f6f6f" stroke-width="1.6" marker-end="url(#a)"/>
+<polyline points="430,178 460,178 460,178 488,178" fill="none" stroke="#5f6f6f" stroke-width="1.6" marker-end="url(#a)"/>
+<polyline points="430,178 460,178 460,247 488,247" fill="none" stroke="#5f6f6f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="720" y="76" width="150" height="54" rx="4" fill="#ffffff" stroke="#128a63" stroke-width="1.5"/><text x="795.0" y="97.0" fill="#14201f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="15" font-weight="700" text-anchor="middle">지도 · 일출몰</text><text x="795.0" y="117.0" fill="#5f6f6f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="12" text-anchor="middle">전부 로컬 계산</text>
+<line x1="680" y1="103" x2="718" y2="103" stroke="#128a63" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="720" y="148" width="150" height="54" rx="4" fill="#ffffff" stroke="#128a63" stroke-width="1.5"/><text x="795.0" y="169.0" fill="#14201f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="15" font-weight="700" text-anchor="middle">STM32</text><text x="795.0" y="189.0" fill="#5f6f6f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="12" text-anchor="middle">상시 계층</text>
+<line x1="680" y1="175" x2="718" y2="175" stroke="#128a63" stroke-width="1.6" marker-end="url(#a)"/>
+<text x="24" y="312" fill="#5f6f6f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="12" text-anchor="start">외부 웹 프레임워크를 쓰지 않습니다. Jetson에 네트워크가 없어 표준 라이브러리만으로 구성했습니다.</text>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="430" viewBox="0 0 900 430">
+<defs>
+  <marker id="a" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+    <path d="M0,0 L9,4.5 L0,9 z" fill="#5f6f6f"/>
+  </marker>
+  <marker id="ar" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+    <path d="M0,0 L9,4.5 L0,9 z" fill="#d92c2c"/>
+  </marker>
+  <marker id="ac" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+    <path d="M0,0 L9,4.5 L0,9 z" fill="#0d7f8f"/>
+  </marker>
+</defs>
+<rect width="900" height="430" fill="#ffffff"/>
+<text x="24" y="34" fill="#14201f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="17" text-anchor="start">응답 경로 — 라벨이 경로를 결정합니다</text>
+<line x1="24" y1="48" x2="876" y2="48" stroke="#d7e0e0" stroke-width="1"/>
+<rect x="40" y="180" width="150" height="52" rx="4" fill="#ffffff" stroke="#5f6f6f" stroke-width="1.5"/><text x="115.0" y="200.0" fill="#14201f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="15" font-weight="700" text-anchor="middle">음성 질의</text><text x="115.0" y="220.0" fill="#5f6f6f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="12" text-anchor="middle">물리 버튼</text>
+<rect x="230" y="180" width="160" height="52" rx="4" fill="#ffffff" stroke="#5f6f6f" stroke-width="1.5"/><text x="310.0" y="200.0" fill="#14201f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="15" font-weight="700" text-anchor="middle">whisper.cpp</text><text x="310.0" y="220.0" fill="#5f6f6f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="12" text-anchor="middle">STT · CPU</text>
+<line x1="190" y1="206" x2="228" y2="206" stroke="#5f6f6f" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M430,206 l60,-42 l60,42 l-60,42 z" fill="#ffffff" stroke="#b06f00" stroke-width="1.6"/>
+<text x="490" y="202" fill="#b06f00" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="13" text-anchor="middle">키워드</text>
+<text x="490" y="220" fill="#b06f00" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="13" text-anchor="middle">게이트</text>
+<line x1="390" y1="206" x2="428" y2="206" stroke="#5f6f6f" stroke-width="1.6" marker-end="url(#a)"/>
+<text x="618" y="62" fill="#0d7f8f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="12" text-anchor="start">경로 B  ·  생명 관련 6개 라벨</text>
+<rect x="618" y="76" width="242" height="56" rx="4" fill="#ffffff" stroke="#0d7f8f" stroke-width="1.5"/><text x="739.0" y="98.0" fill="#14201f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="15" font-weight="700" text-anchor="middle">검수된 고정 카드</text><text x="739.0" y="118.0" fill="#5f6f6f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="12" text-anchor="middle">사람이 검수한 문구</text>
+<rect x="618" y="150" width="242" height="52" rx="4" fill="#ffffff" stroke="#0d7f8f" stroke-width="1.5"/><text x="739.0" y="170.0" fill="#14201f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="15" font-weight="700" text-anchor="middle">TTS 직행</text><text x="739.0" y="190.0" fill="#5f6f6f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="12" text-anchor="middle">목표 2.0 s 이내</text>
+<polyline points="532,190 578,190 578,104 616,104" fill="none" stroke="#0d7f8f" stroke-width="1.6" marker-end="url(#ac)"/>
+<line x1="739" y1="132" x2="739" y2="148" stroke="#0d7f8f" stroke-width="1.6" marker-end="url(#ac)"/>
+<text x="618" y="248" fill="#b06f00" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="12" text-anchor="start">경로 A  ·  나머지 7개 라벨</text>
+<rect x="618" y="262" width="242" height="56" rx="4" fill="#ffffff" stroke="#b06f00" stroke-width="1.5"/><text x="739.0" y="284.0" fill="#14201f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="15" font-weight="700" text-anchor="middle">Qwen2.5 1.5B</text><text x="739.0" y="304.0" fill="#5f6f6f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="12" text-anchor="middle">카드를 2~4줄로 다듬기</text>
+<rect x="618" y="336" width="242" height="52" rx="4" fill="#ffffff" stroke="#b06f00" stroke-width="1.5"/><text x="739.0" y="356.0" fill="#14201f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="15" font-weight="700" text-anchor="middle">스트리밍 TTS</text><text x="739.0" y="376.0" fill="#5f6f6f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="12" text-anchor="middle">목표 3.5 s 이내</text>
+<polyline points="532,222 596,222 596,290 616,290" fill="none" stroke="#b06f00" stroke-width="1.6" marker-end="url(#a)"/>
+<line x1="739" y1="318" x2="739" y2="334" stroke="#b06f00" stroke-width="1.6" marker-end="url(#a)"/>
+<polyline points="860,282 882,282 882,112 862,112" fill="none" stroke="#d92c2c" stroke-width="1.6" marker-end="url(#ar)" stroke-dasharray="4 4"/>
+<text x="896" y="200" fill="#d92c2c" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="11.5" text-anchor="middle" transform="rotate(-90 896 200)">검증 실패 · 2초 초과 시 폴백</text>
+<text x="24" y="416" fill="#5f6f6f" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="12" text-anchor="start">경로 B가 더 빠르고 동시에 더 안전합니다. 생명 관련 응답에서 모델을 빼는 것은 성능 손해가 아닙니다.</text>
+</svg>

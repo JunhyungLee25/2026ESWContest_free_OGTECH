@@ -1,0 +1,138 @@
+/* 2026-08-09 건국대 촬영 전용 화면. 공통 1024x600 디자인은 styles.css를 그대로 쓴다. */
+
+:root {
+  --video-water: #103741;
+  --video-water-line: #2a8795;
+  --video-building: #202a29;
+  --video-building-line: #73827f;
+  --sky: #7dd3fc;     /* 상대습도 */
+  --yellow: #f4d03f;  /* 기온 20~30°C */
+}
+
+:root[data-night="on"] {
+  --video-water: #210909;
+  --video-water-line: #742424;
+  --video-building: #180707;
+  --video-building-line: #773030;
+  --sky: #ff8a8a;
+  --yellow: #ff7a6a;
+}
+
+.video-screen .glance strong {
+  font-size: 26px;
+  white-space: nowrap;
+}
+
+.video-screen .glance .sub { white-space: nowrap; }
+.video-screen .glance-coordinate strong,
+.video-screen .glance-coordinate .sub {
+  font-size: 21px;
+  font-weight: 800;
+  color: var(--amber);
+}
+/* 온도·습도는 같은 크기. 온도 색은 JS가 data-level로, 습도는 하늘색 고정 */
+.video-screen .glance-env strong,
+.video-screen .glance-env .sub {
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.video-screen .glance-env .env-temperature[data-level="hot"]  { color: var(--red); }
+.video-screen .glance-env .env-temperature[data-level="warm"] { color: var(--yellow); }
+.video-screen .glance-env .env-temperature[data-level="cool"] { color: var(--green); }
+.video-screen .glance-env .env-temperature[data-level="none"] { color: var(--grey); }
+.video-screen .glance-env .env-humidity { color: var(--sky); }
+
+.video-screen .map-canvas.destination-selecting { cursor: crosshair; }
+
+.video-screen .glance-sun { gap: 2px; }
+
+.video-screen .glance-sun .sun-times {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 24px;
+  line-height: 1.08;
+}
+
+.video-screen .glance-sun .sunrise { color: var(--cyan); }
+.video-screen .glance-sun .sunset { color: var(--red); }
+.video-screen .glance-sun .sub[hidden] { display: none; }
+
+.arrival-card {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  top: 50%;
+  width: 620px;
+  padding: 30px 24px;
+  transform: translate(-50%, -50%);
+  background: #101818;
+  border: 2px solid var(--cyan);
+  box-shadow: inset 0 1px 0 #30403e;
+  text-align: center;
+}
+
+.arrival-card[hidden] { display: none; }
+
+.arrival-card strong {
+  color: var(--cyan);
+  font-size: 36px;
+  font-weight: 850;
+  line-height: 1.15;
+}
+
+.map-engine-verified {
+  color: var(--amber);
+  border-color: var(--amber);
+}
+
+.map-attribution {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  margin: 0;
+  color: var(--muted);
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 15px;
+  line-height: 1;
+}
+
+.map.has-alert .map-attribution { top: 78px; }
+
+/* 경로 이탈 배너. 일조 경고와 같이 뜨면 그 아래에 쌓인다 */
+.map.has-alert .alert-route { top: 64px; }
+.map.has-route-alert .map-attribution { top: 78px; }
+.map.has-alert.has-route-alert .map-attribution { top: 142px; }
+
+.video-screen .status-toast {
+  z-index: 3;
+  bottom: 76px;
+  min-width: 390px;
+  color: var(--text);
+  border-color: var(--amber);
+}
+
+.video-screen .legend .dot-current {
+  background: var(--amber);
+  border-radius: 50%;
+}
+
+.director-current {
+  margin: 14px 0 0;
+  font-size: 20px;
+}
+
+/* 장면 목록 아래 안내 문단은 모두 같은 크기로 둔다(촬영 프레임 밖 패널). */
+.director ol ~ p {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.director > p:last-child { margin-bottom: 0; }
+
+.director-answers { color: var(--text); }
+.director-voice { color: var(--amber); }

@@ -1,0 +1,147 @@
+{
+  "version": 1,
+  "note": "scripts/wake_voice.py 호출어 데몬 설정. 화면(/video/)은 건드리지 않는다. 문구를 바꾸면 데몬을 재시작한다.",
+  "wake": {
+    "prefix_variants": [
+      "오지야",
+      "오지야아",
+      "오지야야",
+      "오지야요",
+      "오지얌",
+      "오찌야",
+      "오디야",
+      "오기야",
+      "옥이야",
+      "어기야",
+      "우디야",
+      "오쥐야",
+      "오지여",
+      "오지예",
+      "오지에",
+      "어지야",
+      "오제야",
+      "오징야",
+      "og야",
+      "오지 야"
+    ],
+    "exact_variants": [
+      "오지",
+      "오징",
+      "오찌",
+      "오디",
+      "오지아",
+      "오찌아",
+      "오지 아",
+      "오지얍",
+      "위야",
+      "오기",
+      "옥이"
+    ],
+    "leading_fillers": [
+      "아",
+      "어",
+      "음",
+      "야",
+      "저기",
+      "자",
+      "그",
+      "네"
+    ],
+    "min_speech_s": 0.25,
+    "max_speech_s": 4.0,
+    "command_only_variants": [
+      "어디야",
+      "오디아",
+      "우지야"
+    ],
+    "note": "prefix: 뒤에 명령이 붙어도 됨 · exact: 발화 전체가 이것일 때만 · command_only: 뒤에 명령이 있을 때만(어디야 처럼 실제 낱말). 변형은 Jetson whisper base 받아쓰기 실측(2026-09-02, 합성음)에서 모음."
+  },
+  "greeting": "네, 무엇을 도와드릴까요?",
+  "timeouts": {
+    "command_wait_s": 10.0,
+    "confirm_wait_s": 10.0,
+    "followup_wait_s": 6.0,
+    "after_speech_guard_s": 0.3,
+    "note": "대기 창은 데몬이 말을 끝낸 시점부터 잰다. 인사말 합성·재생을 포함해 재면 사용자가 말을 끝내기 전에 만료된다(2026-09-02 실기 로그: WAKE→TTS 2.6s→TIMEO→명령이 idle 로 떨어짐)."
+  },
+  "script": {
+    "lake": {
+      "with_distance": "네, {distance_m}미터 이내에 호수가 있습니다. 목적지로 지정해 드릴까요?",
+      "distance_floor_m": 500,
+      "without_distance": "네, 가까운 곳에 호수가 있습니다. 목적지로 지정해 드릴까요?",
+      "confirmed": "목적지가 설정되었습니다.",
+      "rejected": "목적지 지정을 취소했습니다.",
+      "no_fix": "scripted",
+      "no_fix_reference": {
+        "lat": 37.5417937,
+        "lon": 127.0795165,
+        "note": "GPS 미수신일 때 거리 계산 기준점. 촬영 화면 1·2번 장면의 현재 위치(공학관 뒤편 베이스캠프)와 같은 점"
+      },
+      "set_destination_without_fix": true,
+      "poi_catalog": [
+        "~/ogtech/OGTECH-frontend/MAP/kiosk/poi_catalog.json",
+        "../../../OGTECH-frontend/MAP/kiosk/poi_catalog.json"
+      ],
+      "note": "거리는 GPS fix(있으면) 또는 no_fix_reference 에서 가장 가까운 water_source 표식까지 haversine. floor 이하면 floor 로 말한다('500미터 이내'). GPS 가 없으면 지도 서버가 수원 검색을 거부하므로 데몬이 대본대로 답하고, 확인 시 화면 터치와 같은 /api/waypoints set 으로 표식 좌표를 목적지로 등록한다."
+    },
+    "weather": "네, 온도는 {temp_c}도입니다. 습도는 {humidity_pct}퍼센트입니다.",
+    "weather_note": "각 절이 서술어로 끝나야 구절 끝 '도'가 뭉개지지 않는다. 온도는 정수면 '28', 소수면 '24점 1'(sherpa 가 '24.1'을 못 읽음 — 2026-09-02 whisper 되읽기 실측)."
+  },
+  "stt_extra_flags": [],
+  "stt_extra_flags_note": "whisper-cli 에 그대로 덧붙는 옵션. Jetson 빌드(2026-09-02)에는 토큰 상한(-mt)이 없어 비워 둔다. 반복 생성은 collapse_repeats 로 접는다.",
+  "lexicon": [
+    {
+      "pattern": "포스(?= ?위치)",
+      "replace": "호수",
+      "source": "2026-09-02 합성음 실측: 근처에 있는 호수 위치 → 포스 위치"
+    },
+    {
+      "pattern": "포수(?= ?위치)",
+      "replace": "호수",
+      "source": "2026-09-02 합성음 실측: 근처에 있는 호수 위치 → 포수 위치"
+    },
+    {
+      "pattern": "호술이",
+      "replace": "호수",
+      "source": "2026-09-02 합성음 실측: 호수 위치 → 호술이 차이오죠"
+    },
+    {
+      "pattern": "운동화 ?습도",
+      "replace": "온도와 습도",
+      "source": "2026-09-02 합성음 실측: 온도와 습도 → 운동화습도"
+    },
+    {
+      "pattern": "^내(?= ?(설정|지정|해))",
+      "replace": "네",
+      "source": "2026-09-02 합성음 실측: 네 설정해 줘 → 내 설정해줘"
+    }
+  ],
+  "confirmation": {
+    "note": "지도 서버나 대본이 목적지 후보를 들고 있을 때만 쓴다. 긍정이면 정본 라우터에 '네' 로, 부정이면 '아니' 로 넘긴다.",
+    "yes_patterns": [
+      "^(네|넵|넹|예|응|어|엉|앙|음|아|오|우|아오|어어|오오|응응|그래|좋아|맞아|오케이|ok|내)( |$)",
+      "^(네|넵|예|응|어|그래|좋아)$",
+      "(설정|지정|진행)( ?해)? ?(줘|주세요|해)",
+      "(거기로|그곳으로|그걸로) ?(해|하자|할게)"
+    ],
+    "no_patterns": [
+      "^(아니|아니요|아뇨|싫어|취소|됐어|안 해|하지 마)( |$)",
+      "(설정|지정).*(하지 마|말아|취소)"
+    ],
+    "short_utterance_max_s": 1.0,
+    "short_note": "확인 대기 중 1 s 이하 발화는 부정어가 아니고 받아쓴 글자가 2자 이하면 긍정으로 본다('어' → 빈 문자열·'아오'·'오', 2026-09-02 실기). 부정은 '아니'·'취소' 처럼 말한다.",
+    "short_utterance_max_chars": 2
+  },
+  "stt_prompt_extra_wake": "오지야.",
+  "stt_prompt_extra_command": "근처에 있는 호수 위치 알려 줘. 현재 온도와 습도를 알려 줘.",
+  "stt_prompt_note": "정본 stt_prompt.txt 뒤에 이 프로세스에서만 덧붙인다. 대기(wake) 중엔 호출어만, 세션(command) 중엔 시연 명령 어휘. 한 프롬프트에 둘 다 넣으면 반복 생성이 늘었다(2026-09-02 합성음 실측).",
+  "strip_demo_prefix": true,
+  "strip_demo_prefix_note": "2026-09-02 사용자 지시: 데몬이 읽는 모든 문장에서 '데모 값 기준으로,' 를 뺀다. 제품 경로(product_voice·device_monitor)는 그대로다.",
+  "tts": {
+    "length_scale": 1.36,
+    "note": "length_scale 1.36 = 정본 1.22 의 0.9배속. 응답은 구절(쉼표·문장)마다 따로 합성해 사이에 0.1 s(문장 사이 0.3 s) 무음을 넣고 한 WAV 로 이어 한 번에 재생한다. 머리의 '네'는 normal_length_scale(정본 속도)로 합성. lead_silence_s 는 pulse 재생 시작 지연에 첫 음절이 먹히지 않게 앞에 두는 무음.",
+    "normal_length_scale": 1.22,
+    "lead_silence_s": 0.6,
+    "lead_note": "USB 스피커(Jieli)가 스트림 시작 직후 수백 ms 를 무음으로 내보내 첫 음절 '네'가 먹혔다(2026-09-02 실기, 0.2 s 로는 부족). 응답 WAV 앞에 0.6 s 무음을 둔다."
+  }
+}

@@ -1,0 +1,310 @@
+<mxfile host="app.diagrams.net" modified="2026-08-30T12:00:00.000Z" agent="Claude" version="24.7.17">
+  <diagram id="d0_system_overview" name="OGTECH 시스템 전체 구성도">
+    <mxGraphModel dx="1200" dy="790" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="790" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="OGTECH 시스템 전체 구성도"
+                style="text;html=1;align=left;verticalAlign=middle;fontSize=25;fontStyle=1;fontColor=#1F2937;"
+                vertex="1" parent="1">
+          <mxGeometry x="45" y="20" width="700" height="38" as="geometry"/>
+        </mxCell>
+        <mxCell id="subtitle" value="인터넷 없이 작동하는 배낭 장착형 오프라인 오지 생존 보조 장치  ·  팀 OGTECH"
+                style="text;html=1;align=left;verticalAlign=middle;fontSize=13;fontColor=#64748B;"
+                vertex="1" parent="1">
+          <mxGeometry x="45" y="56" width="700" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="g_sensor" value="1  센서"
+                style="swimlane;html=1;fold=0;rounded=1;startSize=42;fillColor=#F8FAFC;swimlaneFillColor=#F8FAFC;strokeColor=#94A3B8;strokeWidth=1.5;fontStyle=1;fontSize=15;fontColor=#334155;"
+                vertex="1" parent="1">
+          <mxGeometry x="45" y="92" width="200" height="340" as="geometry"/>
+        </mxCell>
+        <mxCell id="g_stm" value="2  STM32 상시 계층  ·  항상 ON"
+                style="swimlane;html=1;fold=0;rounded=1;startSize=42;fillColor=#ECFDF5;swimlaneFillColor=#ECFDF5;strokeColor=#10B981;strokeWidth=2;fontStyle=1;fontSize=14;fontColor=#065F46;"
+                vertex="1" parent="1">
+          <mxGeometry x="275" y="92" width="280" height="340" as="geometry"/>
+        </mxCell>
+        <mxCell id="g_map" value="3  Jetson  ·  필요할 때만 ON"
+                style="swimlane;html=1;fold=0;rounded=1;startSize=42;fillColor=#EFF6FF;swimlaneFillColor=#EFF6FF;strokeColor=#3B82F6;strokeWidth=2;fontStyle=1;fontSize=14;fontColor=#1E3A5F;"
+                vertex="1" parent="1">
+          <mxGeometry x="585" y="92" width="280" height="340" as="geometry"/>
+        </mxCell>
+        <mxCell id="g_alert" value="4  선제 개입"
+                style="swimlane;html=1;fold=0;rounded=1;startSize=42;fillColor=#FFF7ED;swimlaneFillColor=#FFF7ED;strokeColor=#F59E0B;strokeWidth=2;fontStyle=1;fontSize=15;fontColor=#78350F;"
+                vertex="1" parent="1">
+          <mxGeometry x="895" y="92" width="260" height="340" as="geometry"/>
+        </mxCell>
+        <mxCell id="s_gnss" value="&lt;b&gt;GNSS&lt;/b&gt;&lt;br&gt;&lt;font style=&#x27;font-size:12px&#x27; color=&#x27;#64748B&#x27;&gt;Air530 · 현재 위치와 위성 수&lt;/font&gt;"
+                style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#94A3B8;strokeWidth=1.5;fontSize=14;fontColor=#1F2937;spacingLeft=4;spacingRight=4;"
+                vertex="1" parent="1">
+          <mxGeometry x="57" y="181" width="176" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="s_co" value="&lt;b&gt;CO 센서&lt;/b&gt;&lt;br&gt;&lt;font style=&#x27;font-size:12px&#x27; color=&#x27;#64748B&#x27;&gt;ZE16B-CO · 전기화학식&lt;/font&gt;"
+                style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#94A3B8;strokeWidth=1.5;fontSize=14;fontColor=#1F2937;spacingLeft=4;spacingRight=4;"
+                vertex="1" parent="1">
+          <mxGeometry x="57" y="247" width="176" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="s_dht" value="&lt;b&gt;온·습도&lt;/b&gt;&lt;br&gt;&lt;font style=&#x27;font-size:12px&#x27; color=&#x27;#64748B&#x27;&gt;DHT11&lt;/font&gt;"
+                style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#94A3B8;strokeWidth=1.5;fontSize=14;fontColor=#1F2937;spacingLeft=4;spacingRight=4;"
+                vertex="1" parent="1">
+          <mxGeometry x="57" y="313" width="176" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="m_watch" value="&lt;b&gt;센서 상시 감시&lt;/b&gt;&lt;br&gt;&lt;font style=&#x27;font-size:12px&#x27; color=&#x27;#64748B&#x27;&gt;검증에 실패한 값은 버린다&lt;/font&gt;"
+                style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#34D399;strokeWidth=1.5;fontSize=14;fontColor=#1F2937;spacingLeft=4;spacingRight=4;"
+                vertex="1" parent="1">
+          <mxGeometry x="289" y="148" width="252" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="m_co" value="&lt;b&gt;CO 경보 판정&lt;/b&gt;&lt;br&gt;&lt;font style=&#x27;font-size:12px&#x27; color=&#x27;#047857&#x27;&gt;100 ppm 즉시 · 35 ppm 3분 지속&lt;/font&gt;"
+                style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D1FAE5;strokeColor=#10B981;strokeWidth=2;fontSize=14;fontColor=#065F46;spacingLeft=4;spacingRight=4;"
+                vertex="1" parent="1">
+          <mxGeometry x="289" y="214" width="252" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="m_buzz" value="&lt;b&gt;부저 경보&lt;/b&gt;&lt;br&gt;&lt;font style=&#x27;font-size:12px&#x27; color=&#x27;#B91C1C&#x27;&gt;Jetson이 꺼져 있어도 울린다&lt;/font&gt;"
+                style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF2F2;strokeColor=#DC2626;strokeWidth=1.5;fontSize=14;fontColor=#7F1D1D;spacingLeft=4;spacingRight=4;"
+                vertex="1" parent="1">
+          <mxGeometry x="289" y="280" width="252" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="m_gate" value="&lt;b&gt;Jetson 전원 게이트&lt;/b&gt;&lt;br&gt;&lt;font style=&#x27;font-size:12px&#x27; color=&#x27;#64748B&#x27;&gt;필요할 때만 켠다 · 평소는 차단&lt;/font&gt;"
+                style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#34D399;strokeWidth=1.5;fontSize=14;fontColor=#1F2937;spacingLeft=4;spacingRight=4;"
+                vertex="1" parent="1">
+          <mxGeometry x="289" y="346" width="252" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="j_pos" value="&lt;b&gt;현재 위치&lt;/b&gt;&lt;br&gt;&lt;font style=&#x27;font-size:12px&#x27; color=&#x27;#64748B&#x27;&gt;GPS가 없으면 추정하지 않는다&lt;/font&gt;"
+                style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#60A5FA;strokeWidth=1.5;fontSize=14;fontColor=#1F2937;spacingLeft=4;spacingRight=4;"
+                vertex="1" parent="1">
+          <mxGeometry x="599" y="148" width="252" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="j_trail" value="&lt;b&gt;트레일 이탈 판정&lt;/b&gt;&lt;br&gt;&lt;font style=&#x27;font-size:12px&#x27; color=&#x27;#64748B&#x27;&gt;보행로에서 벗어난 거리&lt;/font&gt;"
+                style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#60A5FA;strokeWidth=1.5;fontSize=14;fontColor=#1F2937;spacingLeft=4;spacingRight=4;"
+                vertex="1" parent="1">
+          <mxGeometry x="599" y="214" width="252" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="j_route" value="&lt;b&gt;경로 · 남은 일조&lt;/b&gt;&lt;br&gt;&lt;font style=&#x27;font-size:12px&#x27; color=&#x27;#64748B&#x27;&gt;오프라인 길찾기 · 귀환 시각 계산&lt;/font&gt;"
+                style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#60A5FA;strokeWidth=1.5;fontSize=14;fontColor=#1F2937;spacingLeft=4;spacingRight=4;"
+                vertex="1" parent="1">
+          <mxGeometry x="599" y="280" width="252" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="j_ui" value="&lt;b&gt;화면 표시&lt;/b&gt;&lt;br&gt;&lt;font style=&#x27;font-size:12px&#x27; color=&#x27;#1D4ED8&#x27;&gt;지도와 경보 · 평소에는 꺼 둔다&lt;/font&gt;"
+                style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#3B82F6;strokeWidth=2;fontSize=14;fontColor=#1E3A5F;spacingLeft=4;spacingRight=4;"
+                vertex="1" parent="1">
+          <mxGeometry x="599" y="346" width="252" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="a_judge" value="&lt;b&gt;위험 판정 4종&lt;/b&gt;&lt;br&gt;&lt;font style=&#x27;font-size:12px&#x27; color=&#x27;#92400E&#x27;&gt;CO · 트레일 이탈 · 일조 부족 · 도착&lt;/font&gt;"
+                style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFBEB;strokeColor=#F59E0B;strokeWidth=2;fontSize=14;fontColor=#78350F;spacingLeft=4;spacingRight=4;"
+                vertex="1" parent="1">
+          <mxGeometry x="907" y="181" width="236" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="a_buzz" value="&lt;b&gt;물리 경보&lt;/b&gt;&lt;br&gt;&lt;font style=&#x27;font-size:12px&#x27; color=&#x27;#64748B&#x27;&gt;부저 · 진동과 스트로브는 예정&lt;/font&gt;"
+                style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#F59E0B;strokeWidth=1.5;fontSize=14;fontColor=#78350F;spacingLeft=4;spacingRight=4;"
+                vertex="1" parent="1">
+          <mxGeometry x="907" y="247" width="236" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="a_voice" value="&lt;b&gt;먼저 말한다&lt;/b&gt;&lt;br&gt;&lt;font style=&#x27;font-size:12px&#x27; color=&#x27;#64748B&#x27;&gt;묻기 전에 장치가 음성으로 알린다&lt;/font&gt;"
+                style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#F59E0B;strokeWidth=1.5;fontSize=14;fontColor=#78350F;spacingLeft=4;spacingRight=4;"
+                vertex="1" parent="1">
+          <mxGeometry x="907" y="313" width="236" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="g_user" value="5  음성 질문"
+                style="swimlane;html=1;fold=0;rounded=1;startSize=42;fillColor=#F8FAFC;swimlaneFillColor=#F8FAFC;strokeColor=#64748B;strokeWidth=1.5;fontStyle=1;fontSize=15;fontColor=#334155;"
+                vertex="1" parent="1">
+          <mxGeometry x="45" y="470" width="200" height="225" as="geometry"/>
+        </mxCell>
+        <mxCell id="g_voice" value="6  인식 · 의도 판단"
+                style="swimlane;html=1;fold=0;rounded=1;startSize=42;fillColor=#F5F3FF;swimlaneFillColor=#F5F3FF;strokeColor=#8B5CF6;strokeWidth=2;fontStyle=1;fontSize=15;fontColor=#4C1D95;"
+                vertex="1" parent="1">
+          <mxGeometry x="275" y="470" width="280" height="225" as="geometry"/>
+        </mxCell>
+        <mxCell id="g_path" value="7  응답 경로"
+                style="swimlane;html=1;fold=0;rounded=1;startSize=42;fillColor=#F8FAFC;swimlaneFillColor=#F8FAFC;strokeColor=#64748B;strokeWidth=1.5;fontStyle=1;fontSize=15;fontColor=#334155;"
+                vertex="1" parent="1">
+          <mxGeometry x="585" y="470" width="280" height="225" as="geometry"/>
+        </mxCell>
+        <mxCell id="g_out" value="8  출력 · 폴백"
+                style="swimlane;html=1;fold=0;rounded=1;startSize=42;fillColor=#F8FAFC;swimlaneFillColor=#F8FAFC;strokeColor=#64748B;strokeWidth=1.5;fontStyle=1;fontSize=15;fontColor=#334155;"
+                vertex="1" parent="1">
+          <mxGeometry x="895" y="470" width="260" height="225" as="geometry"/>
+        </mxCell>
+        <mxCell id="u_btn" value="&lt;b&gt;물리 버튼&lt;/b&gt;&lt;br&gt;&lt;font style=&#x27;font-size:12px&#x27; color=&#x27;#64748B&#x27;&gt;터치가 젖어 죽어도 눌린다&lt;/font&gt;"
+                style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#64748B;strokeWidth=1.5;fontSize=14;fontColor=#1F2937;spacingLeft=4;spacingRight=4;"
+                vertex="1" parent="1">
+          <mxGeometry x="57" y="526" width="176" height="64" as="geometry"/>
+        </mxCell>
+        <mxCell id="u_mic" value="&lt;b&gt;마이크&lt;/b&gt;&lt;br&gt;&lt;font style=&#x27;font-size:12px&#x27; color=&#x27;#64748B&#x27;&gt;버튼을 누르고 말한다&lt;/font&gt;"
+                style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F3FF;strokeColor=#8B5CF6;strokeWidth=1.5;fontSize=14;fontColor=#4C1D95;spacingLeft=4;spacingRight=4;"
+                vertex="1" parent="1">
+          <mxGeometry x="57" y="600" width="176" height="64" as="geometry"/>
+        </mxCell>
+        <mxCell id="v_stt" value="&lt;b&gt;받아쓰기&lt;/b&gt;&lt;br&gt;&lt;font style=&#x27;font-size:12px&#x27; color=&#x27;#64748B&#x27;&gt;장치 안에서 처리 · 인터넷 없음&lt;/font&gt;"
+                style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#A78BFA;strokeWidth=1.5;fontSize=14;fontColor=#1F2937;spacingLeft=4;spacingRight=4;"
+                vertex="1" parent="1">
+          <mxGeometry x="289" y="526" width="252" height="64" as="geometry"/>
+        </mxCell>
+        <mxCell id="v_rule" value="&lt;b&gt;의도 판단&lt;/b&gt;&lt;br&gt;&lt;font style=&#x27;font-size:12px&#x27; color=&#x27;#5B21B6&#x27;&gt;정해진 규칙으로 먼저 판단하고, 규칙이 놓친 말만 소형 LLM이 고른다&lt;/font&gt;"
+                style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE9FE;strokeColor=#8B5CF6;strokeWidth=2;fontSize=14;fontColor=#4C1D95;spacingLeft=4;spacingRight=4;"
+                vertex="1" parent="1">
+          <mxGeometry x="289" y="600" width="252" height="64" as="geometry"/>
+        </mxCell>
+        <mxCell id="p_b" value="&lt;b&gt;경로 B · 생명 관련 질문&lt;/b&gt;&lt;br&gt;&lt;font style=&#x27;font-size:12px&#x27; color=&#x27;#B91C1C&#x27;&gt;LLM을 거치지 않는다 · 목표 2.0초&lt;/font&gt;"
+                style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF2F2;strokeColor=#DC2626;strokeWidth=2;fontSize=14;fontColor=#7F1D1D;spacingLeft=4;spacingRight=4;"
+                vertex="1" parent="1">
+          <mxGeometry x="599" y="526" width="252" height="64" as="geometry"/>
+        </mxCell>
+        <mxCell id="p_a" value="&lt;b&gt;경로 A · 그 밖의 질문&lt;/b&gt;&lt;br&gt;&lt;font style=&#x27;font-size:12px&#x27; color=&#x27;#1D4ED8&#x27;&gt;의도만 LLM이 고른다 · 목표 3.5초&lt;/font&gt;"
+                style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#60A5FA;strokeWidth=1.5;fontSize=14;fontColor=#1E3A5F;spacingLeft=4;spacingRight=4;"
+                vertex="1" parent="1">
+          <mxGeometry x="599" y="600" width="252" height="64" as="geometry"/>
+        </mxCell>
+        <mxCell id="o_out" value="&lt;b&gt;음성 + 화면 카드&lt;/b&gt;&lt;br&gt;&lt;font style=&#x27;font-size:12px&#x27; color=&#x27;#64748B&#x27;&gt;사람이 미리 검수한 문구만 말한다&lt;/font&gt;"
+                style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F3FF;strokeColor=#8B5CF6;strokeWidth=1.5;fontSize=14;fontColor=#4C1D95;spacingLeft=4;spacingRight=4;"
+                vertex="1" parent="1">
+          <mxGeometry x="907" y="526" width="236" height="64" as="geometry"/>
+        </mxCell>
+        <mxCell id="o_fb" value="&lt;b&gt;실패하면 고정 카드&lt;/b&gt;&lt;br&gt;&lt;font style=&#x27;font-size:12px&#x27; color=&#x27;#B91C1C&#x27;&gt;다시 묻지 않고 바로 넘긴다&lt;/font&gt;"
+                style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF2F2;strokeColor=#DC2626;strokeWidth=2;fontSize=14;fontColor=#7F1D1D;spacingLeft=4;spacingRight=4;"
+                vertex="1" parent="1">
+          <mxGeometry x="907" y="600" width="236" height="64" as="geometry"/>
+        </mxCell>
+        <mxCell id="key_message" value="&lt;b&gt;핵심&lt;/b&gt;  STM32는 꺼지지 않고 센서와 CO 경보, Jetson 전원을 쥔다. Jetson은 필요할 때만 켜져 지도와 음성 응답을 맡는다. 생명 관련 응답은 LLM을 거치지 않는다."
+                style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#93C5FD;dashed=1;fontSize=14;fontColor=#1E3A5F;align=center;verticalAlign=middle;"
+                vertex="1" parent="1">
+          <mxGeometry x="45" y="720" width="1110" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_gnss" edge="1" parent="1" source="s_gnss" target="m_watch"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#2563EB;strokeWidth=1.5;fontSize=11;fontColor=#1D4ED8;labelBackgroundColor=#FFFFFF;entryX=0;entryY=0.3;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="259" y="209"/>
+              <mxPoint x="259" y="165"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_co" edge="1" parent="1" source="s_co" target="m_watch"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#2563EB;strokeWidth=1.5;fontSize=11;fontColor=#1D4ED8;labelBackgroundColor=#FFFFFF;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="259" y="275"/>
+              <mxPoint x="259" y="176"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_dht" edge="1" parent="1" source="s_dht" target="m_watch"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#2563EB;strokeWidth=1.5;fontSize=11;fontColor=#1D4ED8;labelBackgroundColor=#FFFFFF;entryX=0;entryY=0.7;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="259" y="341"/>
+              <mxPoint x="259" y="187"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_m1" edge="1" parent="1" source="m_watch" target="m_co"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#2563EB;strokeWidth=2;fontSize=11;fontColor=#1D4ED8;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry relative="1" as="geometry">          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_m2" edge="1" parent="1" source="m_co" target="m_buzz"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#DC2626;strokeWidth=2;fontSize=11;fontColor=#B91C1C;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry relative="1" as="geometry">          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_tele" value="센서 값 전달" edge="1" parent="1" source="m_watch" target="j_pos"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#2563EB;strokeWidth=2;fontSize=11;fontColor=#1D4ED8;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry relative="1" as="geometry">            <mxPoint x="0" y="-15" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_gate" value="전원" edge="1" parent="1" source="m_gate" target="g_map"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;dashed=1;strokeColor=#10B981;strokeWidth=2;fontSize=11;fontColor=#047857;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.83;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry">            <mxPoint x="0" y="-13" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_j1" edge="1" parent="1" source="j_pos" target="j_trail"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#2563EB;strokeWidth=2;fontSize=11;fontColor=#1D4ED8;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry relative="1" as="geometry">          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_j2" edge="1" parent="1" source="j_trail" target="j_route"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#2563EB;strokeWidth=2;fontSize=11;fontColor=#1D4ED8;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry relative="1" as="geometry">          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_j3" edge="1" parent="1" source="j_route" target="j_ui"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#2563EB;strokeWidth=2;fontSize=11;fontColor=#1D4ED8;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry relative="1" as="geometry">          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_judge" value="판정" edge="1" parent="1" source="j_route" target="a_judge"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#F59E0B;strokeWidth=2;fontSize=11;fontColor=#92400E;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="880" y="308"/>
+              <mxPoint x="880" y="209"/>
+            </Array>
+            <mxPoint x="0" y="-13" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_a1" edge="1" parent="1" source="a_judge" target="a_buzz"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#F59E0B;strokeWidth=2;fontSize=11;fontColor=#92400E;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry relative="1" as="geometry">          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_a2" edge="1" parent="1" source="a_buzz" target="a_voice"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#F59E0B;strokeWidth=2;fontSize=11;fontColor=#92400E;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry relative="1" as="geometry">          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_btn" edge="1" parent="1" source="u_btn" target="v_stt"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#2563EB;strokeWidth=1.5;fontSize=11;fontColor=#1D4ED8;labelBackgroundColor=#FFFFFF;entryX=0;entryY=0.35;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="259" y="558"/>
+              <mxPoint x="259" y="548"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_mic" edge="1" parent="1" source="u_mic" target="v_stt"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#2563EB;strokeWidth=1.5;fontSize=11;fontColor=#1D4ED8;labelBackgroundColor=#FFFFFF;entryX=0;entryY=0.7;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="259" y="632"/>
+              <mxPoint x="259" y="571"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_v1" edge="1" parent="1" source="v_stt" target="v_rule"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#2563EB;strokeWidth=2;fontSize=11;fontColor=#1D4ED8;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry relative="1" as="geometry">          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_pb" value="생명 관련" edge="1" parent="1" source="v_rule" target="p_b"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#DC2626;strokeWidth=2;fontSize=11;fontColor=#B91C1C;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="570" y="632"/>
+              <mxPoint x="570" y="558"/>
+            </Array>
+            <mxPoint x="-4" y="0" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_pa" value="그 밖의 질문" edge="1" parent="1" source="v_rule" target="p_a"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#2563EB;strokeWidth=2;fontSize=11;fontColor=#1D4ED8;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry relative="1" as="geometry">            <mxPoint x="0" y="-14" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_ob" edge="1" parent="1" source="p_b" target="o_out"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#DC2626;strokeWidth=2;fontSize=11;fontColor=#B91C1C;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.4;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry">          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_oa" edge="1" parent="1" source="p_a" target="o_out"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#2563EB;strokeWidth=2;fontSize=11;fontColor=#1D4ED8;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="880" y="619"/>
+              <mxPoint x="880" y="574"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_of" value="지연 · 오류" edge="1" parent="1" source="p_a" target="o_fb"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;dashed=1;strokeColor=#64748B;strokeWidth=1.5;fontSize=11;fontColor=#475569;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.8;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry">            <mxPoint x="0" y="-14" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_cross" value="장치 상태 값  ·  지도 명령" edge="1" parent="1" source="g_map" target="g_path"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;startArrow=block;startFill=1;dashed=1;strokeColor=#3B82F6;strokeWidth=1.5;fontSize=11;fontColor=#1D4ED8;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry">          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
