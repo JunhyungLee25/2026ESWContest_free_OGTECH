@@ -308,12 +308,80 @@ OGTECH은 **묻기 전에 먼저 말해 주는** 배낭 장착형 오프라인 �
 
 ```text
 사용자 (음성 · 물리 버튼 · 터치)
-  ├─ OGTECH-frontend server.py :8780   Chromium 단일 kiosk + 프록시
-  │    ├─ OGTECH-frontend MAP :8790     오프라인 지도 · GPS · 일출몰 · 장치 API (전부 로컬 계산, LLM 미관여)
-  │    ├─ OGTECH-backend :8765          안전 분기 규칙 엔진 · 검수된 고정 카드 (LLM 없음)
-  │    └─ OGTECH-llm Co-LLM             음성 파이프라인: STT → 키워드 게이트 → LLM(14라벨 분류 1개) → TTS
-  └─ OGTECH-embedded                    STM32H7A3 센서 허브 (CO · 온습도 · GNSS → Jetson UART4)
+│
+├─ OGTECH-embedded/                    STM32H7A3 센서 허브
+│  ├─ Core/Src/main.c                  보드 초기화 · 메인 루프
+│  ├─ Core/Src/sensor_hub.c            GPS · DHT11 · CO 수집
+│  ├─ Core/Src/jetson_link.c           $SA1 프레임 · XOR · UART4 전송
+│  ├─ Core/Src/stm32h7xx_hal_msp.c     UART · GPIO 설정
+│  ├─ Core/Src/stm32h7xx_it.c          인터럽트 처리
+│  └─ Core/Inc/*.h                     핀 · 상태값 · 함수 선언
+│           │
+│           └─ UART4 115200
+│                │
+├─ OGTECH-frontend/MAP/                Jetson 지도 · 장치 서버 :8790
+│  ├─ app.py                           HTTP 서버 · 제품 API
+│  ├─ gps_service.py                   STM32 · NMEA 수신
+│  ├─ co_alarm.py                      CO 경보 단계 계산
+│  ├─ map_engine.py                    GraphML · OSM 지도와 경로 계산
+│  ├─ navigation_service.py            목적지 · 복귀 · 이탈 판단
+│  ├─ position_history.py              이동 위치 기록
+│  ├─ solar_service.py                 일출 · 일몰 · 시민박명 계산
+│  ├─ speech_service.py                화면 음성 생성
+│  ├─ kiosk/
+│  │  ├─ select.html                   화면 선택
+│  │  ├─ video.html                    제품 · 촬영 화면
+│  │  ├─ video_app.js                  화면 상태 · 사용자 동작
+│  │  ├─ video_map.js                  지도 데이터
+│  │  ├─ video_styles.css              7인치 화면 스타일
+│  │  ├─ uart_server.py                UART 확인 서버
+│  │  └─ *.wav                         고정 안내 음성
+│  ├─ jetson/
+│  │  ├─ start-map.sh                  지도 서버 시작
+│  │  ├─ start-kiosk.sh                Firefox 키오스크 시작
+│  │  ├─ power_control.py              종료 요청 처리
+│  │  └─ *.service                     systemd 자동 시작
+│  └─ tests/                           지도 · 센서 · API 검사
+│
+├─ OGTECH-backend/                     로컬 규칙 서버 :8765
+│  ├─ app.py                           classify · respond · card API
+│  ├─ core/ogtech_core.py              키워드 분류 · 카드 생성
+│  ├─ config/keyword_rules.yaml        분류 규칙
+│  ├─ config/survival_cards.json       응답 카드
+│  └─ tests/                           API · 파일 일치 검사
+│
+├─ OGTECH-llm/                         음성 · LLM
+│  ├─ harness/
+│  │  ├─ classify.py                   라벨 분류
+│  │  ├─ intent.py                     의도와 지도 동작 추출
+│  │  ├─ guard.py                      출력값 검사
+│  │  ├─ llm_client.py                 llama-server 호출
+│  │  ├─ normalize.py                  STT 문장 보정
+│  │  └─ demo_assistant.py             시연 응답 실행
+│  ├─ config/                          프롬프트 · 스키마 · 실행 설정
+│  ├─ runner/
+│  │  ├─ start_llama_server.sh         로컬 모델 서버 시작
+│  │  └─ warmup_llm.sh                 모델 워밍업
+│  ├─ Co-LLM/scripts/
+│  │  ├─ product_voice.py              텍스트 · 음성 요청 실행
+│  │  ├─ product_assistant.py          규칙 · LLM · 지도 연결
+│  │  ├─ physical_voice.py             물리 버튼 음성 입력
+│  │  ├─ wake_voice.py                 호출어 처리
+│  │  ├─ device_monitor.py             장치 상태 감시
+│  │  ├─ tts_pipeline.py               음성 합성 · WAV 재생
+│  │  └─ ogtech_core.py                공통 분류 규칙
+│  ├─ Co-LLM/config/                   음성 실행 설정
+│  ├─ Co-LLM/assets/audio/             고정 안내 음성
+│  ├─ Co-LLM/eval/                     시연 · 정확도 평가
+│  ├─ Co-LLM/tests/                    음성 경로 검사
+│  └─ results/                         PC · Jetson 측정 결과
+│
+├─ assets/                             화면 캡처 · 시스템 이미지
+└─ .github/workflows/
+   └─ repository-tests.yml             GitHub 자동 테스트
 ```
+
+저장소의 전체 파일은 [FILE_STRUCTURE.md](FILE_STRUCTURE.md)에 경로별로 정리했습니다.
 
 ## 📁 Repository Guide
 
@@ -325,7 +393,7 @@ OGTECH은 **묻기 전에 먼저 말해 주는** 배낭 장착형 오프라인 �
 | [`OGTECH-frontend`](OGTECH-frontend/) | Jetson 키오스크, 오프라인 지도, 항법, 장치 API | [`MAP/app.py`](OGTECH-frontend/MAP/app.py) · [`MAP/README.md`](OGTECH-frontend/MAP/README.md) |
 | [`OGTECH-backend`](OGTECH-backend/) | 로컬 규칙 서버와 응답 카드 | [`app.py`](OGTECH-backend/app.py) · [`README.md`](OGTECH-backend/README.md) |
 | [`OGTECH-llm`](OGTECH-llm/) | STT, 의도 분류, TTS | [`Co-LLM/README.md`](OGTECH-llm/Co-LLM/README.md) · [`results/`](OGTECH-llm/results/) |
-| [`docs`](docs/) · [`assets`](assets/) | 제출 문서, 작업 기록, 화면과 시스템 이미지 | [`SUBMISSION_CHECKLIST.md`](docs/SUBMISSION_CHECKLIST.md) |
+| [`assets`](assets/) | 화면과 시스템 이미지 | [`01_basecamp_start.png`](assets/01_basecamp_start.png) |
 
 <details>
 <summary><b>핵심 파일 구조 펼쳐보기</b></summary>
@@ -333,9 +401,7 @@ OGTECH은 **묻기 전에 먼저 말해 주는** 배낭 장착형 오프라인 �
 ```text
 2026ESWContest_free_OGTECH/
 ├─ README.md                     프로젝트 소개
-├─ PLAN.md                       개발 계획
 ├─ assets/                       화면 캡처 · 시스템 이미지
-├─ docs/                         시연 · 하드웨어 · 제출 문서
 ├─ OGTECH-embedded/              STM32 센서 허브
 │  ├─ Core/Inc/                  헤더
 │  ├─ Core/Src/                  센서 수집 · UART 전송
