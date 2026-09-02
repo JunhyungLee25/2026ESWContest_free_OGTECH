@@ -155,23 +155,6 @@ git clone https://github.com/2026-ESW-OGTECH/OGTECH-frontend.git
 OGTECH_MAP_ROOT=/path/to/OGTECH-frontend/MAP python Co-LLM/eval/run_video_scenario.py
 ```
 
-## 검증
-
-```bash
-cd Co-LLM && python -B -m unittest discover -s tests
-```
-
-| 대상 | 결과 |
-|---|---|
-| `Co-LLM/tests/` | 63 tests, OK `[실측: 2026-08-30, PC·Jetson Python 3.8]` |
-| `tests/` (시연 하네스) | 54 tests, OK `[실측: 2026-08-30, PC]` |
-| Jetson `eval/latency_bench.py --runs 20` | 프리픽스 1,549 tok(5판), cold 워밍업 0.748 s, warm 최댓값 0.751 s · 중앙값 0.631 s, 예산 2.0 s 통과, 오류 0 `[실측 2026-08-30, Xavier NX]` |
-| Jetson `eval/run_demo_script.py --llm <llama-server> --runs 20` | 11턴 · 변형 66 · 20회 동일 · 통과 `[실측 2026-08-30]` |
-| Jetson `eval/run_intent_eval.py --llm <llama-server>` | 라벨 241/280 = **86.07%**(게이트 90% 미달), 오류 0, max 0.875 s, refuse 모델 단독 38/50 `[실측 2026-08-30]`. 프롬프트 5판 비교 78.6→81.7→82.8→78.2→82.9→**86.1%**(5판 채택: 물 정수·음용은 water, 야간 모드는 gear, 텐트 자리는 shelter 경계 명시, few-shot 14턴·평가 문장과 겹침 0). 잔여 혼동: unknown 평서문→주제 라벨(10), lost→unknown/route(6), water→food(6), sleep_safety→gear(4). 제품 경로에서 refuse·생명 라벨은 정본 규칙과 고정 카드가 먼저 잡으므로 LLM 단독 정확도는 규칙 미매칭 발화에만 적용된다 |
-
-지도 엔진 테스트(87건)는 [OGTECH-frontend](https://github.com/2026-ESW-OGTECH/OGTECH-frontend)에서 돕니다.
-의존성이 준비되지 않아 실행하지 못한 테스트는 통과로 간주하지 않습니다.
-
 ## 안전 경계
 
 - **생명 관련 질문은 모델에 도달하지 않습니다.** `lost / daylight / warmth / sleep_safety / injury / refuse`는
@@ -181,8 +164,3 @@ cd Co-LLM && python -B -m unittest discover -s tests
   `refuse` 키워드가 있으면 다른 매칭을 무시하고 무조건 `refuse`입니다.
 - LLM은 경로·방위·거리·진단·처치·**야생 동식물 식용 판정**을 생성하지 않습니다.
 - 실제 GPS 트랙과 내부 검토 자료는 커밋하지 않습니다.
-
-## 문서
-
-`docs2/`가 현재 오지 생존 도메인의 정본입니다. 조사 근거, 전력 예산, 부품 선정(BOM),
-하네스 재설계, 첨부 기능 명세가 들어 있습니다.
