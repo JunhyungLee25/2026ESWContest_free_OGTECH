@@ -18,7 +18,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install map dependencies
-        run: python -m pip install -r OGTECH-frontend/MAP/requirements.txt
+        run: python -m pip install -r OGTECH-frontend/MAP/requirements.txt numpy
       - name: Backend tests
         working-directory: OGTECH-backend
         run: python -B -m unittest discover -s tests -v
