@@ -189,24 +189,6 @@ node MAP/tests/ui_video_qa.js                     # video.html 계기·경로 �
 | `MAP/tests/` | 87 tests, 전부 통과 `[실측: 2026-08-30, PC·Jetson Python 3.8]` |
 | `MAP/tests/ui_video_qa.js` | OK — 온습도 20px 동일·색 규칙 6단계·경로 이탈 배너 표시/해제/스택 `[실측: 2026-08-29]` |
 
-리뷰에서 확인한 미조치 문제(keep-alive 오류 응답 유실 등)는 조직 저장소
-[`.github/docs/WORKLOG.md`](https://github.com/2026-ESW-OGTECH/.github/blob/main/docs/WORKLOG.md)에 기록합니다.
-
-## 화면 문구 규칙
-
-**화면에 `DEMO`라는 글자를 넣지 않습니다.** 예외는 없습니다. `/product/`, `/video/`, 개발자 도구(`/`)
-어디에도, 배지·라벨·토스트·상태 문구·안내문 어느 자리에도 쓰지 않습니다. 사용자가 여러 차례 지시한
-사항이며 2026-08-30에 재발해 다시 제거했습니다.
-
-- 모의·재생 데이터를 알리는 표시 **자체는 지우지 않고 유지**합니다. 실제가 아닌 값을 실제처럼
-  보이게 하는 것이 더 위험하기 때문입니다(`안전 경계` 참고). 문구만 바꿉니다.
-- 쓸 표기: 한글 화면은 `모의 데이터`, 영문 스텐실 라벨은 `SAMPLE`.
-- 금지 대상은 **화면에 렌더링되는 문자열**입니다. `DEMO_MAP`·`AUTO_DEMO_DELAYS_MS` 같은 내부 식별자와
-  API 상태값 `"demo"`(소문자)는 화면에 그대로 나오지 않으므로 그대로 둡니다. 다만 그 값을 화면에
-  출력할 때는 반드시 위 표기로 변환합니다.
-- 회귀 방지: `MAP/tests/test_gps_api.py`의
-  `test_no_screen_ever_renders_the_word_demo`가 `/`, `/product/`, `/video/`와 이들이 내려주는
-  JS·CSS 를 받아 홑낱말 `DEMO`가 하나라도 있으면 실패시킵니다. 문구를 되돌리면 테스트가 깨집니다.
 
 ## 안전 경계
 
