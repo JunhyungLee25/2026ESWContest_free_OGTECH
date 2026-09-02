@@ -312,73 +312,31 @@ OGTECH은 **묻기 전에 먼저 말해 주는** 배낭 장착형 오프라인 �
 ├─ OGTECH-embedded/                    STM32H7A3 센서 허브
 │  ├─ Core/Src/main.c                  보드 초기화 · 메인 루프
 │  ├─ Core/Src/sensor_hub.c            GPS · DHT11 · CO 수집
-│  ├─ Core/Src/jetson_link.c           $SA1 프레임 · XOR · UART4 전송
-│  ├─ Core/Src/stm32h7xx_hal_msp.c     UART · GPIO 설정
-│  ├─ Core/Src/stm32h7xx_it.c          인터럽트 처리
-│  └─ Core/Inc/*.h                     핀 · 상태값 · 함수 선언
+│  └─ Core/Src/jetson_link.c           $SA1 프레임 · XOR · UART4 전송
 │           │
 │           └─ UART4 115200
 │                │
 ├─ OGTECH-frontend/MAP/                Jetson 지도 · 장치 서버 :8790
 │  ├─ app.py                           HTTP 서버 · 제품 API
 │  ├─ gps_service.py                   STM32 · NMEA 수신
-│  ├─ co_alarm.py                      CO 경보 단계 계산
 │  ├─ map_engine.py                    GraphML · OSM 지도와 경로 계산
 │  ├─ navigation_service.py            목적지 · 복귀 · 이탈 판단
-│  ├─ position_history.py              이동 위치 기록
-│  ├─ solar_service.py                 일출 · 일몰 · 시민박명 계산
-│  ├─ speech_service.py                화면 음성 생성
-│  ├─ kiosk/
-│  │  ├─ select.html                   화면 선택
-│  │  ├─ video.html                    제품 · 촬영 화면
-│  │  ├─ video_app.js                  화면 상태 · 사용자 동작
-│  │  ├─ video_map.js                  지도 데이터
-│  │  ├─ video_styles.css              7인치 화면 스타일
-│  │  ├─ uart_server.py                UART 확인 서버
-│  │  └─ *.wav                         고정 안내 음성
-│  ├─ jetson/
-│  │  ├─ start-map.sh                  지도 서버 시작
-│  │  ├─ start-kiosk.sh                Firefox 키오스크 시작
-│  │  ├─ power_control.py              종료 요청 처리
-│  │  └─ *.service                     systemd 자동 시작
-│  └─ tests/                           지도 · 센서 · API 검사
+│  └─ kiosk/                           7인치 지도 UI
 │
 ├─ OGTECH-backend/                     로컬 규칙 서버 :8765
 │  ├─ app.py                           classify · respond · card API
 │  ├─ core/ogtech_core.py              키워드 분류 · 카드 생성
 │  ├─ config/keyword_rules.yaml        분류 규칙
-│  ├─ config/survival_cards.json       응답 카드
-│  └─ tests/                           API · 파일 일치 검사
+│  └─ config/survival_cards.json       응답 카드
 │
-├─ OGTECH-llm/                         음성 · LLM
-│  ├─ harness/
-│  │  ├─ classify.py                   라벨 분류
-│  │  ├─ intent.py                     의도와 지도 동작 추출
-│  │  ├─ guard.py                      출력값 검사
-│  │  ├─ llm_client.py                 llama-server 호출
-│  │  ├─ normalize.py                  STT 문장 보정
-│  │  └─ demo_assistant.py             시연 응답 실행
-│  ├─ config/                          프롬프트 · 스키마 · 실행 설정
-│  ├─ runner/
-│  │  ├─ start_llama_server.sh         로컬 모델 서버 시작
-│  │  └─ warmup_llm.sh                 모델 워밍업
-│  ├─ Co-LLM/scripts/
-│  │  ├─ product_voice.py              텍스트 · 음성 요청 실행
-│  │  ├─ product_assistant.py          규칙 · LLM · 지도 연결
-│  │  ├─ physical_voice.py             물리 버튼 음성 입력
-│  │  ├─ wake_voice.py                 호출어 처리
-│  │  ├─ device_monitor.py             장치 상태 감시
-│  │  ├─ tts_pipeline.py               음성 합성 · WAV 재생
-│  │  └─ ogtech_core.py                공통 분류 규칙
-│  ├─ Co-LLM/config/                   음성 실행 설정
-│  ├─ Co-LLM/assets/audio/             고정 안내 음성
-│  ├─ Co-LLM/eval/                     시연 · 정확도 평가
-│  ├─ Co-LLM/tests/                    음성 경로 검사
-│  └─ results/                         PC · Jetson 측정 결과
-│
-├─ assets/                             화면 캡처 · 시스템 이미지
-└─ .github/workflows/
-   └─ repository-tests.yml             GitHub 자동 테스트
+└─ OGTECH-llm/                         로컬 AI · 음성
+   ├─ harness/intent.py                사용자 의도 · 지도 동작 추출
+   ├─ harness/guard.py                 AI 출력 검사
+   ├─ runner/start_llama_server.sh     로컬 모델 서버 시작
+   └─ Co-LLM/scripts/
+      ├─ product_assistant.py          규칙 · AI · 지도 연결
+      ├─ wake_voice.py                 호출어 · 음성 명령 처리
+      └─ tts_pipeline.py               음성 합성 · 재생
 ```
 
 저장소의 전체 파일은 [FILE_STRUCTURE.md](FILE_STRUCTURE.md)에 경로별로 정리했습니다.
@@ -394,49 +352,6 @@ OGTECH은 **묻기 전에 먼저 말해 주는** 배낭 장착형 오프라인 �
 | [`OGTECH-backend`](OGTECH-backend/) | 로컬 규칙 서버와 응답 카드 | [`app.py`](OGTECH-backend/app.py) · [`README.md`](OGTECH-backend/README.md) |
 | [`OGTECH-llm`](OGTECH-llm/) | STT, 의도 분류, TTS | [`Co-LLM/README.md`](OGTECH-llm/Co-LLM/README.md) · [`results/`](OGTECH-llm/results/) |
 | [`assets`](assets/) | 화면과 시스템 이미지 | [`01_basecamp_start.png`](assets/01_basecamp_start.png) |
-
-<details>
-<summary><b>핵심 파일 구조 펼쳐보기</b></summary>
-
-```text
-2026ESWContest_free_OGTECH/
-├─ README.md                     프로젝트 소개
-├─ assets/                       화면 캡처 · 시스템 이미지
-├─ OGTECH-embedded/              STM32 센서 허브
-│  ├─ Core/Inc/                  헤더
-│  ├─ Core/Src/                  센서 수집 · UART 전송
-│  └─ tests/                     STM32·Jetson 연동 검사
-│
-├─ OGTECH-frontend/              키오스크 + 지도/장치 서버
-│  ├─ MAP/app.py                 제품 서버와 로컬 API (:8790)
-│  ├─ MAP/{map_engine,
-│  │       navigation_service,
-│  │       position_history,
-│  │       solar_service}.py     지도 · 항법 · 이동 기록 · 일조 계산
-│  ├─ MAP/gps_service.py         NMEA·STM32 텔레메트리 수신
-│  ├─ MAP/kiosk/                 제품/촬영 화면 · 음성 파일
-│  ├─ MAP/jetson/                자동 기동 · 키오스크 · 전원 제어
-│  └─ {tests,MAP/tests}/         서버·지도·UI 회귀 검사
-│
-├─ OGTECH-backend/               안전 규칙 서버
-│  ├─ app.py                     HTTP API (:8765)
-│  ├─ core/ogtech_core.py        키워드 게이트 · 카드 렌더러
-│  ├─ config/                    규칙 · 검수된 생존 카드
-│  └─ tests/                     API · 파일 일치 검사
-│
-└─ OGTECH-llm/                   음성·LLM 파이프라인
-   ├─ Co-LLM/                    제품 음성 런타임 · 하드웨어 인수
-   │  ├─ scripts/                STT · 응답 분기 · TTS · 장치 감시
-   │  ├─ config/                 제품 규칙 · 카드 · 고정 음성 목록
-   │  ├─ jetson/                 장치 서비스 설정
-   │  └─ {eval,tests}/           실행 회귀 검사
-   ├─ {config,harness}/          제한 스키마 · 데모 라우터 · guard
-   ├─ {eval,tests}/              의도 정확도 · 지연 · 동일성 평가
-   ├─ runner/                    llama-server 기동 · 워밍업
-   └─ results/                   Jetson 실측과 실패 경로 결과
-```
-
-</details>
 
 ## Video
 
@@ -473,6 +388,6 @@ OGTECH은 **묻기 전에 먼저 말해 주는** 배낭 장착형 오프라인 �
 
 | 팀원 | 역할 |
 | ---- | ---- |
-| **이준형(팀장)** | 시스템 설계 / LLM 하네스 · 안전 기능 / 기획 |
-| **최민혁** | STM32 상시 계층 / 센서 허브 · 전원 회로 / 기구 |
-| **이남권** | 오프라인 지도 엔진 / 키오스크 UI / 시연 영상 |
+| **이준형(팀장)** | 기획 / 시스템 설계 / 로컬 AI / 음성 / UI |
+| **최민혁** | HW 기구 설계 및 3D 모델링 / 배터리 시스템 |
+| **이남권** | STM32 제어 / 센서 / 지도 / 길찾기 |
